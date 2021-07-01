@@ -102,8 +102,8 @@ export const USERS = {
   'POST /user/avatar': 'ok',
   'POST /login/account': (req: MockRequest) => {
     const data = req.body;
-    if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'ng-alain.com') {
-      return { msg: `Invalid username or password（admin/ng-alain.com）` };
+    if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'admin') {
+      return { msg: `Invalid username or password（admin/admin）` };
     }
     return {
       msg: 'ok',

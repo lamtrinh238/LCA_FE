@@ -1,6 +1,6 @@
 <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
   <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
-    <nz-tab [nzTitle]="'app.login.tab-login-credentials' | translate">
+    <nz-tab [nzTitle]="'Log In'">
       <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please enter mobile number, muse be: admin or user">
@@ -10,14 +10,14 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter password, muse be: ng-alain.com">
+        <nz-form-control nzErrorTip="Please enter password, muse be: admin">
           <nz-input-group nzSize="large" nzPrefixIcon="lock">
-            <input nz-input type="password" formControlName="password" placeholder="password: ng-alain.com" />
+            <input nz-input type="password" formControlName="password" placeholder="password: admin" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
     </nz-tab>
-    <nz-tab [nzTitle]="'app.login.tab-login-mobile' | translate">
+    <!-- <nz-tab [nzTitle]="'app.login.tab-login-mobile' | translate">
       <nz-form-item>
         <nz-form-control [nzErrorTip]="mobileErrorTip">
           <nz-input-group nzSize="large" nzPrefixIcon="user">
@@ -42,21 +42,22 @@
               </nz-input-group>
             </nz-col>
             <nz-col [nzSpan]="8">
-              <button type="button" nz-button nzSize="large" (click)="getCaptcha()" [disabled]="count >= 0" nzBlock [nzLoading]="loading">
+              <button type="button" nz-button nzSize="large" (click)="getCaptcha()" [disabled]="count >= 0" nzBlock
+                [nzLoading]="loading">
                 {{ count ? count + 's' : ('app.register.get-verification-code' | translate) }}
               </button>
             </nz-col>
           </nz-row>
         </nz-form-control>
       </nz-form-item>
-    </nz-tab>
+    </nz-tab> -->
   </nz-tabset>
   <nz-form-item>
     <nz-col [nzSpan]="12">
       <label nz-checkbox formControlName="remember">{{ 'app.login.remember-me' | translate }}</label>
     </nz-col>
     <nz-col [nzSpan]="12" class="text-right">
-      <a class="forgot" routerLink="/passport/register">{{ 'app.login.forgot-password' | translate }}</a>
+      <a class="forgot" routerLink="/">{{ 'app.login.forgot-password' | translate }}</a>
     </nz-col>
   </nz-form-item>
   <nz-form-item>
@@ -65,10 +66,10 @@
     </button>
   </nz-form-item>
 </form>
-<div class="other">
+<!-- <div class="other">
   {{ 'app.login.sign-in-with' | translate }}
   <i nz-tooltip nzTooltipTitle="in fact Auth0 via window" (click)="open('auth0', 'window')" nz-icon nzType="alipay-circle" class="icon"></i>
   <i nz-tooltip nzTooltipTitle="in fact Github via redirect" (click)="open('github')" nz-icon nzType="taobao-circle" class="icon"></i>
   <i (click)="open('weibo', 'window')" nz-icon nzType="weibo-circle" class="icon"></i>
   <a class="register" routerLink="/passport/register">{{ 'app.login.signup' | translate }}</a>
-</div>
+</div> -->
