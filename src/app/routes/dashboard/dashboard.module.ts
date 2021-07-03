@@ -24,11 +24,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardMonitorComponent } from './monitor/monitor.component';
 import { DashboardV1Component } from './v1/v1.component';
 import { DashboardWorkplaceComponent } from './workplace/workplace.component';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 const COMPONENTS = [DashboardV1Component, DashboardAnalysisComponent, DashboardMonitorComponent, DashboardWorkplaceComponent];
 
 @NgModule({
   imports: [
+    NzLayoutModule,
     SharedModule,
     DashboardRoutingModule,
     CountDownModule,

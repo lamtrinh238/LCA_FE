@@ -6,7 +6,7 @@ import { getTimeDistance } from '@delon/util/date-time';
 import { deepCopy } from '@delon/util/other';
 import { yuan } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { cardData } from '_mock/_analysis';
 @Component({
   selector: 'app-dashboard-analysis',
   templateUrl: './analysis.component.html',
@@ -15,7 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class DashboardAnalysisComponent implements OnInit {
   constructor(private http: _HttpClient, public msg: NzMessageService, private i18n: I18NService, private cdr: ChangeDetectorRef) {}
-  data: any = {};
+
+  data: any = cardData;
   loading = true;
   date_range: Date[] = [];
   rankingListData: Array<{ title: string; total: number }> = Array(7)
