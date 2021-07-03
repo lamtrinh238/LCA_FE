@@ -11,29 +11,33 @@
   "menu": [
     {
       "text": "",
-      "i18n": "menu.dashboard",
-      "icon": "anticon-dashboard",
+      "i18n": "menu.epd",
+      "icon": "anticon-epd",
       "group": false,
       "children": [
         {
           "text": "EPD",
-          "link": "/dashboard/v1",
-          "i18n": "EPD"
+          "link": "/epd-heading",
+          "i18n": "EPD",
+          "icon": "anticon-account-book"
         },
         {
           "text": "Analyses",
           "link": "/dashboard/analysis",
-          "i18n": "Analyses"
+          "i18n": "Analyses",
+          "icon": "anticon-area-chart"
         },
         {
           "text": "Documents",
           "link": "/dashboard/monitor",
-          "i18n": "Documents"
+          "i18n": "Documents",
+          "icon": "anticon-container"
         },
         {
           "text": "Older EPDs",
           "link": "/dashboard/workplace",
-          "i18n": "Older EPDs"
+          "i18n": "Older EPDs",
+          "icon": "anticon-apartment"
         }
       ]
     }
