@@ -7,6 +7,7 @@ import { deepCopy } from '@delon/util/other';
 import { yuan } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { cardData } from '_mock/_analysis';
+import { Analysis } from './models/analysis';
 @Component({
   selector: 'app-dashboard-analysis',
   templateUrl: './analysis.component.html',
@@ -16,7 +17,7 @@ import { cardData } from '_mock/_analysis';
 export class DashboardAnalysisComponent implements OnInit {
   constructor(private http: _HttpClient, public msg: NzMessageService, private i18n: I18NService, private cdr: ChangeDetectorRef) {}
 
-  data: any = cardData;
+  data: Array<Analysis> = cardData;
   loading = true;
   date_range: Date[] = [];
   rankingListData: Array<{ title: string; total: number }> = Array(7)
@@ -73,40 +74,6 @@ export class DashboardAnalysisComponent implements OnInit {
       });
       this.data = res;
       this.loading = false;
-      this.changeSaleType();
     });
-  }
-
-  setDate(type: 'today' | 'week' | 'month' | 'year'): void {
-    this.date_range = getTimeDistance(type);
-    setTimeout(() => this.cdr.detectChanges());
-  }
-  changeSaleType(): void {
-    this.salesPieData =
-      this.salesType === 'all'
-        ? this.data.salesTypeData
-        : this.salesType === 'online'
-        ? this.data.salesTypeDataOnline
-        : this.data.salesTypeDataOffline;
-    if (this.salesPieData) {
-      this.salesTotal = this.salesPieData.reduce((pre: number, now: { y: number }) => now.y + pre, 0);
-    }
-    this.cdr.detectChanges();
-  }
-
-  handlePieValueFormat(value: string | number): string {
-    return yuan(value);
-  }
-  salesChange(idx: number): void {
-    if (this.saleTabs[idx].show !== true) {
-      this.saleTabs[idx].show = true;
-      this.cdr.detectChanges();
-    }
-  }
-  offlineChange(idx: number): void {
-    if (this.data.offlineData[idx].show !== true) {
-      this.data.offlineData[idx].show = true;
-      this.cdr.detectChanges();
-    }
   }
 }

@@ -19,18 +19,20 @@ import { G2WaterWaveModule } from '@delon/chart/water-wave';
 import { SharedModule } from '@shared';
 import { CountdownModule } from 'ngx-countdown';
 
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { DashboardAnalysisComponent } from './analysis/analysis.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardMonitorComponent } from './monitor/monitor.component';
 import { DashboardV1Component } from './v1/v1.component';
 import { DashboardWorkplaceComponent } from './workplace/workplace.component';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 const COMPONENTS = [DashboardV1Component, DashboardAnalysisComponent, DashboardMonitorComponent, DashboardWorkplaceComponent];
 
 @NgModule({
   imports: [
+    NzListModule,
     NzTypographyModule,
     NzLayoutModule,
     SharedModule,

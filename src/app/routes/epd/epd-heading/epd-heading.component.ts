@@ -11,7 +11,6 @@ interface Person {
 @Component({
   selector: 'app-epd-heading',
   templateUrl: './epd-heading.component.html',
-  styleUrls: ['./epd-heading.component.less'],
 })
 export class EpdHeadingComponent implements OnInit {
   tabs = [

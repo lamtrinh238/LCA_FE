@@ -1,7 +1,8 @@
-export const cardData = [
+import { Analysis } from 'src/app/routes/dashboard/analysis/models/analysis';
+export const cardData: Array<Analysis> = [
   {
     name: 'Test',
-    number: '1111',
+    number: 1111,
     date_created: '03.07.2021',
     date_lastupdated: '03.07.2021',
     editor: 'Cuong',
@@ -9,7 +10,7 @@ export const cardData = [
   },
   {
     name: 'Test',
-    number: '1111',
+    number: 1111,
     date_created: '03.07.2021',
     date_lastupdated: '03.07.2021',
     editor: 'Cuong',
@@ -17,7 +18,7 @@ export const cardData = [
   },
   {
     name: 'Test',
-    number: '1111',
+    number: 1111,
     date_created: '03.07.2021',
     date_lastupdated: '03.07.2021',
     editor: 'Cuong',
@@ -25,7 +26,7 @@ export const cardData = [
   },
   {
     name: 'Test',
-    number: '1111',
+    number: 1111,
     date_created: '03.07.2021',
     date_lastupdated: '03.07.2021',
     editor: 'Cuong',
@@ -33,7 +34,7 @@ export const cardData = [
   },
   {
     name: 'Test',
-    number: '1111',
+    number: 1111,
     date_created: '03.07.2021',
     date_lastupdated: '03.07.2021',
     editor: 'Cuong',
@@ -41,7 +42,7 @@ export const cardData = [
   },
   {
     name: 'Test',
-    number: '1111',
+    number: 1111,
     date_created: '03.07.2021',
     date_lastupdated: '03.07.2021',
     editor: 'Cuong',
