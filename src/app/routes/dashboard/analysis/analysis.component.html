@@ -1,16 +1,31 @@
 <div nz-row [nzGutter]="24" class="pt-lg">
   <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="18">
-    <nz-card nzTitle="Profile" [nzBordered]="false" class="mb-lg">
+    <nz-card nzTitle="PROFILE" [nzBordered]="false" class="mb-lg">
       <div nz-row nzJustify="space-between" nzGutter="16">
-        <div nz-col nzSpan="24">
-          <nz-card *ngFor="let dt of data">
+        <div nz-col nzSpan="12" *ngFor="let dt of data">
+          <nz-card>
             <h2>{{ dt.name }}</h2>
             <ul>
-              <li>{{ dt.number }}</li>
-              <li>{{ dt.date_created }}</li>
-              <li>{{ dt.date_lastupdated }}</li>
-              <li>{{ dt.editor }}</li>
-              <li>{{ dt.status }}</li>
+              <li>
+                <span>Number:</span>
+                {{ dt.number }}
+              </li>
+              <li>
+                <span> Date Created:</span>
+                {{ dt.date_created }}
+              </li>
+              <li>
+                <span>Last Updated:</span>
+                {{ dt.date_lastupdated }}
+              </li>
+              <li>
+                <span>Editor:</span>
+                {{ dt.editor }}
+              </li>
+              <li>
+                <span>EDP Status:</span>
+                {{ dt.status }}
+              </li>
             </ul>
           </nz-card>
         </div>
