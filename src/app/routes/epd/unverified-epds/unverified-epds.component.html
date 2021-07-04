@@ -1,0 +1,12 @@
+<nz-table #sortTable [nzData]="epds" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th *ngFor="let column of listOfColumn">{{ column.title }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of sortTable.data">
+      <td>{{ data.name }}</td>
+    </tr>
+  </tbody>
+</nz-table>

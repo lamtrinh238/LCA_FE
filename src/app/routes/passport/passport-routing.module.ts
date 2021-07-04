@@ -17,26 +17,26 @@ const routes: Routes = [
       {
         path: 'login',
         component: UserLoginComponent,
-        data: { title: '登录', titleI18n: 'app.login.login' },
+        data: { title: 'Log in', titleI18n: 'app.login.login' },
       },
       {
         path: 'register',
         component: UserRegisterComponent,
-        data: { title: '注册', titleI18n: 'app.register.register' },
+        data: { title: 'Registered', titleI18n: 'app.register.register' },
       },
       {
         path: 'register-result',
         component: UserRegisterResultComponent,
-        data: { title: '注册结果', titleI18n: 'app.register.register' },
+        data: { title: 'Registration result', titleI18n: 'app.register.register' },
       },
       {
         path: 'lock',
         component: UserLockComponent,
-        data: { title: '锁屏', titleI18n: 'app.lock' },
+        data: { title: 'Lock screen', titleI18n: 'app.lock' },
       },
     ],
   },
-  // 单页不包裹Layout
+  // Single page does not package Layout
   { path: 'passport/callback/:type', component: CallbackComponent },
 ];
 
