@@ -1,6 +1,6 @@
 export interface Epd {
   id?: string;
-  internal_number?: number;
+  internal_number?: string;
   name?: string;
   date?: string;
   epd_unit?: string;

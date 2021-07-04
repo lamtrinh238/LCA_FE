@@ -10,11 +10,24 @@ import { EpdService } from '../services/epd.service';
 })
 export class UnverifiedEpdsComponent implements OnInit {
   epds: Epd[] = [];
+  selectedEpdType: string;
+  links = [
+    'EPD in work',
+    'Archive',
+    'EPD for BIM',
+    'Internal calculation (MF 2)',
+    'EPD list (MF 3)',
+    'Copy from module (MF 4)',
+    'Cement calculation (MF 5)',
+    'Copy from A1-A3 (MF 6)',
+    'EPDs transferred to you',
+  ];
+
   listOfColumn = [
     {
       title: 'ID',
       compare: null,
-      priority: false,
+      width: '50px',
     },
     {
       title: 'Internal Number',
@@ -27,10 +40,12 @@ export class UnverifiedEpdsComponent implements OnInit {
     {
       title: 'Date',
       priority: 1,
+      width: '80px',
     },
     {
       title: 'Epd Unit',
       priority: 1,
+      width: '80px',
     },
     {
       title: 'Kg/DU',
@@ -51,10 +66,12 @@ export class UnverifiedEpdsComponent implements OnInit {
     {
       title: 'Comments',
       priority: 1,
+      width: '20%',
     },
     {
       title: 'PCR',
       priority: 1,
+      width: '20%',
     },
   ];
   constructor(private epdService: EpdService) {
@@ -63,7 +80,13 @@ export class UnverifiedEpdsComponent implements OnInit {
         this.epds = data;
       },
     });
+
+    this.selectedEpdType = this.links[0];
   }
 
   ngOnInit(): void {}
+
+  onEpdTypeChange(epdType: string): void {
+    console.log(epdType);
+  }
 }

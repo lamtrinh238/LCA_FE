@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 interface Person {
   key: string;
@@ -13,8 +14,33 @@ interface Person {
   styleUrls: ['./epd-heading.component.less'],
 })
 export class EpdHeadingComponent implements OnInit {
-  links = ['unverified-epds', 'epds-verification', 'verified-epds'];
-  constructor() {}
+  tabs = [
+    {
+      text: 'Unverified EPDs',
+      path: 'unverified-epds',
+    },
+    {
+      text: 'EPDs for verification',
+      path: 'epds-verification',
+    },
+    {
+      text: 'Verified EPDs',
+      path: 'verified-epds',
+    },
+  ];
+  // selectedPage: string;
+  constructor(private activatedRoute: ActivatedRoute) {
+    // this.selectedPage = this.links[0];
+    this.activatedRoute.url.subscribe({
+      next: (params: Params) => {
+        console.log(params);
+      },
+    });
+  }
 
   ngOnInit(): void {}
+
+  onActivate(event: any): void {
+    console.log(event);
+  }
 }

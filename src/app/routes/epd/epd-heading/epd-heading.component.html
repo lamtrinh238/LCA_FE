@@ -1,10 +1,9 @@
-<div class="alain-default__content-title">
-  <h1>
-    EPDs
-    <small>Welcome to EPDs</small>
-  </h1>
-</div>
-<nz-radio-group style="margin-bottom: 8px">
-  <label nz-radio-button *ngFor="let link of links" [nzValue]="link" routerLink="{{ link }}">{{ 'epd.' + link | translate }}</label>
-</nz-radio-group>
-<router-outlet></router-outlet>
+<nz-page-header class="site-page-header" nzTitle="Environmental documentation portal - EPD list"> </nz-page-header>
+
+<nz-tabset [nzSize]="'large'" nzLinkRouter>
+  <nz-tab *ngFor="let tab of tabs">
+    <a *nzTabLink nz-tab-link [routerLink]="[tab.path]" queryParamsHandling="merge">{{ tab.text }}</a>
+  </nz-tab>
+</nz-tabset>
+
+<router-outlet (activate)="onActivate($event)"></router-outlet>

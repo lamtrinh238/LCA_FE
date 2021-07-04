@@ -7,6 +7,7 @@ const routes: Routes = [
     path: '',
     component: EpdHeadingComponent,
     children: [
+      { path: '', redirectTo: 'unverified-epds', pathMatch: 'full' },
       {
         path: 'unverified-epds',
         loadChildren: () => import('./unverified-epds/unverified-epds.module').then((m) => m.UnverifiedEpdsModule),
