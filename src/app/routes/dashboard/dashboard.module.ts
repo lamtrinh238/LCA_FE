@@ -19,6 +19,9 @@ import { G2WaterWaveModule } from '@delon/chart/water-wave';
 import { SharedModule } from '@shared';
 import { CountdownModule } from 'ngx-countdown';
 
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { DashboardAnalysisComponent } from './analysis/analysis.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardMonitorComponent } from './monitor/monitor.component';
@@ -29,6 +32,9 @@ const COMPONENTS = [DashboardV1Component, DashboardAnalysisComponent, DashboardM
 
 @NgModule({
   imports: [
+    NzListModule,
+    NzTypographyModule,
+    NzLayoutModule,
     SharedModule,
     DashboardRoutingModule,
     CountDownModule,

@@ -18,25 +18,25 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, mergeMap, switchMap, take } from 'rxjs/operators';
 
 const CODEMESSAGE: { [key: number]: string } = {
-  200: '服务器成功返回请求的数据。',
-  201: '新建或修改数据成功。',
-  202: '一个请求已经进入后台排队（异步任务）。',
-  204: '删除数据成功。',
-  400: '发出的请求有错误，服务器没有进行新建或修改数据的操作。',
-  401: '用户没有权限（令牌、用户名、密码错误）。',
-  403: '用户得到授权，但是访问是被禁止的。',
-  404: '发出的请求针对的是不存在的记录，服务器没有进行操作。',
-  406: '请求的格式不可得。',
-  410: '请求的资源被永久删除，且不会再得到的。',
-  422: '当创建一个对象时，发生一个验证错误。',
-  500: '服务器发生错误，请检查服务器。',
-  502: '网关错误。',
-  503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。',
+  200: 'The server successfully returns the requested data.',
+  201: 'New or modify the data success.',
+  202: 'A request has entered the background queue (asynchronous task).',
+  204: 'Delete data success.',
+  400: 'The request issued has an error, and the server does not have new or modified data.',
+  401: 'Users no permissions (token, user name, password error).',
+  403: 'User is authorized, but access is disabled.',
+  404: 'The request for issued is a record that does not exist, and the server does not operate.',
+  406: 'The format requested is not available.',
+  410: 'The requested resource is permanently deleted and will not be obtained.',
+  422: 'When an object is created, a verification error occurs.',
+  500: 'The server has an error, please check the server.',
+  502: 'Gateway error.',
+  503: 'The service is not available, the server temporarily overloads or maintains.',
+  504: 'Gateway timeout.',
 };
 
 /**
- * 默认HTTP拦截器，其注册细节见 `app.module.ts`
+ * Default HTTP interceptor, the registration details see `app.module.ts`
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
@@ -77,22 +77,22 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   /**
-   * 刷新 Token 请求
+   * Refresh token request
    */
   private refreshTokenRequest(): Observable<any> {
     const model = this.tokenSrv.get();
     return this.http.post(`/api/auth/refresh`, null, null, { headers: { refresh_token: model?.refresh_token || '' } });
   }
 
-  // #region 刷新Token方式一：使用 401 重新刷新 Token
+  // #region Refresh token method 1: Refresh by 401 Token
 
   private tryRefreshToken(ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    // 1、若请求为刷新Token请求，表示来自刷新Token可以直接跳转登录页
+    // 1、If the request is refreshed token request, it means that from the refresh token can directly jump on the login page.
     if ([`/api/auth/refresh`].some((url) => req.url.includes(url))) {
       this.toLogin();
       return throwError(ev);
     }
-    // 2、如果 `refreshToking` 为 `true` 表示已经在请求刷新 Token 中，后续所有请求转入等待状态，直至结果返回后再重新发起请求
+    // 2、If `refreshtoking` is the` True` indicating that it is already in the request refresh token, follow-up all requests to the waiting state until the result is returned to re-initiate the request
     if (this.refreshToking) {
       return this.refreshToken$.pipe(
         filter((v) => !!v),
@@ -100,18 +100,18 @@ export class DefaultInterceptor implements HttpInterceptor {
         switchMap(() => next.handle(this.reAttachToken(req))),
       );
     }
-    // 3、尝试调用刷新 Token
+    // 3、Try to call refresh token
     this.refreshToking = true;
     this.refreshToken$.next(null);
 
     return this.refreshTokenRequest().pipe(
       switchMap((res) => {
-        // 通知后续请求继续执行
+        // Notify follow-up requests to continue
         this.refreshToking = false;
         this.refreshToken$.next(res);
-        // 重新保存新 token
+        // Re-save new token
         this.tokenSrv.set(res);
-        // 重新发起请求
+        // Reissue request
         return next.handle(this.reAttachToken(req));
       }),
       catchError((err) => {
@@ -123,12 +123,12 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   /**
-   * 重新附加新 Token 信息
+   * Reissue new token information
    *
-   * > 由于已经发起的请求，不会再走一遍 `@delon/auth` 因此需要结合业务情况重新附加新的 Token
+   * > Since the request has been initiated, will not go again next `@Delon / auth` therefore need to be re-attached to the business situation to restart the new token
    */
   private reAttachToken(req: HttpRequest<any>): HttpRequest<any> {
-    // 以下示例是以 NG-ALAIN 默认使用 `SimpleInterceptor`
+    // The following example is used by NG-ALAIN default `SimpleInterceptor`
     const token = this.tokenSrv.get()?.token;
     return req.clone({
       setHeaders: {
@@ -139,7 +139,7 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   // #endregion
 
-  // #region 刷新Token方式二：使用 `@delon/auth` 的 `refresh` 接口
+  // #region Refresh token method 2: Using `@ delon / auth`s`
 
   private buildAuthRefresh(): void {
     if (!this.refreshTokenEnabled) {
@@ -168,33 +168,32 @@ export class DefaultInterceptor implements HttpInterceptor {
   // #endregion
 
   private toLogin(): void {
-    this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
+    this.notification.error(`Not logged in or logged in has expired, please log in again。`, ``);
     this.goTo('/passport/login');
   }
 
   private handleData(ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     this.checkStatus(ev);
-    // 业务处理：一些通用操作
     switch (ev.status) {
       case 200:
-        // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
-        // 例如响应内容：
-        //  错误内容：{ status: 1, msg: '非法参数' }
-        //  正确内容：{ status: 0, response: {  } }
-        // 则以下代码片断可直接适用
+        // Business-level error handling, the following is to assume that Restful has a unified output format (meaning that there is a corresponding data format regardless of success or failure).
+        // For example, response content:
+        // Error content: {status: 1, msg:'illegal parameter'}
+        // Correct content: {status: 0, response: {}}
+        // Then the following code snippets can be directly applied
         // if (ev instanceof HttpResponse) {
-        //   const body = ev.body;
-        //   if (body && body.status !== 0) {
-        //     this.injector.get(NzMessageService).error(body.msg);
-        //     // 注意：这里如果继续抛出错误会被行254的 catchError 二次拦截，导致外部实现的 Pipe、subscribe 操作被中断，例如：this.http.get('/').subscribe() 不会触发
-        //     // 如果你希望外部实现，需要手动移除行254
-        //     return throwError({});
-        //   } else {
-        //     // 重新修改 `body` 内容为 `response` 内容，对于绝大多数场景已经无须再关心业务状态码
-        //     return of(new HttpResponse(Object.assign(ev, { body: body.response })));
-        //     // 或者依然保持完整的格式
-        //     return of(ev);
-        //   }
+        // const body = ev.body;
+        // if (body && body.status !== 0) {
+        // this.injector.get(NzMessageService).error(body.msg);
+        // // Note: If you continue to throw an error here, it will be intercepted by catchError on line 254, causing the external implementation of Pipe and subscribe operations to be interrupted, for example: this.http.get('/').subscribe() no Will trigger
+        // // If you want external implementation, you need to manually remove line 254
+        // return throwError({});
+        // } else {
+        // // Re-modify the content of `body` to the content of `response`. For most scenarios, you no longer need to care about the business status code
+        // return of(new HttpResponse(Object.assign(ev, {body: body.response })));
+        // // or still maintain the complete format
+        // return of(ev);
+        // }
         // }
         break;
       case 401:
@@ -211,7 +210,7 @@ export class DefaultInterceptor implements HttpInterceptor {
       default:
         if (ev instanceof HttpErrorResponse) {
           console.warn(
-            '未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起，请参考 https://ng-alain.com/docs/server 解决跨域问题',
+            'Unknown errors, mostly caused by the backend does not support cross-domain CORS or invalid configuration, please refer to https://ng-alain.com/docs/server to solve cross-domain issues',
             ev,
           );
         }
@@ -235,7 +234,7 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // 统一加上服务端前缀
+    // Uniformly add server prefix
     let url = req.url;
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
       url = environment.api.baseUrl + url;
@@ -244,11 +243,11 @@ export class DefaultInterceptor implements HttpInterceptor {
     const newReq = req.clone({ url, setHeaders: this.getAdditionalHeaders(req.headers) });
     return next.handle(newReq).pipe(
       mergeMap((ev) => {
-        // 允许统一对请求错误处理
+        // Allow unified handling of request errors
         if (ev instanceof HttpResponseBase) {
           return this.handleData(ev, newReq, next);
         }
-        // 若一切都正常，则后续操作
+        // If everything is normal, follow up operations
         return of(ev);
       }),
       catchError((err: HttpErrorResponse) => this.handleData(err, newReq, next)),

@@ -1,22 +1,13 @@
-// 请参考：https://ng-alain.com/docs/i18n
+// https://ng-alain.com/docs/i18n
 import { Platform } from '@angular/cdk/platform';
 import { registerLocaleData } from '@angular/common';
 import ngEn from '@angular/common/locales/en';
-import ngZh from '@angular/common/locales/zh';
-import ngZhTw from '@angular/common/locales/zh-Hant';
 import { Injectable } from '@angular/core';
-import {
-  AlainI18NService,
-  DelonLocaleService,
-  en_US as delonEnUS,
-  SettingsService,
-  zh_CN as delonZhCn,
-  zh_TW as delonZhTw,
-} from '@delon/theme';
+import { AlainI18NService, DelonLocaleService, en_US as delonEnUS, SettingsService } from '@delon/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { enUS as dfEn, zhCN as dfZhCn, zhTW as dfZhTw } from 'date-fns/locale';
+import { enUS as dfEn } from 'date-fns/locale';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { en_US as zorroEnUS, NzI18nService, zh_CN as zorroZhCN, zh_TW as zorroZhTW } from 'ng-zorro-antd/i18n';
+import { en_US as zorroEnUS, NzI18nService } from 'ng-zorro-antd/i18n';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -29,24 +20,8 @@ interface LangData {
   delon: NzSafeAny;
 }
 
-const DEFAULT = 'zh-CN';
+const DEFAULT = 'en-US';
 const LANGS: { [key: string]: LangData } = {
-  'zh-CN': {
-    text: '简体中文',
-    ng: ngZh,
-    zorro: zorroZhCN,
-    date: dfZhCn,
-    delon: delonZhCn,
-    abbr: '🇨🇳',
-  },
-  'zh-TW': {
-    text: '繁体中文',
-    ng: ngZhTw,
-    zorro: zorroZhTW,
-    date: dfZhTw,
-    delon: delonZhTw,
-    abbr: '🇭🇰',
-  },
   'en-US': {
     text: 'English',
     ng: ngEn,
@@ -74,7 +49,7 @@ export class I18NService implements AlainI18NService {
     private translate: TranslateService,
     private platform: Platform,
   ) {
-    // `@ngx-translate/core` 预先知道支持哪些语言
+    // `@ngx-translate/core`
     const lans = this._langs.map((item) => item.code);
     translate.addLangs(lans);
 

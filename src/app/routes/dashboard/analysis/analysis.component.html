@@ -1,6 +1,62 @@
-<div class="alain-default__content-title">
-  <h1>
-    Analyses
-    <small>Welcome to Analyses</small>
-  </h1>
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="18">
+    <nz-card nzTitle="PROFILE" [nzBordered]="false" class="mb-lg">
+      <div nz-row nzJustify="space-between" nzGutter="16">
+        <div nz-col nzSpan="12" *ngFor="let dt of data">
+          <nz-card>
+            <h2 class="analysis_card_header">{{ dt.name }}</h2>
+            <ul>
+              <li>
+                <span>Number:</span>
+                <span class="analysis_list_item">{{ dt.number }}</span>
+              </li>
+              <li>
+                <span> Date Created:</span>
+                <span class="analysis_list_item"> {{ dt.date_created }}</span>
+              </li>
+              <li>
+                <span>Last Updated:</span>
+                <span class="analysis_list_item">{{ dt.date_lastupdated }}</span>
+              </li>
+              <li>
+                <span>Editor:</span>
+                <span class="analysis_list_item">{{ dt.editor }}</span>
+              </li>
+              <li>
+                <span>EDP Status:</span>
+                <span class="analysis_list_item">{{ dt.status }}</span>
+              </li>
+            </ul>
+          </nz-card>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="6">
+    <nz-card nzTitle="EPD Generator" [nzBordered]="false" class="mb-lg">
+      <nz-list nzItemLayout="horizontal">
+        <nz-list-item>
+          <nz-list-item-meta nzAvatar="../../../../assets/img/electric-generator.png">
+            <nz-list-item-meta-title>
+              <a href="https://ng.ant.design">Brukerveiledning og informasjon for EDP-Generator </a>
+            </nz-list-item-meta-title>
+          </nz-list-item-meta>
+        </nz-list-item>
+        <nz-list-item>
+          <nz-list-item-meta nzAvatar="../../../../assets/img/newspaper.png">
+            <nz-list-item-meta-title>
+              <a href="https://ng.ant.design">News</a>
+            </nz-list-item-meta-title>
+          </nz-list-item-meta>
+        </nz-list-item>
+        <nz-list-item>
+          <nz-list-item-meta nzAvatar="../../../../assets/img/clipboard.png">
+            <nz-list-item-meta-title>
+              <a href="https://ng.ant.design">Tasklist</a>
+            </nz-list-item-meta-title>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </nz-list>
+    </nz-card>
+  </div>
 </div>

@@ -1,0 +1,9 @@
+<nz-page-header class="site-page-header" nzTitle="Environmental documentation portal - EPD list"> </nz-page-header>
+
+<nz-tabset [nzSize]="'large'" nzLinkRouter>
+  <nz-tab *ngFor="let tab of tabs">
+    <a *nzTabLink nz-tab-link [routerLink]="[tab.path]" queryParamsHandling="merge">{{ tab.text }}</a>
+  </nz-tab>
+</nz-tabset>
+
+<router-outlet (activate)="onActivate($event)"></router-outlet>

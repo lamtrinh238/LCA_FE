@@ -3,7 +3,7 @@
     <nz-tab [nzTitle]="'Log In'">
       <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter mobile number, muse be: admin or user">
+        <nz-form-control nzErrorTip="Please enter user name, muse be: admin or user">
           <nz-input-group nzSize="large" nzPrefixIcon="user">
             <input nz-input formControlName="userName" placeholder="username: admin or user" />
           </nz-input-group>

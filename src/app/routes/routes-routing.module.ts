@@ -12,10 +12,11 @@ const routes: Routes = [
     canActivateChild: [SimpleGuard],
     data: {},
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'epd-heading', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule) },
       { path: 'delon', loadChildren: () => import('./delon/delon.module').then((m) => m.DelonModule) },
       { path: 'extras', loadChildren: () => import('./extras/extras.module').then((m) => m.ExtrasModule) },
+      { path: 'epd-heading', loadChildren: () => import('./epd/epd.module').then((m) => m.EpdModule) },
     ],
   },
   // passport

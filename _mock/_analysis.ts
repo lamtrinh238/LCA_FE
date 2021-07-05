@@ -1,0 +1,51 @@
+import { Analysis } from 'src/app/routes/dashboard/analysis/models/analysis';
+export const cardData: Array<Analysis> = [
+  {
+    name: 'Test',
+    number: 1111,
+    date_created: '03.07.2021',
+    date_lastupdated: '03.07.2021',
+    editor: 'Cuong',
+    status: 'Unverified EDP',
+  },
+  {
+    name: 'Test',
+    number: 1111,
+    date_created: '03.07.2021',
+    date_lastupdated: '03.07.2021',
+    editor: 'Cuong',
+    status: 'Unverified EDP',
+  },
+  {
+    name: 'Test',
+    number: 1111,
+    date_created: '03.07.2021',
+    date_lastupdated: '03.07.2021',
+    editor: 'Cuong',
+    status: 'Unverified EDP',
+  },
+  {
+    name: 'Test',
+    number: 1111,
+    date_created: '03.07.2021',
+    date_lastupdated: '03.07.2021',
+    editor: 'Cuong',
+    status: 'Unverified EDP',
+  },
+  {
+    name: 'Test',
+    number: 1111,
+    date_created: '03.07.2021',
+    date_lastupdated: '03.07.2021',
+    editor: 'Cuong',
+    status: 'Unverified EDP',
+  },
+  {
+    name: 'Test',
+    number: 1111,
+    date_created: '03.07.2021',
+    date_lastupdated: '03.07.2021',
+    editor: 'Cuong',
+    status: 'Unverified EDP',
+  },
+];
