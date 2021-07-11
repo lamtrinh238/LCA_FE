@@ -1,0 +1,26 @@
+###
+
+POST https://lcaapi.herokuapp.com/Auths/authenticate
+Content-Type: application/json
+
+{
+  "username": "tam@ekonect.no",
+  "password": "ekonect2021"
+}
+
+###
+
+GET https://lcaapi.herokuapp.com/api/Users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlcyI6IkFkbWluIiwibmJmIjoxNjI1OTkyMzU0LCJleHAiOjE2MjY1OTcxNTQsImlhdCI6MTYyNTk5MjM1NH0.qoQG3OXPS8K9vJCaUYjGt69lgq3833ftsmi6nlgwPJI
+
+{
+}
+
+###
+
+GET https://localhost:44302/api/Users
+Content-Type: application/json
+
+{
+}
