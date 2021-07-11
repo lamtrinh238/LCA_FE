@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { SettingsService, User } from '@delon/theme';
+import { SettingsService } from '@delon/theme';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'header-user',
   template: `
     <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="userMenu">
-      <nz-avatar [nzSrc]="user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{ user.email }}
+      <nz-avatar [nzSrc]="user.firstName" nzSize="small" class="mr-sm"></nz-avatar>
+      {{ user.username }}
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
@@ -35,14 +38,22 @@ import { SettingsService, User } from '@delon/theme';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderUserComponent {
-  get user(): User {
-    return this.settings.user;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  get user(): any {
+    return this.currentUser;
   }
 
-  constructor(private settings: SettingsService, private router: Router, @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {}
+  constructor(private settings: SettingsService, private router: Router, @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-  logout(): void {
-    this.tokenService.clear();
-    this.router.navigateByUrl(this.tokenService.login_url!);
+  logout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('user');
+    this.currentUserSubject.next(null!);
+    this.router.navigate(['passport/login']);
   }
 }
