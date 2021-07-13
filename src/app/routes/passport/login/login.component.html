@@ -1,8 +1,9 @@
 <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" role="form">
   <nz-tabset [nzAnimated]="false" class="tabs">
     <nz-tab [nzTitle]="'Log In'">
+      <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Username does not exist">
+        <nz-form-control nzErrorTip="Please enter your username">
           <nz-input-group nzSize="large" nzPrefixIcon="user">
             <input nz-input formControlName="username" placeholder="Username" />
           </nz-input-group>
@@ -26,6 +27,6 @@
     </nz-col>
   </nz-form-item>
   <nz-form-item>
-    <button nz-button type="submit" nzType="primary" nzSize="large" nzBlock>Login</button>
+    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock>Login</button>
   </nz-form-item>
 </form>
