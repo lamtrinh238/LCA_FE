@@ -25,6 +25,7 @@ const routes: Routes = [
   // passport
   { path: '', loadChildren: () => import('./passport/passport.module').then((m) => m.PassportModule) },
   { path: 'exception', loadChildren: () => import('./exception/exception.module').then((m) => m.ExceptionModule) },
+  { path: 'user', loadChildren: () => import('./user/user.module').then((m) => m.UserModule) },
   { path: '**', redirectTo: 'exception/404' },
 ];
 
