@@ -50,19 +50,6 @@ export class UserLoginComponent implements OnInit {
       this.loading = true;
       this.loading = false;
       return;
-    } else if (this.loginForm.invalid) {
-      this.authenticationService
-        .login(this.f.username.value, this.f.password.value)
-        .pipe(first())
-        .subscribe((data) => {
-          this.loading = true;
-          this.router.navigateByUrl('dashboard');
-          if (!data) {
-            this.loading = false;
-            this.cdr.detectChanges();
-            return;
-          }
-        });
     }
     this.loading = true;
     this.authenticationService
