@@ -16,7 +16,17 @@
   <input nz-input placeholder="Enter text to search..." [(ngModel)]="searchValue" />
 </div>
 
-<nz-table #epdDataSource [nzData]="clients" nzBordered nzTableLayout="fixed">
+<nz-table
+  #23
+  nzShowSizeChanger
+  [nzData]="clients"
+  [nzFrontPagination]="false"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
   <thead>
     <tr>
       <th *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>

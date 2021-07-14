@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ClientService } from 'src/app/services/client.service';
 import { Client } from '../models/client';
+
 @Component({
   selector: 'app-dashboard-workplace',
   templateUrl: './list.component.html',
@@ -12,6 +15,11 @@ export class ClientListComponent implements OnInit {
   clients: Client[] = [];
   comswValue = '1';
   searchValue = '';
+  pageSize = 10;
+  pageIndex = 1;
+  total = 1;
+  loading = false;
+  currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
 
   constructor(private clientService: ClientService) {}
 
@@ -63,13 +71,35 @@ export class ClientListComponent implements OnInit {
       priority: 1,
     },
   ];
+
+  loadDataFromServer(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string | null,
+    sortOrder: string | null,
+    filter: Array<{ key: string; value: string[] }>,
+  ): void {
+    this.loading = false;
+    const search = `?PageSize=${pageSize}&Page=${pageIndex}`;
+    this.clientService.getListClient(this.currentUser.token, search).subscribe((clients: Client[]) => {
+      this.loading = true;
+      this.clients = clients;
+      this.total = 100;
+    });
+    this.clientService.getCountClient(this.currentUser.token).subscribe((count: number) => {
+      this.total = count;
+    });
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex, sort, filter } = params;
+    const currentSort = sort.find((item) => item.value !== null);
+    const sortField = (currentSort && currentSort.key) || null;
+    const sortOrder = (currentSort && currentSort.value) || null;
+    this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
+  }
+
   ngOnInit(): void {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
-    this.clientService
-      .getListClient(currentUser.token)
-      .pipe()
-      .subscribe((clients: Client[]) => {
-        this.clients = clients;
-      });
+    this.loadDataFromServer(1, 10, '', '', []);
   }
 }
