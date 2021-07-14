@@ -18,6 +18,8 @@ export class ClientListComponent implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   total = 1;
+  sortField = '';
+  sortOrder = '';
   loading = true;
   currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
 
@@ -93,9 +95,11 @@ export class ClientListComponent implements OnInit {
     this.loading = true;
     let search = `?PageSize=${pageSize}&Page=${pageIndex}`;
     if (sortField) {
+      this.sortField = sortField;
+      this.sortOrder = sortOrder || '';
       search += `&sort=${sortField}.${sortOrder === 'descend' ? 'desc' : 'asc'}`;
     }
-    search += `&ComSW=${this.comswValue}`;
+    search += `&ComSW=${this.comswValue}&Search=${this.searchValue}`;
     // if (filter) {
     //   filter.map((f) => {
     //     search += `&${f.key}=${f.value[0]}`
@@ -109,6 +113,10 @@ export class ClientListComponent implements OnInit {
     });
   }
 
+  onEnterSearch() {
+    this.loadDataFromServer(this.pageIndex, this.pageSize, this.sortField, this.sortOrder, []);
+  }
+
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex, sort, filter } = params;
     const currentSort = sort.find((item) => item.value !== null);
@@ -119,7 +127,7 @@ export class ClientListComponent implements OnInit {
 
   onChangeComSW(comSw: string): void {
     this.comswValue = comSw;
-    this.loadDataFromServer(this.pageIndex, this.pageSize, '', '', []);
+    this.loadDataFromServer(this.pageIndex, this.pageSize, this.sortField, this.sortOrder, []);
   }
 
   ngOnInit(): void {

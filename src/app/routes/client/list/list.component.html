@@ -13,7 +13,7 @@
 </nz-radio-group>
 
 <div class="alain-default__content-title">
-  <input nz-input placeholder="Enter text to search..." [(ngModel)]="searchValue" />
+  <input nz-input placeholder="Enter text to search..." (keyup.enter)="onEnterSearch()" [(ngModel)]="searchValue" />
 </div>
 
 <nz-table
