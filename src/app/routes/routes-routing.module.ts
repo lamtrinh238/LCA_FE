@@ -17,6 +17,11 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'client',
+        loadChildren: () => import('./client/client.module').then((m) => m.ClientModule),
+        canActivate: [AuthGuard],
+      },
       { path: 'delon', loadChildren: () => import('./delon/delon.module').then((m) => m.DelonModule) },
       { path: 'extras', loadChildren: () => import('./extras/extras.module').then((m) => m.ExtrasModule) },
       { path: 'epd-heading', loadChildren: () => import('./epd/epd.module').then((m) => m.EpdModule) },

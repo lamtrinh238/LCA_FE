@@ -39,6 +39,13 @@
           "i18n": "Older EPDs",
           "icon": "anticon-apartment"
         }
+        ,
+        {
+          "text": "Clients",
+          "link": "/client/list",
+          "i18n": "Clients",
+          "icon": "anticon-team"
+        }
       ]
     }
   ]
