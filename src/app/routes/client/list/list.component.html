@@ -1,6 +1,6 @@
 <nz-page-header class="site-page-header" nzTitle="Companies"> </nz-page-header>
 
-<nz-radio-group [(ngModel)]="comswValue">
+<nz-radio-group [(ngModel)]="comswValue" (ngModelChange)="onChangeComSW($event)">
   <label nz-radio nzValue="1">eEPD</label>
   <label nz-radio nzValue="2">eKVAM</label>
   <label nz-radio nzValue="3">eCAL</label>
@@ -29,7 +29,9 @@
 >
   <thead>
     <tr>
-      <th *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
+      <th *ngFor="let column of listOfColumn" nzColumnKey="{{ column.columnKey }}" [nzSortFn]="true" nzWidth="{{ column.width }}">
+        {{ column.title }}
+      </th>
     </tr>
   </thead>
   <tbody>

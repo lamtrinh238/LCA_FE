@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
@@ -18,57 +18,68 @@ export class ClientListComponent implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   total = 1;
-  loading = false;
+  loading = true;
   currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService, private cdr: ChangeDetectorRef) {}
 
   listOfColumn = [
     {
       title: 'ID',
       compare: null,
       width: '50px',
+      columnKey: 'ID',
     },
     {
       title: 'VAT',
       priority: 3,
+      columnKey: 'VAT',
     },
     {
       title: 'Name',
       priority: 2,
+      columnKey: 'Name',
     },
     {
       title: 'E-mail',
       priority: 1,
+      columnKey: 'Email',
     },
     {
-      title: 'Adress',
+      title: 'Address',
       priority: 1,
+      columnKey: 'Address',
     },
     {
       title: 'ZIP',
       priority: 1,
       width: '80px',
+      columnKey: 'Zip',
     },
     {
       title: 'City',
       priority: 1,
+      columnKey: 'City',
     },
     {
       title: 'Phone',
       priority: 1,
+      columnKey: 'Phone',
     },
     {
       title: 'Main contact',
       priority: 1,
+      columnKey: 'MainContact',
     },
     {
       title: 'WEB',
       priority: 1,
+      columnKey: 'Web',
     },
     {
       title: 'Country',
       priority: 1,
+      columnKey: 'Country',
     },
   ];
 
@@ -79,15 +90,22 @@ export class ClientListComponent implements OnInit {
     sortOrder: string | null,
     filter: Array<{ key: string; value: string[] }>,
   ): void {
-    this.loading = false;
-    const search = `?PageSize=${pageSize}&Page=${pageIndex}`;
+    this.loading = true;
+    let search = `?PageSize=${pageSize}&Page=${pageIndex}`;
+    if (sortField) {
+      search += `&sort=${sortField}.${sortOrder === 'descend' ? 'desc' : 'asc'}`;
+    }
+    search += `&ComSW=${this.comswValue}`;
+    // if (filter) {
+    //   filter.map((f) => {
+    //     search += `&${f.key}=${f.value[0]}`
+    //   });
+    // }
     this.clientService.getListClient(this.currentUser.token, search).subscribe((clients: Client[]) => {
-      this.loading = true;
+      this.loading = false;
       this.clients = clients;
       this.total = 100;
-    });
-    this.clientService.getCountClient(this.currentUser.token).subscribe((count: number) => {
-      this.total = count;
+      this.cdr.detectChanges();
     });
   }
 
@@ -97,6 +115,11 @@ export class ClientListComponent implements OnInit {
     const sortField = (currentSort && currentSort.key) || null;
     const sortOrder = (currentSort && currentSort.value) || null;
     this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
+  }
+
+  onChangeComSW(comSw: string): void {
+    this.comswValue = comSw;
+    this.loadDataFromServer(this.pageIndex, this.pageSize, '', '', []);
   }
 
   ngOnInit(): void {
