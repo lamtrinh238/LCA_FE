@@ -11,7 +11,7 @@ const routes: Routes = [
     component: LayoutBasicComponent,
     data: {},
     children: [
-      { path: '', redirectTo: 'epd-heading', pathMatch: 'full' },
+      { path: '', redirectTo: 'user-list', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
@@ -19,13 +19,12 @@ const routes: Routes = [
       },
       { path: 'delon', loadChildren: () => import('./delon/delon.module').then((m) => m.DelonModule) },
       { path: 'extras', loadChildren: () => import('./extras/extras.module').then((m) => m.ExtrasModule) },
-      { path: 'epd-heading', loadChildren: () => import('./epd/epd.module').then((m) => m.EpdModule) },
+      { path: 'user-list', loadChildren: () => import('./user/user.module').then((m) => m.UserModule) },
     ],
   },
   // passport
   { path: '', loadChildren: () => import('./passport/passport.module').then((m) => m.PassportModule) },
   { path: 'exception', loadChildren: () => import('./exception/exception.module').then((m) => m.ExceptionModule) },
-  { path: 'user', loadChildren: () => import('./user/user.module').then((m) => m.UserModule) },
   { path: '**', redirectTo: 'exception/404' },
 ];
 
