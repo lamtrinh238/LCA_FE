@@ -10,7 +10,7 @@ export const environment = {
   production: false,
   useHash: true,
   api: {
-    baseUrl: 'https://lcaapi.herokuapp.com',
+    baseUrl: 'https://localhost:44302',
     refreshTokenEnabled: true,
     refreshTokenType: 'auth-refresh',
   },

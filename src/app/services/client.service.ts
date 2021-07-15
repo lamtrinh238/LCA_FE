@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { map } from 'rxjs/operators';
@@ -8,12 +8,13 @@ import { Client } from '../routes/client/models/client';
 export class ClientService {
   constructor(private http: HttpClient) {}
 
-  getListClient = (token: string, search: string) => {
+  getListClient = (token: string, params: HttpParams) => {
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: `Bearer ${token} ` }),
+      params,
     };
 
-    return this.http.get(`${environment.api.baseUrl}/api/Clients${search}`, httpOptions).pipe(
+    return this.http.get(`${environment.api.baseUrl}/api/Clients`, httpOptions).pipe(
       map((clients) => {
         return clients as Client[];
       }),

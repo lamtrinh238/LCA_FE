@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
@@ -18,8 +19,8 @@ export class ClientListComponent implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   total = 1;
-  sortField = '';
-  sortOrder = '';
+  sortField = 'ComID';
+  sortOrder = 'asc';
   loading = true;
   currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
 
@@ -93,19 +94,19 @@ export class ClientListComponent implements OnInit {
     filter: Array<{ key: string; value: string[] }>,
   ): void {
     this.loading = true;
-    let search = `?PageSize=${pageSize}&Page=${pageIndex}`;
+    this.pageIndex = pageIndex;
+    this.pageSize = pageSize;
     if (sortField) {
-      this.sortField = sortField;
+      this.sortField = sortField || 'ComID';
       this.sortOrder = sortOrder || '';
-      search += `&sort=${sortField}.${sortOrder === 'descend' ? 'desc' : 'asc'}`;
     }
-    search += `&ComSW=${this.comswValue}&Search=${this.searchValue}`;
-    // if (filter) {
-    //   filter.map((f) => {
-    //     search += `&${f.key}=${f.value[0]}`
-    //   });
-    // }
-    this.clientService.getListClient(this.currentUser.token, search).subscribe((clients: Client[]) => {
+    const params = new HttpParams()
+      .append('sort', `${this.sortField}.${sortOrder === 'descend' ? 'desc' : 'asc'}`)
+      .append('ComSW', this.comswValue)
+      .append('Search', this.searchValue)
+      .append('PageSize', String(pageSize))
+      .append('Page', String(pageIndex));
+    this.clientService.getListClient(this.currentUser.token, params).subscribe((clients: Client[]) => {
       this.loading = false;
       this.clients = clients;
       this.total = 100;
@@ -113,7 +114,7 @@ export class ClientListComponent implements OnInit {
     });
   }
 
-  onEnterSearch() {
+  onEnterSearch(): void {
     this.loadDataFromServer(this.pageIndex, this.pageSize, this.sortField, this.sortOrder, []);
   }
 
