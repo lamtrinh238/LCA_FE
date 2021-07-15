@@ -91,7 +91,7 @@ export class ClientListComponent implements OnInit {
     pageSize: number,
     sortField: string | null,
     sortOrder: string | null,
-    filter: Array<{ key: string; value: string[] }>,
+    _filter: Array<{ key: string; value: string[] }>,
   ): void {
     this.loading = true;
     this.pageIndex = pageIndex;
@@ -144,6 +144,6 @@ export class ClientListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDataFromServer(1, 10, '', '', []);
+    this.loadDataFromServer(this.pageIndex, this.pageSize, this.sortField, this.sortOrder, []);
   }
 }
