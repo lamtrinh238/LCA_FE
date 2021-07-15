@@ -106,10 +106,10 @@ export class ClientListComponent implements OnInit {
       .append('Search', this.searchValue)
       .append('PageSize', String(pageSize))
       .append('Page', String(pageIndex));
-    this.clientService.getListClient(this.currentUser.token, params).subscribe((clients: Client[]) => {
+    this.clientService.getListClient(this.currentUser.token, params).subscribe((data: any) => {
       this.loading = false;
-      this.clients = clients;
-      this.total = 100;
+      this.clients = data.clients as Client[];
+      this.total = data.count;
       this.cdr.detectChanges();
     });
   }
@@ -128,6 +128,18 @@ export class ClientListComponent implements OnInit {
 
   onChangeComSW(comSw: string): void {
     this.comswValue = comSw;
+    this.pageIndex = 1;
+    this.loadDataFromServer(this.pageIndex, this.pageSize, this.sortField, this.sortOrder, []);
+  }
+
+  clearFilter(): void {
+    this.comswValue = '1';
+    this.searchValue = '';
+    this.pageSize = 10;
+    this.pageIndex = 1;
+    this.total = 1;
+    this.sortField = 'ComID';
+    this.sortOrder = 'asc';
     this.loadDataFromServer(this.pageIndex, this.pageSize, this.sortField, this.sortOrder, []);
   }
 
