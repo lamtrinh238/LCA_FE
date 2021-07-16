@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UserListService } from '../../services/user-list.service';
-import { UserList } from 'src/app/models/user-list';
 
 @Component({
   selector: 'app-user-list',
@@ -11,6 +10,8 @@ import { UserList } from 'src/app/models/user-list';
 export class UserListComponent implements OnInit {
   tableData = [];
   userData: any;
+  loginName: string;
+  userName: string;
 
   listOfColumn = [
     {
@@ -20,7 +21,6 @@ export class UserListComponent implements OnInit {
     },
     {
       title: 'ID',
-      compare: null,
       width: '50px',
     },
     {
@@ -73,13 +73,13 @@ export class UserListComponent implements OnInit {
 
   selectedEpdType: string;
 
-  constructor(private listService: UserListService) { }
+  constructor(private listService: UserListService) {}
 
   ngOnInit(): void {
-    this.listService.getUserList().subscribe(
-      (data) => {
-        this.tableData = data.companies;
-      }
-    );
+    this.listService.getUserList().subscribe((data) => {
+      this.loginName = data.usrLoginname;
+      this.userName = data.usrFullname;
+      this.tableData = data.companies;
+    });
   }
 }
