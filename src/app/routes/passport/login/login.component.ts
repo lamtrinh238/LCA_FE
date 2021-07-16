@@ -10,8 +10,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
+  loading: boolean = false;
+  submitted: boolean = false;
 
   error = '';
 

@@ -4,6 +4,7 @@ import { SimpleGuard } from '@delon/auth';
 // layout
 import { LayoutBasicComponent } from '../layout/basic/basic.component';
 import { AuthGuard } from '../services/auth.guard';
+import { UserListResolver } from '../services/user-list.resolver';
 
 const routes: Routes = [
   {
@@ -19,7 +20,13 @@ const routes: Routes = [
       },
       { path: 'delon', loadChildren: () => import('./delon/delon.module').then((m) => m.DelonModule) },
       { path: 'extras', loadChildren: () => import('./extras/extras.module').then((m) => m.ExtrasModule) },
-      { path: 'user-list', loadChildren: () => import('./user/user.module').then((m) => m.UserModule) },
+      {
+        path: 'user-list',
+        resolve: {
+          tableData: UserListResolver,
+        },
+        loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+      },
     ],
   },
   // passport

@@ -9,8 +9,6 @@ export class UserListService {
   constructor(private http: HttpClient) {}
 
   getUserList(): Observable<any> {
-    const currentUserObject = JSON.parse(localStorage.getItem('currentUser')!);
-    const userId = currentUserObject.usrId;
-    return this.http.get<any>(`${environment.api.baseUrl}/api/Users/${userId}`);
+    return this.http.get<any>(`${environment.api.baseUrl}/api/Users`);
   }
 }

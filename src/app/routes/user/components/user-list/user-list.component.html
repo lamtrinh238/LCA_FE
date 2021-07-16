@@ -1,36 +1,31 @@
-<app-epd-heading></app-epd-heading>
+<nz-page-header class="site-page-header" nzTitle="User list"> </nz-page-header>
+<nz-input-group>
+  <input type="text" nz-input placeholder="Input search text" />
+</nz-input-group>
 <div nz-row>
-  <div nz-col nzFlex="4">
-    <nz-radio-group style="margin-bottom: 8px" nzButtonStyle="solid" [ngModel]="selectedEpdType">
-      <label nz-radio-button *ngFor="let link of links" [nzValue]="link">{{ link }}</label>
-    </nz-radio-group>
-  </div>
-  <div nz-col nzFlex="1">
-    <div nz-row nzJustify="end">
-      <div nz-col>
-        <button nz-button nzType="primary">New EPD</button>
-      </div>
-    </div>
-  </div>
+  <button nz-button nzType="primary">New User</button>
 </div>
 
 <nz-table #basicTable [nzData]="tableData" nzBordered nzTableLayout="fixed">
   <thead>
     <tr>
-      <th *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
+      <th class="table_heading" *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let td of basicTable.data">
-      <td>abc</td>
-      <td>{{ td.comId }}</td>
-      <td>{{ userName }}</td>
-      <td>{{ loginName }}</td>
-      <td>{{ td.comEmail }}</td>
-      <td>{{ td.comAdd }}</td>
-      <td>{{ td.comZip }}</td>
-      <td>{{ td.comCity }}</td>
-      <td>{{ td.comPhone1 }}</td>
+    <tr *ngFor="let td of basicTable.data; let i = index">
+      <td>
+        <app-user-list-modal [userDetailInfo]="basicTable.data"></app-user-list-modal>
+      </td>
+      <td>{{ td.usrId }}</td>
+      <td>{{ td.usrFullname }}</td>
+      <td>{{ td.usrLoginname }}</td>
+      <td>{{ td.usrEmail }}</td>
+      <td>{{ td.usrAdd }}</td>
+      <td>{{ td.usrZip }}</td>
+      <td>{{ td.usrCity }}</td>
+      <td>{{ td.usrPhone1 }}</td>
+      <td>{{ td.comment }}</td>
     </tr>
   </tbody>
 </nz-table>

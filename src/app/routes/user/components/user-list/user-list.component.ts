@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UserListService } from '../../services/user-list.service';
+import { UserList } from 'src/app/models/user-list';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -8,77 +9,56 @@ import { UserListService } from '../../services/user-list.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent implements OnInit {
-  tableData = [];
-  loginName: string;
-  userName: string;
+  tableData: UserList[] = [];
 
   listOfColumn = [
     {
       title: 'Action',
-      priority: 1,
-      with: '10px',
+      with: '7px',
     },
     {
       title: 'ID',
-      width: '50px',
+      width: '5px',
     },
     {
       title: 'Name',
-      priority: 2,
+      width: '10px',
     },
     {
       title: 'Login Name',
-      priority: 1,
-      width: '80px',
+      width: '17px',
     },
     {
       title: 'Email',
-      priority: 1,
-      width: '80px',
+      width: '15px',
     },
     {
       title: 'Address',
-      priority: 1,
+      width: '15px',
     },
     {
       title: 'Zip',
-      priority: 1,
+      width: '7px',
     },
     {
       title: 'City',
-      priority: 1,
+      width: '10px',
     },
     {
       title: 'Phone',
-      priority: 1,
+      width: '10px',
     },
     {
       title: 'Internal Comments',
-      priority: 1,
-      width: '20%',
+      width: '10px',
     },
   ];
-  links = [
-    'EPD in work',
-    'Archive',
-    'EPD for BIM',
-    'Internal calculation (MF 2)',
-    'EPD list (MF 3)',
-    'Copy from module (MF 4)',
-    'Cement calculation (MF 5)',
-    'Copy from A1-A3 (MF 6)',
-    'EPDs transferred to you',
-  ];
 
-  selectedEpdType: string;
-
-  constructor(private listService: UserListService) {}
+  constructor(private actRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.listService.getUserList().subscribe((data) => {
-      this.loginName = data.usrLoginname;
-      this.userName = data.usrFullname;
-      this.tableData = data.companies;
+    this.actRoute.data.subscribe((data) => {
+      this.tableData = data.tableData;
     });
   }
 }
