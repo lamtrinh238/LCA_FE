@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 
-GET https://lcaapi.herokuapp.com/api/Users
+GET https://lcaapi.herokuapp.com/api/Users/72337
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlcyI6IkFkbWluIiwibmJmIjoxNjI1OTkyMzU0LCJleHAiOjE2MjY1OTcxNTQsImlhdCI6MTYyNTk5MjM1NH0.qoQG3OXPS8K9vJCaUYjGt69lgq3833ftsmi6nlgwPJI
 

@@ -14,25 +14,23 @@
   </div>
 </div>
 
-<nz-table #dataTable [nzData]="tableData" nzBordered nzTableLayout="fixed">
+<nz-table #basicTable [nzData]="tableData" nzBordered nzTableLayout="fixed">
   <thead>
     <tr>
       <th *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of dataTable.data">
-      <td>{{ data.id }}</td>
-      <td>{{ data.internal_number }}</td>
-      <td>{{ data.name }}</td>
-      <td>{{ data.date }}</td>
-      <td>{{ data.epd_unit }}</td>
-      <td>{{ data.kg_per_du }}</td>
-      <td>{{ data.editor }}</td>
-      <td>{{ data.manufacturer }}</td>
-      <td>{{ data.production_site }}</td>
-      <td>{{ data.comments }}</td>
-      <td>{{ data.pcr }}</td>
+    <tr *ngFor="let td of basicTable.data">
+      <td ></td>
+      <td>{{ td.comId }}</td>
+      <td>{{ td.comCompanyname }}</td>
+      <td>{{ td.comCompanyvat }}</td>
+      <td>{{ td.comCompanyname }}</td>
+      <td>{{ td.comEmail }}</td>
+      <td>{{ td.comZip }}</td>
+      <td>{{ td.comCity }}</td>
+      <td>{{ td.comPhone1 }}</td>
     </tr>
   </tbody>
 </nz-table>
