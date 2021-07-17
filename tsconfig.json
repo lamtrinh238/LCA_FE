@@ -16,6 +16,7 @@
     "target": "es2015",
     "module": "es2020",
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
     "lib": ["es2018", "dom"],
     "paths": {
       "@shared": ["src/app/shared/index"],
@@ -24,8 +25,8 @@
     }
   },
   "angularCompilerOptions": {
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictInjectionParameters": false,
+    "strictInputAccessModifiers": false,
+    "strictTemplates": false
   }
 }

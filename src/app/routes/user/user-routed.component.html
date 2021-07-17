@@ -1,0 +1,19 @@
+<nz-page-header class="site-page-header" nzTitle="Environmental Documentation Portal - User List"> </nz-page-header>
+<nz-row [nzGutter]="[12, 12]">
+  <nz-col [nzSpan]="24">
+    <nz-input-group nzSize="large" [nzAddOnBefore]="suffixButton">
+      <input type="text" nz-input placeholder="input search text" (change)="onFilter($event.target)" />
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <i nz-icon nzType="search" nzSize="large"></i>
+    </ng-template>
+  </nz-col>
+
+  <nz-col [nzSpan]="24">
+    <button nz-button nzType="primary" (click)="onOpenAddUser($event)">Add User</button>
+  </nz-col>
+
+  <nz-col [nzSpan]="24">
+    <lca-user-list [data]="users$ | async" [isLoading]="isFiltering" (filterParamChanged)="onFilterParamChanged($event)"></lca-user-list>
+  </nz-col>
+</nz-row>

@@ -11,14 +11,14 @@
   "menu": [
     {
       "text": "",
-      "i18n": "menu.epd",
+      "i18n": "menu.user-list",
       "icon": "anticon-epd",
       "group": false,
       "children": [
         {
-          "text": "EPD",
-          "link": "/epd-heading",
-          "i18n": "EPD",
+          "text": "User List",
+          "link": "/user",
+          "i18n": "User List",
           "icon": "anticon-account-book"
         },
         {
