@@ -1,0 +1,42 @@
+<nz-table
+  [nzData]="data"
+  nzBordered
+  [nzLoading]="isLoading"
+  [nzFrontPagination]="false"
+  [nzPageSizeOptions]="pageSizeOptions"
+  [nzShowSizeChanger]="true"
+  [nzTotal]="totalRecords"
+  (nzQueryParams)="onQueryParamChange($event)"
+>
+  <thead>
+    <tr>
+      <th
+        nzColumnKey="{{ column.sortKey }}"
+        [nzFilterFn]="true"
+        *ngFor="let column of listOfColumn; trackBy: trackByName"
+        nzWidth="{{ column.width }}"
+        [nzSortFn]="column.sort"
+      >
+        {{ column.title }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of data; let i = index">
+      <td>
+        <button nz-button (click)="onViewUserDetail(user)">
+          <span><i nz-icon nzType="question-circle" nzTheme="outline"></i></span>
+        </button>
+      </td>
+      <td>{{ user.usrId }}</td>
+      <td>{{ user.usrFullname }}</td>
+      <td>{{ user.usrLoginname }}</td>
+      <td>{{ user.usrEmail }}</td>
+      <td>{{ user.usrAdd }}</td>
+      <td>{{ user.usrZip }}</td>
+      <td>{{ user.usrCity }}</td>
+      <td>{{ user.usrPhone1 }}</td>
+      <td>{{ user.comment }}</td>
+    </tr>
+  </tbody>
+</nz-table>

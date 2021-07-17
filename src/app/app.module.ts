@@ -67,6 +67,7 @@ const FORM_MODULES = [JsonSchemaModule];
 
 // #region Http Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthTokenHeaderInterceptor } from './interceptors/auth-token-header.interceptor';
 
 // #endregion
 
@@ -111,7 +112,12 @@ import { STWidgetModule } from './shared/st-widget/st-widget.module';
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
   ],
-  providers: [...LANG_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
+  providers: [
+    ...LANG_PROVIDES,
+    ...I18NSERVICE_PROVIDES,
+    ...APPINIT_PROVIDES,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHeaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
