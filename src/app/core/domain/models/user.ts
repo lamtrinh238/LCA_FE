@@ -1,4 +1,4 @@
-export interface UserList {
+export class UserModel {
   usrId?: number;
   usrFullname?: string;
   usrLoginname?: string;
@@ -25,4 +25,6 @@ export interface UserList {
   usrTraining?: string;
   usrTrainingValid?: string;
   usrType?: number;
+
+  constructor() {}
 }

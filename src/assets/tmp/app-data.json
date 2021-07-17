@@ -17,7 +17,7 @@
       "children": [
         {
           "text": "User List",
-          "link": "",
+          "link": "/user",
           "i18n": "User List",
           "icon": "anticon-account-book"
         },

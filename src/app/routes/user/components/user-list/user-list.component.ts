@@ -1,64 +1,63 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UserList } from 'src/app/models/user-list';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserModel } from '@core';
+import { UserInfo } from 'os';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'lca-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent implements OnInit {
-  tableData: UserList[] = [];
+  @Input() data: UserModel[];
+  @Input() isLoading: boolean;
 
   listOfColumn = [
     {
       title: 'Action',
-      with: '7px',
+      width: '100px',
     },
     {
       title: 'ID',
-      width: '5px',
+      width: '50px',
     },
     {
       title: 'Name',
-      width: '10px',
+      width: '250px',
     },
     {
       title: 'Login Name',
-      width: '17px',
+      width: '200px',
     },
     {
       title: 'Email',
-      width: '15px',
+      width: '200px',
     },
     {
       title: 'Address',
-      width: '15px',
+      width: '250px',
     },
     {
       title: 'Zip',
-      width: '7px',
+      width: '20px',
     },
     {
       title: 'City',
-      width: '10px',
+      width: '20px',
     },
     {
       title: 'Phone',
-      width: '10px',
+      width: '200px',
     },
     {
       title: 'Internal Comments',
-      width: '10px',
     },
   ];
 
-  constructor(private actRoute: ActivatedRoute) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.actRoute.data.subscribe((data) => {
-      this.tableData = data.tableData;
-    });
-  }
+  ngOnInit(): void {}
+
+  onViewUserDetail(user: UserModel): void {}
 }

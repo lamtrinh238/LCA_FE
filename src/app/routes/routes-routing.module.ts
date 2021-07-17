@@ -4,7 +4,6 @@ import { SimpleGuard } from '@delon/auth';
 // layout
 import { LayoutBasicComponent } from '../layout/basic/basic.component';
 import { AuthGuard } from '../services/auth.guard';
-import { UserListResolver } from '../services/user-list.resolver';
 
 const routes: Routes = [
   {
@@ -20,18 +19,14 @@ const routes: Routes = [
       },
       { path: 'delon', loadChildren: () => import('./delon/delon.module').then((m) => m.DelonModule) },
       { path: 'extras', loadChildren: () => import('./extras/extras.module').then((m) => m.ExtrasModule) },
-      {
-        path: 'user-list',
-        resolve: {
-          tableData: UserListResolver,
-        },
-        loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
-      },
+      { path: 'epd', loadChildren: () => import('./epd/epd.module').then((m) => m.EpdModule), canActivate: [AuthGuard] },
+      { path: 'user', loadChildren: () => import('./user/user.module').then((m) => m.UserModule), canActivate: [AuthGuard] },
     ],
   },
   // passport
   { path: '', loadChildren: () => import('./passport/passport.module').then((m) => m.PassportModule) },
   { path: 'exception', loadChildren: () => import('./exception/exception.module').then((m) => m.ExceptionModule) },
+
   { path: '**', redirectTo: 'exception/404' },
 ];
 

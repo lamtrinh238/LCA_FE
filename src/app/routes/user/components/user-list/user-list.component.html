@@ -1,31 +1,25 @@
-<nz-page-header class="site-page-header" nzTitle="User list"> </nz-page-header>
-<nz-input-group>
-  <input type="text" nz-input placeholder="Input search text" />
-</nz-input-group>
-<div nz-row>
-  <button nz-button nzType="primary">New User</button>
-</div>
-
-<nz-table #basicTable [nzData]="tableData" nzBordered nzTableLayout="fixed">
+<nz-table [nzData]="data" nzBordered [nzLoading]="isLoading">
   <thead>
     <tr>
-      <th class="table_heading" *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
+      <th *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let td of basicTable.data; let i = index">
+    <tr *ngFor="let user of data; let i = index">
       <td>
-        <app-user-list-modal [userDetailInfo]="basicTable.data"></app-user-list-modal>
+        <button nz-button (click)="onViewUserDetail(user)">
+          <span><i nz-icon nzType="question-circle" nzTheme="outline"></i></span>
+        </button>
       </td>
-      <td>{{ td.usrId }}</td>
-      <td>{{ td.usrFullname }}</td>
-      <td>{{ td.usrLoginname }}</td>
-      <td>{{ td.usrEmail }}</td>
-      <td>{{ td.usrAdd }}</td>
-      <td>{{ td.usrZip }}</td>
-      <td>{{ td.usrCity }}</td>
-      <td>{{ td.usrPhone1 }}</td>
-      <td>{{ td.comment }}</td>
+      <td>{{ user.usrId }}</td>
+      <td>{{ user.usrFullname }}</td>
+      <td>{{ user.usrLoginname }}</td>
+      <td>{{ user.usrEmail }}</td>
+      <td>{{ user.usrAdd }}</td>
+      <td>{{ user.usrZip }}</td>
+      <td>{{ user.usrCity }}</td>
+      <td>{{ user.usrPhone1 }}</td>
+      <td>{{ user.comment }}</td>
     </tr>
   </tbody>
 </nz-table>
