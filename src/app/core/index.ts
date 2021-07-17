@@ -4,3 +4,4 @@ export * from './net/default.interceptor';
 export * from './startup/startup.service';
 export * from './helpers/index';
 export * from './domain/index';
+export * from './base/index';

@@ -1,7 +1,24 @@
-<nz-table [nzData]="data" nzBordered [nzLoading]="isLoading">
+<nz-table
+  [nzData]="data"
+  nzBordered
+  [nzLoading]="isLoading"
+  [nzFrontPagination]="false"
+  [nzPageSizeOptions]="pageSizeOptions"
+  [nzShowSizeChanger]="true"
+  [nzTotal]="totalRecords"
+  (nzQueryParams)="onQueryParamChange($event)"
+>
   <thead>
     <tr>
-      <th *ngFor="let column of listOfColumn" nzWidth="{{ column.width }}">{{ column.title }}</th>
+      <th
+        nzColumnKey="{{ column.sortKey }}"
+        [nzFilterFn]="true"
+        *ngFor="let column of listOfColumn; trackBy: trackByName"
+        nzWidth="{{ column.width }}"
+        [nzSortFn]="column.sort"
+      >
+        {{ column.title }}
+      </th>
     </tr>
   </thead>
   <tbody>

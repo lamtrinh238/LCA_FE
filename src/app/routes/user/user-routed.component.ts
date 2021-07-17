@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UserModel, UserService } from '@core';
+import { FilterObject, QueryParamObject, UserModel, UserService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Observable, of } from 'rxjs';
-import { delay, finalize } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay, filter, finalize, switchMap, tap } from 'rxjs/operators';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 
 @Component({
@@ -14,16 +14,24 @@ export class UserRoutedComponent implements OnInit {
   constructor(private _userService: UserService, private _nzModalService: NzModalService) {}
 
   users$: Observable<UserModel[]>;
-  isFiltering = true;
+  private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
+  fetchDateStart$ = this.fetchDataSource.asObservable();
+  isFiltering = false;
+  private queryObject: QueryParamObject;
 
   ngOnInit(): void {
-    this.users$ = this._userService
-      .filter({
-        page: 1,
-        pageSize: 10,
-        sortText: 'usrFullname.asc',
-      })
-      .pipe(finalize(() => (this.isFiltering = false)));
+    this.users$ = this.fetchDateStart$
+      .pipe(
+        filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+        tap(() => (this.isFiltering = true)),
+        switchMap(() => this._userService.filter(this.queryObject)),
+        tap(() => (this.isFiltering = false)),
+      )
+      .pipe(
+        finalize(() => {
+          this.isFiltering = false;
+        }),
+      );
   }
 
   onOpenAddUser(user: any): void {
@@ -49,14 +57,12 @@ export class UserRoutedComponent implements OnInit {
   onFilter(filterInput: HTMLInputElement): void {
     console.log(filterInput.value);
     const filterTerm = filterInput.value;
-    this.isFiltering = true;
-    this.users$ = this._userService
-      .filter({
-        page: 1,
-        pageSize: 10,
-        sortText: 'usrFullname.asc',
-        filterText: filterInput ? `usrFullname[like]${filterTerm}` : '',
-      })
-      .pipe(finalize(() => (this.isFiltering = false)));
+    this.queryObject.filter = [new FilterObject('usrFullname', filterTerm, 'like')];
+    this.fetchDataSource.next(this.queryObject);
+  }
+
+  onFilterParamChanged(queryObject: QueryParamObject): void {
+    this.queryObject = queryObject;
+    this.fetchDataSource.next(this.queryObject);
   }
 }

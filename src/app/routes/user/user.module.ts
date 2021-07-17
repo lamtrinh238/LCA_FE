@@ -16,7 +16,6 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { EpdHeadingComponent } from '../epd/epd-heading/epd-heading.component';
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +24,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { UserRoutedComponent } from './user-routed.component';
 
 @NgModule({
-  declarations: [UserRoutedComponent, UserListComponent, EpdHeadingComponent, CreateUserComponent],
+  declarations: [UserRoutedComponent, UserListComponent, CreateUserComponent],
   imports: [
     CommonModule,
     FormsModule,

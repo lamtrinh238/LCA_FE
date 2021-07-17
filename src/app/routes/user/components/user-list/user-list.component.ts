@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserModel } from '@core';
+import { BaseDataList, ColumnModel, FilterObject, QueryParamObject, SortObject, UserModel } from '@core';
 import { UserInfo } from 'os';
 
 @Component({
@@ -9,11 +9,10 @@ import { UserInfo } from 'os';
   styleUrls: ['./user-list.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent extends BaseDataList implements OnInit {
   @Input() data: UserModel[];
-  @Input() isLoading: boolean;
 
-  listOfColumn = [
+  listOfColumn: ColumnModel[] = [
     {
       title: 'Action',
       width: '100px',
@@ -21,10 +20,14 @@ export class UserListComponent implements OnInit {
     {
       title: 'ID',
       width: '50px',
+      sort: true,
+      sortKey: 'usrId',
     },
     {
       title: 'Name',
       width: '250px',
+      sort: true,
+      sortKey: 'usrFullname',
     },
     {
       title: 'Login Name',
@@ -52,12 +55,19 @@ export class UserListComponent implements OnInit {
     },
     {
       title: 'Internal Comments',
+      width: '20%',
     },
   ];
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
 
   onViewUserDetail(user: UserModel): void {}
+
+  trackByName(index: number, item: UserModel): number | undefined {
+    return item.usrId;
+  }
 }
