@@ -101,15 +101,17 @@ export class ClientListComponent implements OnInit {
       this.sortOrder = sortOrder || '';
     }
     const params = new HttpParams()
-      .append('sort', `${this.sortField}.${sortOrder === 'descend' ? 'desc' : 'asc'}`)
-      .append('ComSW', this.comswValue)
-      .append('Search', this.searchValue)
+      .append('SortText', `${this.sortField}.${sortOrder === 'descend' ? 'DESC' : 'ASC'}`)
+      .append('FilterText', `ComSW[0]${this.comswValue}`)
       .append('PageSize', String(pageSize))
       .append('Page', String(pageIndex));
-    this.clientService.getListClient(this.currentUser.token, params).subscribe((data: any) => {
+    this.clientService.getListClient(this.currentUser.token, params).subscribe((clients: Client[]) => {
       this.loading = false;
-      this.clients = data.clients as Client[];
-      this.total = data.count;
+      this.clients = clients as Client[];
+      this.total =
+        clients.length >= this.pageSize
+          ? clients.length + this.pageSize * this.pageIndex
+          : clients.length + this.pageSize * (this.pageIndex - 1);
       this.cdr.detectChanges();
     });
   }

@@ -15,11 +15,8 @@ export class ClientService {
     };
 
     return this.http.get(`${environment.api.baseUrl}/api/Clients`, httpOptions).pipe(
-      map((data: any) => {
-        return {
-          clients: data.clients as Client[],
-          count: data.count as number,
-        };
+      map((clients) => {
+        return clients as Client[];
       }),
     );
   };
