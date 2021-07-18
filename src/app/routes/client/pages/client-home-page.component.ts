@@ -13,7 +13,7 @@ import { ClientListComponent } from '../conponents/client-list/client-list.compo
 export class ClientHomePageComponent implements OnInit {
   clients$: Observable<ClientModel[]>;
   private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
-  fetchDateStart$ = this.fetchDataSource.asObservable();
+  fetchDataStart$ = this.fetchDataSource.asObservable();
   isFiltering = false;
   protected queryObject: QueryParamObject;
 
@@ -23,7 +23,7 @@ export class ClientHomePageComponent implements OnInit {
 
   constructor(private clientService: ClientService) {}
   ngOnInit(): void {
-    this.clients$ = this.fetchDateStart$
+    this.clients$ = this.fetchDataStart$
       .pipe(
         filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
         tap(() => (this.isFiltering = true)),

@@ -13,13 +13,13 @@ import { CreateUserComponent } from '../components/create-user/create-user.compo
 export class UserHomePageComponent implements OnInit {
   users$: Observable<UserModel[]>;
   private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
-  fetchDateStart$ = this.fetchDataSource.asObservable();
+  fetchDataStart$ = this.fetchDataSource.asObservable();
   isFiltering = false;
   protected queryObject: QueryParamObject;
   constructor(private _userService: UserService, private _nzModalService: NzModalService) {}
 
   ngOnInit(): void {
-    this.users$ = this.fetchDateStart$
+    this.users$ = this.fetchDataStart$
       .pipe(
         filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
         tap(() => (this.isFiltering = true)),
