@@ -1,4 +1,4 @@
-export interface Client {
+export class ClientModel {
   comAdd: string;
   comBannerLogo: string;
   comCity: string;
@@ -36,4 +36,19 @@ export interface Client {
   comWeb: string;
   comZip: string;
   countryName: string;
+
+  constructor() {}
+}
+
+export enum ComSWID {
+  none = 0,
+  eEPD = 1,
+  eKVAM = 2,
+  eCAL = 3,
+  eTRANS = 4,
+  eFOODWASTE = 5,
+  ePACK = 6,
+  eCO2 = 7,
+  eProject = 8,
+  EPD2Digi = 13,
 }

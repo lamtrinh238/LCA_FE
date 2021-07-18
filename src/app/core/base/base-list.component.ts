@@ -1,14 +1,19 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { FilterObject, QueryParamObject, SortObject } from '../domain';
+import { ChangeDetectorRef, Directive, EventEmitter, Input, Output } from '@angular/core';
+import { ColumnModel, FilterObject, QueryParamObject, SortObject } from '../domain';
 
 @Directive()
 // tslint:disable-next-line: directive-class-suffix
-export abstract class BaseDataList {
+export abstract class BaseDataList<T> {
+  @Input() data: T[] = [];
   @Input() isLoading: boolean;
   @Output() filterParamChanged = new EventEmitter<QueryParamObject>();
   pageSizeOptions = [10, 20, 50, 100];
   @Input() totalRecords = 100;
-  constructor() {}
+
+  listOfColumns: ColumnModel[];
+  constructor(protected _changeDetectorRef: ChangeDetectorRef) {
+    this.listOfColumns = this.setupColumnModels();
+  }
 
   onQueryParamChange(event: QueryParamObject): void {
     const queryObject = new QueryParamObject(
@@ -20,4 +25,12 @@ export abstract class BaseDataList {
 
     this.filterParamChanged.next(queryObject);
   }
+
+  resetSortAndFilters(): void {
+    this.listOfColumns.forEach((item: ColumnModel) => {
+      item.sortOrder = null;
+    });
+  }
+
+  abstract setupColumnModels(): ColumnModel[];
 }

@@ -3,21 +3,20 @@ import { FilterObject, QueryParamObject, UserModel, UserService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, filter, finalize, switchMap, tap } from 'rxjs/operators';
-import { CreateUserComponent } from './components/create-user/create-user.component';
+import { CreateUserComponent } from '../components/create-user/create-user.component';
 
 @Component({
-  templateUrl: './user-routed.component.html',
-  styleUrls: ['./user-routed.component.less'],
+  templateUrl: './user-home-page.component.html',
+  styleUrls: ['./user-home-page.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserRoutedComponent implements OnInit {
-  constructor(private _userService: UserService, private _nzModalService: NzModalService) {}
-
+export class UserHomePageComponent implements OnInit {
   users$: Observable<UserModel[]>;
   private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
   fetchDateStart$ = this.fetchDataSource.asObservable();
   isFiltering = false;
-  private queryObject: QueryParamObject;
+  protected queryObject: QueryParamObject;
+  constructor(private _userService: UserService, private _nzModalService: NzModalService) {}
 
   ngOnInit(): void {
     this.users$ = this.fetchDateStart$
@@ -34,7 +33,7 @@ export class UserRoutedComponent implements OnInit {
       );
   }
 
-  onOpenAddUser(user: any): void {
+  onOpenAddUser(): void {
     this._nzModalService.create({
       nzTitle: 'Create User',
       nzOkText: 'Save',

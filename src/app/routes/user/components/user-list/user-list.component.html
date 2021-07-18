@@ -1,8 +1,8 @@
 <nz-table
   [nzData]="data"
   nzBordered
-  [nzLoading]="isLoading"
   [nzFrontPagination]="false"
+  [nzLoading]="isLoading"
   [nzPageSizeOptions]="pageSizeOptions"
   [nzShowSizeChanger]="true"
   [nzTotal]="totalRecords"
@@ -11,22 +11,30 @@
   <thead>
     <tr>
       <th
+        *ngFor="let column of listOfColumns"
         nzColumnKey="{{ column.sortKey }}"
         [nzFilterFn]="true"
-        *ngFor="let column of listOfColumn; trackBy: trackByName"
         nzWidth="{{ column.width }}"
         [nzSortFn]="column.sort"
+        [(nzSortOrder)]="column.sortOrder"
       >
         {{ column.title }}
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of data; let i = index">
-      <td>
-        <button nz-button (click)="onViewUserDetail(user)">
-          <span><i nz-icon nzType="question-circle" nzTheme="outline"></i></span>
-        </button>
+    <tr *ngFor="let user of data; let i = index; trackBy: trackByName">
+      <td nz-row [nzAlign]="'middle'" [nzGutter]="[6, 6]">
+        <nz-col>
+          <button nz-button nzSize="small" nzType="default" nzShape="circle">
+            <i nz-icon nzType="edit" (click)="onOpenEdit(user)"></i>
+          </button>
+        </nz-col>
+        <nz-col>
+          <button nz-button nzSize="small" nzType="default" nzShape="circle">
+            <i nz-icon nzType="info" (click)="onOpenView(user)"></i>
+          </button>
+        </nz-col>
       </td>
       <td>{{ user.usrId }}</td>
       <td>{{ user.usrFullname }}</td>

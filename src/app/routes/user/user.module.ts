@@ -21,33 +21,31 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { UserRoutedComponent } from './user-routed.component';
+import { UserHomePageComponent } from './pages/user-home-page.component';
+
+const NZ_UI_MODULES = [
+  NzFormModule,
+  NzInputModule,
+  NzButtonModule,
+  NzLayoutModule,
+  NzModalModule,
+  NzPageHeaderModule,
+  NzRadioModule,
+  NzTableModule,
+  NzTabsModule,
+  NzButtonModule,
+  NzGridModule,
+  NzAnchorModule,
+  NzIconModule,
+  NzPopoverModule,
+  NzModalModule,
+  NzGridModule,
+  NzIconModule,
+  NzDividerModule,
+];
 
 @NgModule({
-  declarations: [UserRoutedComponent, UserListComponent, CreateUserComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    UserRoutingModule,
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-    NzLayoutModule,
-    NzModalModule,
-    NzPageHeaderModule,
-    NzRadioModule,
-    NzTableModule,
-    NzTabsModule,
-    NzButtonModule,
-    NzGridModule,
-    NzAnchorModule,
-    NzIconModule,
-    NzPopoverModule,
-    NzModalModule,
-    NzGridModule,
-    NzIconModule,
-    NzDividerModule,
-  ],
+  declarations: [UserHomePageComponent, UserListComponent, CreateUserComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
 })
 export class UserModule {}

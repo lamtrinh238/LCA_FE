@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClientHomePageComponent } from './pages/client-home-page.component';
 
-import { ClientListComponent } from './list/list.component';
-
-const routes: Routes = [
-  { path: '', redirectTo: 'v1', pathMatch: 'full' },
-  { path: 'list', component: ClientListComponent },
-];
+const routes: Routes = [{ path: '', component: ClientHomePageComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

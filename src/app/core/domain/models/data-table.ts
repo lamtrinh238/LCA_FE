@@ -17,9 +17,10 @@ import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } f
 
 export class ColumnModel {
   title: string;
-  width: string;
+  width?: string;
   sort?: boolean;
   sortKey?: string;
+  sortOrder?: string | null = null;
 }
 
 export interface ApiFilterObject {
@@ -37,7 +38,7 @@ export class SortObject {
   }
 }
 export class FilterObject {
-  constructor(public key: string, public value: string | number, public operator: FilterOperator) {}
+  constructor(public key: string, public value: string | number | null, public operator: FilterOperator) {}
 
   toFilterString(): string {
     return [this.key, `[${this.operator}]`, this.value].join('');
@@ -46,6 +47,12 @@ export class FilterObject {
 export class QueryParamObject {
   constructor(public filter: FilterObject[], public pageIndex: number, public pageSize: number, public sort: SortObject[]) {}
 
+  reset(): void {
+    this.filter = [];
+    this.sort = [];
+    this.pageIndex = 1;
+    this.pageSize = 10;
+  }
   toApiFilterQuery(): {
     page: number;
     pageSize: number;
@@ -56,7 +63,7 @@ export class QueryParamObject {
       page: this.pageIndex,
       pageSize: this.pageSize,
     } as ApiFilterObject;
-    const sortApi = this.sort && this.sort.filter((s: SortObject) => s.value !== null);
+    const sortApi = this.sort && this.sort.filter((s: SortObject) => s.value !== undefined && s.value !== null);
     const filterApi = this.filter && this.filter.filter((f: FilterObject) => f.value !== null && f.value !== undefined);
     if (sortApi && sortApi.length > 0) {
       filter.sortText = sortApi.map((sort: SortObject) => sort.toSortString()).join('&');
