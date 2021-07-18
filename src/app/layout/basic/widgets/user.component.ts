@@ -1,10 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { SettingsService } from '@delon/theme';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { AuthUser } from 'src/app/models/user';
 
 @Component({
   selector: 'header-user',
@@ -38,14 +38,14 @@ import { User } from 'src/app/models/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderUserComponent {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<AuthUser>;
+  public currentUser: Observable<AuthUser>;
   get user(): any {
     return this.currentUser;
   }
 
   constructor(private settings: SettingsService, private router: Router, @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
+    this.currentUserSubject = new BehaviorSubject<AuthUser>(JSON.parse(localStorage.getItem('currentUser')!));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 

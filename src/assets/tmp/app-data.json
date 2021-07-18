@@ -11,14 +11,20 @@
   "menu": [
     {
       "text": "",
-      "i18n": "menu.epd",
+      "i18n": "menu.user-list",
       "icon": "anticon-epd",
       "group": false,
       "children": [
         {
-          "text": "EPD",
-          "link": "/epd-heading",
-          "i18n": "EPD",
+          "text": "Users",
+          "link": "/user",
+          "i18n": "Users",
+          "icon": "anticon-team"
+        },
+        {
+          "text": "Clients",
+          "link": "/client",
+          "i18n": "Clients",
           "icon": "anticon-account-book"
         },
         {
@@ -39,6 +45,7 @@
           "i18n": "Older EPDs",
           "icon": "anticon-apartment"
         }
+
       ]
     }
   ]

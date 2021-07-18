@@ -1,0 +1,39 @@
+<nz-table
+  [nzData]="data"
+  nzBordered
+  [nzFrontPagination]="false"
+  [nzLoading]="isLoading"
+  [nzPageSizeOptions]="pageSizeOptions"
+  [nzShowSizeChanger]="true"
+  [nzTotal]="totalRecords"
+  (nzQueryParams)="onQueryParamChange($event)"
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumns"
+        nzColumnKey="{{ column.sortKey }}"
+        [nzSortFn]="true"
+        [(nzSortOrder)]="column.sortOrder"
+        nzWidth="{{ column.width }}"
+      >
+        {{ column.title }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of data; trackBy: trackByName">
+      <td>{{ company.comId }}</td>
+      <td>{{ company.comCompanyvat }}</td>
+      <td>{{ company.comCompanyname }}</td>
+      <td>{{ company.comEmail }}</td>
+      <td>{{ company.comAdd }}</td>
+      <td>{{ company.comZip }}</td>
+      <td>{{ company.comCity }}</td>
+      <td>{{ company.comPhone1 }}</td>
+      <td>{{ company.comMainContact }}</td>
+      <td>{{ company.comWeb }}</td>
+      <td>{{ company.countryName }}</td>
+    </tr>
+  </tbody>
+</nz-table>

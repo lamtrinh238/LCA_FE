@@ -6,11 +6,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-alain": {
+    "lca-admin": {
       "projectType": "application",
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "lca",
       "schematics": {
         "@schematics/angular:component": {
           "style": "less"
@@ -28,7 +28,7 @@
             "assets": ["src/assets", "src/favicon.ico"],
             "styles": ["src/styles.less"],
             "scripts": [],
-            "allowedCommonJsDependencies": ["@antv/g2", "file-saver", "ajv", "ajv-formats", "date-fns"]
+            "allowedCommonJsDependencies": ["@antv/g2", "file-saver", "ajv", "ajv-formats", "date-fns", "lodash"]
           },
           "configurations": {
             "production": {
@@ -64,19 +64,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-alain:build",
+            "browserTarget": "lca-admin:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-alain:build:production"
+              "browserTarget": "lca-admin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-alain:build"
+            "browserTarget": "lca-admin:build"
           }
         },
         "test": {
@@ -102,16 +102,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-alain:serve"
+            "devServerTarget": "lca-admin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-alain:serve:production"
+              "devServerTarget": "lca-admin:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ng-alain"
+  "defaultProject": "lca-admin"
 }

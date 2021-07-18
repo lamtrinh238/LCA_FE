@@ -1,0 +1,50 @@
+<nz-table
+  [nzData]="data"
+  nzBordered
+  [nzFrontPagination]="false"
+  [nzLoading]="isLoading"
+  [nzPageSizeOptions]="pageSizeOptions"
+  [nzShowSizeChanger]="true"
+  [nzTotal]="totalRecords"
+  (nzQueryParams)="onQueryParamChange($event)"
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumns"
+        nzColumnKey="{{ column.sortKey }}"
+        [nzFilterFn]="true"
+        nzWidth="{{ column.width }}"
+        [nzSortFn]="column.sort"
+        [(nzSortOrder)]="column.sortOrder"
+      >
+        {{ column.title }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of data; let i = index; trackBy: trackByName">
+      <td nz-row [nzAlign]="'middle'" [nzGutter]="[6, 6]">
+        <nz-col>
+          <button nz-button nzSize="small" nzType="default" nzShape="circle">
+            <i nz-icon nzType="edit" (click)="onOpenEdit(user)"></i>
+          </button>
+        </nz-col>
+        <nz-col>
+          <button nz-button nzSize="small" nzType="default" nzShape="circle">
+            <i nz-icon nzType="info" (click)="onOpenView(user)"></i>
+          </button>
+        </nz-col>
+      </td>
+      <td>{{ user.usrId }}</td>
+      <td>{{ user.usrFullname }}</td>
+      <td>{{ user.usrLoginname }}</td>
+      <td>{{ user.usrEmail }}</td>
+      <td>{{ user.usrAdd }}</td>
+      <td>{{ user.usrZip }}</td>
+      <td>{{ user.usrCity }}</td>
+      <td>{{ user.usrPhone1 }}</td>
+      <td>{{ user.comment }}</td>
+    </tr>
+  </tbody>
+</nz-table>
