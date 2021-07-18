@@ -2,7 +2,7 @@
 <nz-row [nzGutter]="[12, 12]">
   <nz-col [nzSpan]="24">
     <nz-input-group nzSize="large" [nzAddOnBefore]="suffixButton">
-      <input type="text" nz-input placeholder="input search text" (change)="onFilter($event.target)" />
+      <input type="text" nz-input placeholder="input search text" [(ngModel)]="filterModel.filterTerm" (change)="onFilter()" />
     </nz-input-group>
     <ng-template #suffixButton>
       <i nz-icon nzType="search" nzSize="large"></i>
@@ -14,6 +14,10 @@
   </nz-col>
 
   <nz-col [nzSpan]="24">
-    <lca-user-list [data]="users$ | async" [isLoading]="isFiltering" (filterParamChanged)="onFilterParamChanged($event)"> </lca-user-list>
+    <lca-user-list #userListComp [data]="users$ | async" [isLoading]="isFiltering" (filterParamChanged)="onFilterParamChanged($event)">
+    </lca-user-list>
   </nz-col>
 </nz-row>
+<div>
+  <span>Input data might be hidden by filer <a [routerLink]="" (click)="clearFilter()">Reset filter</a></span>
+</div>

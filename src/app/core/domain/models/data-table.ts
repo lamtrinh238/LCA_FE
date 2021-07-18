@@ -47,9 +47,9 @@ export class FilterObject {
 export class QueryParamObject {
   constructor(public filter: FilterObject[], public pageIndex: number, public pageSize: number, public sort: SortObject[]) {}
 
-  reset(): void {
-    this.filter = [];
-    this.sort = [];
+  clear(): void {
+    this.filter.length = 0;
+    this.sort.length = 0;
     this.pageIndex = 1;
     this.pageSize = 10;
   }
@@ -74,5 +74,18 @@ export class QueryParamObject {
     }
 
     return filter;
+  }
+}
+
+export abstract class BaseObjectFilterModel {
+  filterTerm: string | null;
+  filterBy: string[] = [];
+  constructor() {}
+
+  toFilterObjects(): FilterObject[] {
+    return this.filterBy.map((by: string) => new FilterObject(by, this.filterTerm === '' ? null : this.filterTerm, 'like'));
+  }
+  clear(): void {
+    this.filterTerm = null;
   }
 }

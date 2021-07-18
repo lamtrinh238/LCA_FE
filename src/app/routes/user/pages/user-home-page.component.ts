@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FilterObject, QueryParamObject, UserModel, UserService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, filter, finalize, switchMap, tap } from 'rxjs/operators';
 import { CreateUserComponent } from '../components/create-user/create-user.component';
+import { UserListComponent } from '../components/user-list/user-list.component';
+import { UserFilterModel } from '../user-filter-model';
 
 @Component({
   templateUrl: './user-home-page.component.html',
@@ -16,7 +18,11 @@ export class UserHomePageComponent implements OnInit {
   fetchDataStart$ = this.fetchDataSource.asObservable();
   isFiltering = false;
   protected queryObject: QueryParamObject;
-  constructor(private _userService: UserService, private _nzModalService: NzModalService) {}
+  filterModel: UserFilterModel;
+  @ViewChild('userListComp') userListCompRef: UserListComponent;
+  constructor(private _userService: UserService, private _nzModalService: NzModalService) {
+    this.filterModel = new UserFilterModel();
+  }
 
   ngOnInit(): void {
     this.users$ = this.fetchDataStart$
@@ -53,15 +59,21 @@ export class UserHomePageComponent implements OnInit {
     });
   }
 
-  onFilter(filterInput: HTMLInputElement): void {
-    console.log(filterInput.value);
-    const filterTerm = filterInput.value;
-    this.queryObject.filter = [new FilterObject('usrFullname', filterTerm, 'like')];
+  clearFilter(): void {
+    this.filterModel.clear();
+    this.queryObject.clear();
+    this.userListCompRef.resetSortAndFilters();
+    this.fetchDataSource.next(this.queryObject);
+  }
+
+  onFilter(): void {
+    this.queryObject.filter = this.filterModel.toFilterObjects();
     this.fetchDataSource.next(this.queryObject);
   }
 
   onFilterParamChanged(queryObject: QueryParamObject): void {
     this.queryObject = queryObject;
+    this.queryObject.filter.push(...this.filterModel.toFilterObjects());
     this.fetchDataSource.next(this.queryObject);
   }
 }

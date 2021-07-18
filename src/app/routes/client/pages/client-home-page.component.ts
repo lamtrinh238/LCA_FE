@@ -4,6 +4,7 @@ import { _HttpClient } from '@delon/theme';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { exhaustMap, filter, finalize, switchMap, tap } from 'rxjs/operators';
 import { ClientListComponent } from '../conponents/client-list/client-list.component';
+import { ClientFilterModel } from '../models/client-filter-model';
 
 @Component({
   templateUrl: './client-home-page.component.html',
@@ -18,10 +19,15 @@ export class ClientHomePageComponent implements OnInit {
   protected queryObject: QueryParamObject;
 
   @ViewChild('clientListComp', { read: ClientListComponent }) clientListCompRef: ClientListComponent;
-  comswValue = ComSWID.none;
+  comswValue = ComSWID.All;
   ComSWID = ComSWID;
 
-  constructor(private clientService: ClientService) {}
+  filterModel: ClientFilterModel;
+
+  constructor(private clientService: ClientService) {
+    this.filterModel = new ClientFilterModel();
+  }
+
   ngOnInit(): void {
     this.clients$ = this.fetchDataStart$
       .pipe(
@@ -42,26 +48,26 @@ export class ClientHomePageComponent implements OnInit {
   }
 
   onChangeComSW(comSw: ComSWID | null): void {
-    this.queryObject.filter = [new FilterObject('ComSW', comSw === ComSWID.none ? null : comSw, 'equal')];
+    this.queryObject.clear();
+    this.queryObject.filter = this.filterModel.toFilterObjects();
     this.fetchDataSource.next(this.queryObject);
   }
 
   clearFilter(): void {
-    this.comswValue = ComSWID.none;
+    this.filterModel.clear();
+    this.queryObject.clear();
     this.clientListCompRef.resetSortAndFilters();
-    this.queryObject.reset();
     this.fetchDataSource.next(this.queryObject);
   }
 
-  onFilter(filterInput: HTMLInputElement): void {
-    console.log(filterInput.value);
-    const filterTerm = filterInput.value;
-    this.queryObject.filter = [new FilterObject('comCompanyname', filterTerm, 'like')];
+  onFilter(): void {
+    this.queryObject.filter = this.filterModel.toFilterObjects();
     this.fetchDataSource.next(this.queryObject);
   }
 
   onFilterParamChanged(queryObject: QueryParamObject): void {
     this.queryObject = queryObject;
+    this.queryObject.filter.push(...this.filterModel.toFilterObjects());
     this.fetchDataSource.next(this.queryObject);
   }
 }

@@ -2,8 +2,8 @@
 
 <nz-row [nzGutter]="[12, 12]">
   <nz-col [nzSpan]="24">
-    <nz-radio-group [(ngModel)]="comswValue" (ngModelChange)="onChangeComSW($event)">
-      <label nz-radio [nzValue]="ComSWID.none">All</label>
+    <nz-radio-group [(ngModel)]="filterModel.comSWID" (ngModelChange)="onChangeComSW($event)">
+      <label nz-radio [nzValue]="ComSWID.All">All</label>
       <label nz-radio [nzValue]="ComSWID.eEPD">eEPD</label>
       <label nz-radio [nzValue]="ComSWID.eKVAM">eKVAM</label>
       <label nz-radio [nzValue]="ComSWID.eCAL">eCAL</label>
@@ -17,7 +17,7 @@
   </nz-col>
   <nz-col [nzSpan]="24">
     <nz-input-group nzSize="large" [nzAddOnBefore]="suffixButton">
-      <input type="text" nz-input placeholder="input search text" (change)="onFilter($event.target)" />
+      <input type="text" nz-input placeholder="input search text" [(ngModel)]="filterModel.filterTerm" (change)="onFilter()" />
     </nz-input-group>
     <ng-template #suffixButton>
       <i nz-icon nzType="search" nzSize="large"></i>
