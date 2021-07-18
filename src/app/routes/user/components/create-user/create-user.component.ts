@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import keys from 'lodash/keys';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'lca-create-user',
@@ -12,7 +13,7 @@ import keys from 'lodash/keys';
 export class CreateUserComponent implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private _nzModalService: NzModalService) {}
 
   // {
   //   "roles": "string",
