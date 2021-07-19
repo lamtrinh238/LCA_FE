@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'lca-user-detail',
   templateUrl: './user-detail.component.html',
+<<<<<<< HEAD
   styleUrls: ['./user-detail.component.less'],
 })
 export class UserDetailComponent {
@@ -79,4 +80,15 @@ export class UserDetailComponent {
   handleCancel(): void {
     this.isVisible = false;
   }
+=======
+  styleUrls: ['./user-detail.component.less']
+})
+export class UserDetailComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+>>>>>>> add-user
 }

@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { BaseDataList, ColumnModel, UserModel } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
+=======
+import { BaseDataList, ColumnModel, FilterObject, QueryParamObject, SortObject, UserModel } from '@core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+>>>>>>> add-user
 
 @Component({
   selector: 'lca-user-list',
