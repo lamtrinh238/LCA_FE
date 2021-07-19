@@ -24,17 +24,19 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of data; let i = index; trackBy: trackByName">
-      <td nz-row [nzAlign]="'middle'" [nzGutter]="[6, 6]">
-        <nz-col>
-          <button nz-button nzSize="small" nzType="default" nzShape="circle">
-            <i nz-icon nzType="edit" (click)="onOpenEdit(user)"></i>
-          </button>
-        </nz-col>
-        <nz-col>
-          <button nz-button nzSize="small" nzType="default" nzShape="circle">
-            <i nz-icon nzType="info" (click)="onOpenView(user)"></i>
-          </button>
-        </nz-col>
+      <td>
+        <nz-row [nzGutter]="[6, 6]" [nzAlign]="'middle'">
+          <nz-col>
+            <button nz-button nzSize="small" nzType="default" nzShape="circle">
+              <i nz-icon nzType="edit" (click)="onOpenEdit(user)"></i>
+            </button>
+          </nz-col>
+          <nz-col>
+            <button nz-button nzSize="small" nzType="default" nzShape="circle">
+              <i nz-icon nzType="info" (click)="onOpenView(user)"></i>
+            </button>
+          </nz-col>
+        </nz-row>
       </td>
       <td>{{ user.usrId }}</td>
       <td>{{ user.usrFullname }}</td>
