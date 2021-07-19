@@ -8,7 +8,7 @@ export class UserModel {
   usrCity?: string;
   usrPhone1?: string;
   usrPhone2?: string;
-  comment?: string;
+  usrComments?: string;
   lastLogin?: string;
   roles?: string;
   usrActive?: number;
