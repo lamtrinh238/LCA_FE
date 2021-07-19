@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { QueryParamObject } from '@core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HttpHelper } from '../../helpers';
 import { UserAddingModel } from '@core';
+import { Observable } from 'rxjs';
+import { HttpHelper } from '../../helpers';
 
 export class BaseService<T extends { [key: string]: any }> {
   constructor(protected baseUrl: string, protected httpClient: HttpClient) {}
