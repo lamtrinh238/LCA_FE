@@ -9,6 +9,7 @@ import { BaseDataList, ColumnModel, UserModel } from '@core';
 })
 export class UserListComponent extends BaseDataList<UserModel> implements OnInit {
   @Output() openUpdateUser = new EventEmitter<UserModel>();
+  @Output() openUserDetail = new EventEmitter<UserModel>();
   constructor(changeDetectorRef: ChangeDetectorRef) {
     super(changeDetectorRef);
   }
@@ -25,6 +26,9 @@ export class UserListComponent extends BaseDataList<UserModel> implements OnInit
     //   nzClosable: false,
     //   nzMaskClosable: false,
     // });
+
+    console.log(user);
+    this.openUserDetail.next(user);
   }
   onOpenEdit(user: UserModel): void {
     console.log(user);
