@@ -21,6 +21,7 @@ export class UserHomePageComponent implements OnInit {
   protected queryObject: QueryParamObject;
   filterModel: UserFilterModel;
   @ViewChild('userListComp') userListCompRef: UserListComponent;
+
   constructor(private _userService: UserService, private _nzModalService: NzModalService) {
     this.filterModel = new UserFilterModel();
   }

@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserHomePageComponent } from './pages/user-home-page.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 const NZ_UI_MODULES = [
   NzFormModule,
@@ -45,7 +46,7 @@ const NZ_UI_MODULES = [
 ];
 
 @NgModule({
-  declarations: [UserHomePageComponent, UserListComponent, CreateUserComponent],
+  declarations: [UserHomePageComponent, UserListComponent, CreateUserComponent, UserDetailComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
 })
 export class UserModule {}

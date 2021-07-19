@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BaseDataList, ColumnModel, FilterObject, QueryParamObject, SortObject, UserModel } from '@core';
-import { UserInfo } from 'os';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'lca-user-list',
@@ -10,7 +9,7 @@ import { UserInfo } from 'os';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent extends BaseDataList<UserModel> implements OnInit {
-  constructor(changeDetectorRef: ChangeDetectorRef) {
+  constructor(changeDetectorRef: ChangeDetectorRef, private _nzModalService: NzModalService) {
     super(changeDetectorRef);
   }
 
