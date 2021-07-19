@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BaseDataList, ColumnModel, FilterObject, QueryParamObject, SortObject, UserModel } from '@core';
-import { UserInfo } from 'os';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { BaseDataList, ColumnModel, UserModel } from '@core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 @Component({
   selector: 'lca-user-list',
@@ -10,14 +10,21 @@ import { UserInfo } from 'os';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent extends BaseDataList<UserModel> implements OnInit {
-  constructor(changeDetectorRef: ChangeDetectorRef) {
+  constructor(changeDetectorRef: ChangeDetectorRef, private _nzModalService: NzModalService) {
     super(changeDetectorRef);
   }
 
   ngOnInit(): void {}
 
   onOpenView(user: UserModel): void {
-    console.log(user);
+    this._nzModalService.create({
+      nzTitle: 'User Detail Information',
+      nzOkText: 'Save',
+      nzWidth: 1024,
+      nzContent: UserDetailComponent,
+      nzClosable: false,
+      nzMaskClosable: false,
+    });
   }
   onOpenEdit(user: UserModel): void {
     console.log(user);
