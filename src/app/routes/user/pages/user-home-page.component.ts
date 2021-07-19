@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { QueryParamObject, UserAddingModel, UserModel, UserService } from '@core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FilterObject, QueryParamObject, UserAddingModel, UserModel, UserService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, finalize, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, finalize, switchMap,  tap } from 'rxjs/operators';
 import { CreateUserComponent } from '../components/create-user/create-user.component';
 import { UserListComponent } from '../components/user-list/user-list.component';
 import { UserFilterModel } from '../user-filter-model';
@@ -39,11 +39,18 @@ export class UserHomePageComponent implements OnInit {
         }),
       );
 
-    this.userCreate$.pipe(switchMap((modalData: UserAddingModel) => this._userService.addUser(modalData))).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-    });
+    this.userCreate$
+      .pipe(
+        switchMap( (modalData: UserAddingModel) => this._userService.addUser(modalData))
+      )
+      .subscribe(
+        {
+          next : (res) => {
+            console.log(res);
+          }
+        }
+      );
+
   }
 
   onOpenAddUser(): void {
