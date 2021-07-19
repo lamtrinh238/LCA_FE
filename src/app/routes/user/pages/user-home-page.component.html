@@ -14,7 +14,11 @@
   </nz-col>
 
   <nz-col [nzSpan]="24">
-    <lca-user-list #userListComp [data]="users$ | async" [isLoading]="isFiltering" (filterParamChanged)="onFilterParamChanged($event)">
+    <lca-user-list
+      #userListComp
+      [data]="users$ | async"
+      [isLoading]="isFiltering"
+      (filterParamChanged)="onFilterParamChanged($event)">
     </lca-user-list>
   </nz-col>
 </nz-row>
