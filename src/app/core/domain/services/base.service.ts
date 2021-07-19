@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { QueryParamObject } from '@core';
-import { UserAddingModel } from '@core';
 import { Observable } from 'rxjs';
 import { HttpHelper } from '../../helpers';
 
@@ -13,7 +12,11 @@ export class BaseService<T extends { [key: string]: any }> {
     });
   }
 
-  addUser(addUserParams: UserAddingModel): Observable<T[]> {
-    return this.httpClient.post<T[]>(this.baseUrl, addUserParams);
+  add(createModel: T): Observable<unknown> {
+    return this.httpClient.post<unknown>(this.baseUrl, createModel);
+  }
+
+  update(id: number | string | undefined, updateModel: T): Observable<unknown> {
+    return this.httpClient.put<unknown>(`${this.baseUrl}/${id}`, updateModel);
   }
 }

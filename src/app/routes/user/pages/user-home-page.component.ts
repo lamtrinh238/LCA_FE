@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/
 import { QueryParamObject, UserAddingModel, UserModel, UserService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, finalize, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, finalize, switchMap, tap } from 'rxjs/operators';
 import { CreateUserComponent } from '../components/create-user/create-user.component';
+import { UpdateUserComponent } from '../components/update-user/update-user.component';
 import { UserListComponent } from '../components/user-list/user-list.component';
 import { UserFilterModel } from '../user-filter-model';
 
@@ -14,8 +15,7 @@ import { UserFilterModel } from '../user-filter-model';
 })
 export class UserHomePageComponent implements OnInit {
   users$: Observable<UserModel[]>;
-  userCreate$ = new Subject<UserAddingModel>();
-  private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
+  private readonly fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
   fetchDataStart$ = this.fetchDataSource.asObservable();
   isFiltering = false;
   protected queryObject: QueryParamObject;
@@ -39,12 +39,6 @@ export class UserHomePageComponent implements OnInit {
           this.isFiltering = false;
         }),
       );
-
-    this.userCreate$.pipe(switchMap((modalData: UserAddingModel) => this._userService.addUser(modalData))).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-    });
   }
 
   onOpenAddUser(): void {
@@ -58,7 +52,43 @@ export class UserHomePageComponent implements OnInit {
       nzOnOk: (contentComponentInstance?: CreateUserComponent) => {
         console.log(contentComponentInstance);
         if (contentComponentInstance?.formGroup.valid) {
-          return this.userCreate$.next(contentComponentInstance.formGroup.value);
+          return this._userService
+            .add(contentComponentInstance?.formGroup.value)
+            .pipe(
+              tap(() => this.fetchDataSource.next(this.queryObject)),
+              delay(1000), // TODO: to test loading indicator.
+            )
+            .toPromise();
+        } else {
+          contentComponentInstance?.showError();
+          return false;
+        }
+      },
+    });
+  }
+
+  onOpenUpdateUser(user: UserModel): void {
+    console.log(user);
+    this._nzModalService.create<UpdateUserComponent, UserModel>({
+      nzComponentParams: {
+        data: user,
+      },
+      nzTitle: 'Update User',
+      nzOkText: 'Save',
+      nzWidth: 1024,
+      nzContent: UpdateUserComponent,
+      nzClosable: false,
+      nzMaskClosable: false,
+      nzOnOk: (contentComponentInstance?: UpdateUserComponent) => {
+        console.log(contentComponentInstance);
+        if (contentComponentInstance?.formGroup.valid) {
+          return this._userService
+            .update(user.usrId, contentComponentInstance?.formGroup.value)
+            .pipe(
+              tap(() => this.fetchDataSource.next(this.queryObject)),
+              delay(1000), // TODO: to test loading indicator.
+            )
+            .toPromise();
         } else {
           contentComponentInstance?.showError();
           return false;

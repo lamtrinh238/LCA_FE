@@ -9,6 +9,6 @@ import { BaseService } from './base.service';
 })
 export class UserService extends BaseService<UserModel> {
   constructor(httpClient: HttpClient) {
-    super(`${environment.api.baseUrl}/api/Users`, httpClient);
+    super(`${environment.api.baseUrl}/api/users`, httpClient);
   }
 }

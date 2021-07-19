@@ -1,12 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BaseDataList, ColumnModel, UserModel } from '@core';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserDetailComponent } from '../user-detail/user-detail.component';
-=======
-import { BaseDataList, ColumnModel, FilterObject, QueryParamObject, SortObject, UserModel } from '@core';
-import { NzModalService } from 'ng-zorro-antd/modal';
->>>>>>> add-user
 
 @Component({
   selector: 'lca-user-list',
@@ -15,24 +8,27 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent extends BaseDataList<UserModel> implements OnInit {
-  constructor(changeDetectorRef: ChangeDetectorRef, private _nzModalService: NzModalService) {
+  @Output() openUpdateUser = new EventEmitter<UserModel>();
+  constructor(changeDetectorRef: ChangeDetectorRef) {
     super(changeDetectorRef);
   }
 
   ngOnInit(): void {}
 
   onOpenView(user: UserModel): void {
-    this._nzModalService.create({
-      nzTitle: 'User Detail Information',
-      nzOkText: 'Save',
-      nzWidth: 1024,
-      nzContent: UserDetailComponent,
-      nzClosable: false,
-      nzMaskClosable: false,
-    });
+    // @cuong don't code like this. see update user as an example
+    // this._nzModalService.create({
+    //   nzTitle: 'User Detail Information',
+    //   nzOkText: 'Save',
+    //   nzWidth: 1024,
+    //   nzContent: UserDetailComponent,
+    //   nzClosable: false,
+    //   nzMaskClosable: false,
+    // });
   }
   onOpenEdit(user: UserModel): void {
     console.log(user);
+    this.openUpdateUser.next(user);
   }
 
   trackByName(index: number, item: UserModel): number | undefined {
