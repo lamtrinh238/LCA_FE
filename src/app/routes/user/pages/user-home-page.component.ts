@@ -108,6 +108,7 @@ export class UserHomePageComponent implements OnInit {
       nzOkText: 'Close',
       nzWidth: 1024,
       nzContent: UserDetailComponent,
+      nzFooter: null,
     });
   }
 

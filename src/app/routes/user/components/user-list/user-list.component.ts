@@ -17,17 +17,6 @@ export class UserListComponent extends BaseDataList<UserModel> implements OnInit
   ngOnInit(): void {}
 
   onOpenView(user: UserModel): void {
-    // @cuong don't code like this. see update user as an example
-    // this._nzModalService.create({
-    //   nzTitle: 'User Detail Information',
-    //   nzOkText: 'Save',
-    //   nzWidth: 1024,
-    //   nzContent: UserDetailComponent,
-    //   nzClosable: false,
-    //   nzMaskClosable: false,
-    // });
-
-    console.log(user);
     this.openUserDetail.next(user);
   }
   onOpenEdit(user: UserModel): void {

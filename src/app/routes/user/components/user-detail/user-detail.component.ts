@@ -11,6 +11,8 @@ export class UserDetailComponent implements OnInit {
 
   @Input() data: UserModel;
 
+  tableDetail: UserModel;
+
   listOfModalColumn = [
     {
       title: 'Roles',
@@ -70,5 +72,7 @@ export class UserDetailComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.tableDetail = this.data;
+  }
 }
