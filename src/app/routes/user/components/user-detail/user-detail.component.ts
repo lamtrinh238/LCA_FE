@@ -7,11 +7,11 @@ import { UserModel } from '@core';
   styleUrls: ['./user-detail.component.less'],
 })
 export class UserDetailComponent implements OnInit {
-  constructor() {}
+  constructor() {
+    console.log(this.data);
+  }
 
   @Input() data: UserModel;
-
-  tableDetail: UserModel;
 
   listOfModalColumn = [
     {
@@ -73,6 +73,6 @@ export class UserDetailComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.tableDetail = this.data;
+    console.log(this.data);
   }
 }

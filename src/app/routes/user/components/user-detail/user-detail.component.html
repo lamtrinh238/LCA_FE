@@ -1,16 +1,22 @@
-<nz-descriptions  nzBordered>
-  <nz-descriptions-item nzTitle="Roles" [nzSpan]="2">{{tableDetail.usrComid}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Type" [nzSpan]="2">{{tableDetail.usrType}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Phone 2" [nzSpan]="2">{{tableDetail.usrPhone2}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Status" [nzSpan]="2">{{tableDetail.usrStatus}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Created TTM" [nzSpan]="2">{{tableDetail.usrCreatedttm}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Created by" [nzSpan]="2">{{tableDetail.usrCreatedby}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Organization" [nzSpan]="2">{{tableDetail.usrOrganization}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Training date" [nzSpan]="2">{{tableDetail.usrTraining}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User Valid date" [nzSpan]="2">{{tableDetail.usrTrainingValid}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User GDPR" [nzSpan]="2">{{tableDetail.usrGdpr}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Last Login" [nzSpan]="2">{{tableDetail.lastLogin}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="User GUID" [nzSpan]="2">{{tableDetail.usrGuid}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Active Status" [nzSpan]="2">{{tableDetail.usrActive}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Approve Status" [nzSpan]="2">{{tableDetail.usrApproved}}</nz-descriptions-item>
+<nz-descriptions nzBordered>
+  <nz-descriptions-item nzTitle="Name" [nzSpan]="2">{{ data.usrFullname }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Login Name" [nzSpan]="2">{{ data.usrLoginname }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Email" [nzSpan]="2">{{ data.usrEmail }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Roles" [nzSpan]="2">{{ data.usrComid }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Type" [nzSpan]="2">{{ data.usrType }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Phone 1" [nzSpan]="2">{{ data.usrPhone1 }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Phone 2" [nzSpan]="2">{{ data.usrPhone2 }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Status" [nzSpan]="2">{{ data.usrStatus }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Created TTM" [nzSpan]="2">{{ data.usrCreatedttm }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Created by" [nzSpan]="2">{{ data.usrCreatedby }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Organization" [nzSpan]="2">{{ data.usrOrganization }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Training date" [nzSpan]="2">{{ data.usrTraining }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Valid date" [nzSpan]="2">{{ data.usrTrainingValid }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User GDPR" [nzSpan]="2">{{ data.usrGdpr }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Last Login" [nzSpan]="2">{{ data.lastLogin }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User GUID" [nzSpan]="2">{{ data.usrGuid }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Active Status" [nzSpan]="2">{{ data.usrActive }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Approve Status" [nzSpan]="3">{{ data.usrApproved }}</nz-descriptions-item>
+  <!-- <nz-descriptions-item nzTitle="" [nzSpan]="2"></nz-descriptions-item> -->
+  <nz-descriptions-item nzTitle="Comments" [nzSpan]="4">{{ data.usrComments }}</nz-descriptions-item>
 </nz-descriptions>
