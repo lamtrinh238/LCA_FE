@@ -11,7 +11,7 @@ import { exhaustMap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientEditComponent implements OnInit {
-  client$: Observable<ClientModel>;
+  client$: ClientModel;
   private fetchDataSource = new BehaviorSubject<undefined>(undefined);
   fetchDataStart$ = this.fetchDataSource.asObservable();
   clientID: string;
@@ -21,7 +21,7 @@ export class ClientEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.clientID = params.clientID;
-      this.client$ = this.fetchDataStart$.pipe(exhaustMap(() => this.clientService.get(params.clientID)));
+      this.clientService.get(params.clientID).subscribe((c: ClientModel) => (this.client$ = c));
     });
   }
 }
