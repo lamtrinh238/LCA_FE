@@ -6,6 +6,10 @@ import { HttpHelper } from '../../helpers';
 export class BaseService<T extends { [key: string]: any }> {
   constructor(protected baseUrl: string, protected httpClient: HttpClient) {}
 
+  get(id: string): Observable<T> {
+    return this.httpClient.get<T>(this.baseUrl + `/${id}`);
+  }
+
   filter(filterParams: QueryParamObject): Observable<T[]> {
     return this.httpClient.get<T[]>(this.baseUrl, {
       params: HttpHelper.objectToHttpParams(filterParams.toApiFilterQuery()),

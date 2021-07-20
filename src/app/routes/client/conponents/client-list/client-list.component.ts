@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseDataList, ClientModel, ColumnModel } from '@core';
 
 @Component({
@@ -8,10 +9,14 @@ import { BaseDataList, ClientModel, ColumnModel } from '@core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientListComponent extends BaseDataList<ClientModel> implements OnInit {
-  constructor(changeDetectorRef: ChangeDetectorRef) {
+  constructor(changeDetectorRef: ChangeDetectorRef, private router: Router) {
     super(changeDetectorRef);
   }
   ngOnInit(): void {}
+
+  goToDetail(id: number): void {
+    this.router.navigate([`client/${id}`]);
+  }
 
   resetSortAndFilters(): void {
     super.resetSortAndFilters();
@@ -24,6 +29,10 @@ export class ClientListComponent extends BaseDataList<ClientModel> implements On
 
   setupColumnModels(): ColumnModel[] {
     return [
+      {
+        title: 'Action',
+        width: '50px',
+      },
       {
         title: 'ID',
         width: '50px',

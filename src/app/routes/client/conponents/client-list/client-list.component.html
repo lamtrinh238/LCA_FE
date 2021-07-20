@@ -23,6 +23,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let company of data; trackBy: trackByName">
+      <td style="text-align: center">
+        <button nz-button nzSize="small" nzType="default" nzShape="circle">
+          <i nz-icon nzType="edit" (click)="goToDetail(company.comId)"></i>
+        </button>
+      </td>
       <td>{{ company.comId }}</td>
       <td>{{ company.comCompanyvat }}</td>
       <td>{{ company.comCompanyname }}</td>
