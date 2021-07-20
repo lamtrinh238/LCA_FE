@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { QueryParamObject, UserAddingModel, UserModel, UserService } from '@core';
+import { QueryParamObject, UserModel, UserService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, filter, finalize, switchMap, tap } from 'rxjs/operators';
 import { CreateUserComponent } from '../components/create-user/create-user.component';
 import { UpdateUserComponent } from '../components/update-user/update-user.component';
+import { UserDetailComponent } from '../components/user-detail/user-detail.component';
 import { UserListComponent } from '../components/user-list/user-list.component';
 import { UserFilterModel } from '../user-filter-model';
 
@@ -94,6 +95,20 @@ export class UserHomePageComponent implements OnInit {
           return false;
         }
       },
+    });
+  }
+
+  onOpenUserDetail(user: UserModel): void {
+    console.log(user);
+    this._nzModalService.create<UserDetailComponent, UserModel>({
+      nzComponentParams: {
+        data: user,
+      },
+      nzTitle: 'User Detail',
+      nzOkText: 'Close',
+      nzWidth: 1024,
+      nzContent: UserDetailComponent,
+      nzFooter: null,
     });
   }
 

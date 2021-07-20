@@ -1,42 +1,16 @@
-<<<<<<< HEAD
-<nz-modal
-  nzCentered="true"
-  nzWidth="600"
-  [(nzVisible)]="isVisible"
-  nzTitle="User Details"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
-  nzCancelText="Close"
-  nzOkDisabled="true"
->
-  <ng-container *nzModalContent>
-    <nz-table nzBordered nzTableLayout="fixed">
-      <thead>
-      <tr>
-        <th *ngFor="let column of listOfModalColumn">{{ column.title }}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let td of userDetailInfo">
-        <td>{{ td.roles }}</td>
-        <td>{{ td.usrType }}</td>
-        <td>{{ td.usrPhone2 }}</td>
-        <td>{{ td.usrStatus }}</td>
-        <td>{{ td.usrCreatedttm }}</td>
-        <td>{{ td.usrCreatedby }}</td>
-        <td>{{ td.usrOrganization }}</td>
-        <td>{{ td.usrTraining }}</td>
-        <td>{{ td.usrTrainingValid }}</td>
-        <td>{{ td.usrGdpr }}</td>
-        <td>{{ td.lastLogin }}</td>
-        <td>{{ td.usrGuid }}</td>
-        <td>{{ td.usrActive }}</td>
-        <td>{{ td.usrApproved }}</td>
-      </tr>
-      </tbody>
-    </nz-table>
-  </ng-container>
-</nz-modal>
-=======
-<p>user-detail works!</p>
->>>>>>> add-user
+<nz-descriptions  nzBordered>
+  <nz-descriptions-item nzTitle="Roles" [nzSpan]="2">{{tableDetail.usrCompid}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Type" [nzSpan]="2">{{tableDetail.usrType}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Phone 2" [nzSpan]="2">{{tableDetail.usrPhone2}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Status" [nzSpan]="2">{{tableDetail.usrStatus}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Created TTM" [nzSpan]="2">{{tableDetail.usrCreatedttm}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Created by" [nzSpan]="2">{{tableDetail.usrCreatedby}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Organization" [nzSpan]="2">{{tableDetail.usrOrganization}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Training date" [nzSpan]="2">{{tableDetail.usrTraining}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User Valid date" [nzSpan]="2">{{tableDetail.usrTrainingValid}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User GDPR" [nzSpan]="2">{{tableDetail.usrGdpr}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Last Login" [nzSpan]="2">{{tableDetail.lastLogin}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="User GUID" [nzSpan]="2">{{tableDetail.usrGuid}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Active Status" [nzSpan]="2">{{tableDetail.usrActive}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Approve Status" [nzSpan]="2">{{tableDetail.usrApproved}}</nz-descriptions-item>
+</nz-descriptions>

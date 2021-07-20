@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { UserRoutingModule } from './user-routing.module';
@@ -44,6 +45,7 @@ const NZ_UI_MODULES = [
   NzGridModule,
   NzIconModule,
   NzDividerModule,
+  NzDescriptionsModule
 ];
 
 @NgModule({
