@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ClientModel, ClientService } from '@core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { exhaustMap } from 'rxjs/operators';
+import { ClientModel } from '@core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'lca-client-edit',
@@ -15,13 +13,24 @@ export class ClientEditComponent implements OnInit {
   private fetchDataSource = new BehaviorSubject<undefined>(undefined);
   fetchDataStart$ = this.fetchDataSource.asObservable();
   clientID: string;
+  selectedClientFeature = 0;
 
-  constructor(private route: ActivatedRoute, private clientService: ClientService) {}
+  features = [
+    'General infomation',
+    'Users',
+    'Companies',
+    'Default values in A2 EPD',
+    'Default values in A3 EPD',
+    'Default values in A4 EPD',
+    'Register setup',
+    'EPD processes',
+  ];
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.clientID = params.clientID;
-      this.clientService.get(params.clientID).subscribe((c: ClientModel) => (this.client$ = c));
-    });
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  onClientFeatureChange(feature: number): void {
+    this.selectedClientFeature = feature;
   }
 }

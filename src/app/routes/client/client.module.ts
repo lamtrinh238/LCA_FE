@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -18,6 +19,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { ClientRoutingModule } from './client-routing.module';
+import { ClientGeneralComponent } from './conponents/client-edit/child/general/client-general.component';
 import { ClientEditComponent } from './conponents/client-edit/client-edit.component';
 import { ClientListComponent } from './conponents/client-list/client-list.component';
 import { ClientHomePageComponent } from './pages/client-home-page.component';
@@ -32,6 +34,7 @@ const NZ_UI_MODULES = [
   NzRadioModule,
   NzTableModule,
   NzTabsModule,
+  NzCardModule,
   NzButtonModule,
   NzGridModule,
   NzAnchorModule,
@@ -43,7 +46,7 @@ const NZ_UI_MODULES = [
   NzDividerModule,
 ];
 
-const COMPONENTS = [ClientHomePageComponent, ClientListComponent, ClientEditComponent];
+const COMPONENTS = [ClientHomePageComponent, ClientListComponent, ClientEditComponent, ClientGeneralComponent];
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ClientRoutingModule, ...NZ_UI_MODULES],

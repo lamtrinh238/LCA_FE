@@ -1,0 +1,35 @@
+<div>
+  <nz-card nzTitle="General infomation" [nzBordered]="false" class="mb-lg">
+    <div *ngIf="client$ !== null">
+      <form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label nzRequired>Company VAT:</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
+                <input nz-input formControlName="usrLoginname" placeholder="Enter your login name" />
+                <ng-template #userErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">Please input your login name!</ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label nzRequired>Logo picture:</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                <input nz-input formControlName="usrEmail" placeholder="email" type="email" />
+                <ng-template #emailErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
+                  <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </form>
+      <h1>details: {{ clientID }}</h1>
+      <h1>name: {{ client$.comCompanyname }}</h1>
+    </div>
+  </nz-card>
+</div>

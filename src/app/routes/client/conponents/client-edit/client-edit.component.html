@@ -1,2 +1,25 @@
-<h1>details: {{ clientID }}</h1>
-<h1>name: {{ client$.comCompanyname }}</h1>
+<div class="alain-default__content-title">
+  <div nz-row>
+    <div nz-col nzFlex="4">
+      <nz-radio-group
+        style="margin-bottom: 8px"
+        nzButtonStyle="solid"
+        [ngModel]="selectedClientFeature"
+        (ngModelChange)="onClientFeatureChange($event)"
+      >
+        <label nz-radio-button *ngFor="let link of features; index as i" [nzValue]="i">{{ link }}</label>
+      </nz-radio-group>
+    </div>
+  </div>
+</div>
+<container-element [ngSwitch]="selectedClientFeature">
+  <some-element *ngSwitchCase="0">
+    <lca-client-general></lca-client-general>
+  </some-element>
+  <some-element *ngSwitchCase="1"> 1 </some-element>
+  <some-element *ngSwitchCase="2"> 2 </some-element>
+  <some-element *ngSwitchCase="3"> 3 </some-element>
+  <some-element *ngSwitchCase="4"> 4 </some-element>
+  <some-element *ngSwitchCase="5"> 5 </some-element>
+  <some-element *ngSwitchDefault>...</some-element>
+</container-element>
