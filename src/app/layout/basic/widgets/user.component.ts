@@ -19,7 +19,7 @@ import { AuthUser } from 'src/app/models/user';
           <i nz-icon nzType="user" class="mr-sm"></i>
           {{ 'menu.account.center' | translate }}
         </div>
-        <div nz-menu-item routerLink="/pro/account/settings">
+        <div nz-menu-item routerLink="account-setting">
           <i nz-icon nzType="setting" class="mr-sm"></i>
           {{ 'menu.account.settings' | translate }}
         </div>
@@ -49,7 +49,7 @@ export class HeaderUserComponent {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  logout() {
+  logout(): void {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
