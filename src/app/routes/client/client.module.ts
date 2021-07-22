@@ -5,6 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -34,6 +36,7 @@ const NZ_UI_MODULES = [
   NzRadioModule,
   NzTableModule,
   NzTabsModule,
+  NzCheckboxModule,
   NzCardModule,
   NzButtonModule,
   NzGridModule,
@@ -41,6 +44,7 @@ const NZ_UI_MODULES = [
   NzIconModule,
   NzPopoverModule,
   NzModalModule,
+  NzDatePickerModule,
   NzGridModule,
   NzIconModule,
   NzDividerModule,
