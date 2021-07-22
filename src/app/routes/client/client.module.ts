@@ -17,6 +17,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
@@ -37,6 +38,7 @@ const NZ_UI_MODULES = [
   NzTableModule,
   NzTabsModule,
   NzCheckboxModule,
+  NzSelectModule,
   NzCardModule,
   NzButtonModule,
   NzGridModule,

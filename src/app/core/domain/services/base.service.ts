@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { QueryParamObject } from '@core';
 import { Observable } from 'rxjs';
 import { HttpHelper } from '../../helpers';
@@ -8,6 +8,11 @@ export class BaseService<T extends { [key: string]: any }> {
 
   get(id: string): Observable<T> {
     return this.httpClient.get<T>(this.baseUrl + `/${id}`);
+  }
+
+  getList(params: HttpParams): Observable<T[]> {
+    const options = { params };
+    return this.httpClient.get<T[]>(this.baseUrl, options);
   }
 
   filter(filterParams: QueryParamObject): Observable<T[]> {

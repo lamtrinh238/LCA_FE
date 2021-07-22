@@ -100,7 +100,9 @@
             <nz-form-item>
               <nz-form-label>Country:</nz-form-label>
               <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comCountry" placeholder="Enter company country" />
+                <nz-select formControlName="comCountry">
+                  <nz-option *ngFor="let option of countries$" [nzLabel]="option.countryName" [nzValue]="option.int"></nz-option>
+                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </nz-col>
@@ -221,7 +223,9 @@
             <nz-form-item>
               <nz-form-label>Client group:</nz-form-label>
               <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comType" placeholder="Enter company management system" />
+                <nz-select formControlName="comType">
+                  <nz-option *ngFor="let option of clientGroups$" [nzLabel]="option.groupName" [nzValue]="option.id"></nz-option>
+                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </nz-col>
