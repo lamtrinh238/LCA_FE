@@ -20,6 +20,7 @@ import {
 @Component({
   selector: 'lca-client-general',
   templateUrl: './client-general.component.html',
+  styleUrls: ['./client-general.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientGeneralComponent implements OnInit {
@@ -31,6 +32,12 @@ export class ClientGeneralComponent implements OnInit {
   baseParams = new HttpParams();
   formGroup: FormGroup;
   applicationOption: {
+    label: string;
+    value: number;
+    checked: boolean;
+  }[] = [];
+
+  pcrOption: {
     label: string;
     value: number;
     checked: boolean;
@@ -65,19 +72,25 @@ export class ClientGeneralComponent implements OnInit {
       });
       this.epdpcrService.getList(this.baseParams).subscribe((cs: EPDPCRModel[]) => {
         this.epdpcrs$ = cs;
+        cs.map((c) => {
+          this.pcrOption.push({
+            label: c.pcrname,
+            value: c.id,
+            checked: this.client$.comPCRLink.find((pcr) => pcr.pcrId === c.id) ? true : false,
+          });
+        });
         this.changeDetectorRef.detectChanges();
       });
       this.programModuleService.getList(this.baseParams).subscribe((cs: ProgramModuleModel[]) => {
         this.programModules$ = cs;
         cs.map((c) => {
-          const a = {
+          this.applicationOption.push({
             label: c.name,
             value: c.id,
             checked: this.client$.comsws.find((csw) => csw.swId === c.id) ? true : false,
-          };
-          this.applicationOption.push(a);
-          this.changeDetectorRef.detectChanges();
+          });
         });
+        this.changeDetectorRef.detectChanges();
       });
     });
 
@@ -110,6 +123,7 @@ export class ClientGeneralComponent implements OnInit {
       comModulSubFase: [0],
       comModulSharing: [0],
       applicationOption: [this.applicationOption],
+      pcrOption: [this.pcrOption],
     });
   }
 }

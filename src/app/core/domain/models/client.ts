@@ -1,4 +1,5 @@
 import { ComSwModel } from './comsw';
+import { PcrLinkModel } from './pcr-link';
 
 export class ClientModel {
   comAdd: string;
@@ -39,6 +40,7 @@ export class ClientModel {
   comZip: string;
   countryName: string;
   comsws: ComSwModel[];
+  comPCRLink: PcrLinkModel[];
 
   constructor() {}
 }

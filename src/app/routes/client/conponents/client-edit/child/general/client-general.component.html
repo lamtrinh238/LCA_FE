@@ -234,12 +234,17 @@
           <nz-col [nzSpan]="12">
             <nz-form-item>
               <nz-form-label>Application:</nz-form-label>
-              <nz-checkbox-group nzSpan="8" formControlName="applicationOption"></nz-checkbox-group>
+              <div ngClass="application">
+                <nz-checkbox-group nzSpan="8" formControlName="applicationOption"></nz-checkbox-group>
+              </div>
             </nz-form-item>
           </nz-col>
           <nz-col [nzSpan]="12">
             <nz-form-item>
               <nz-form-label>PCR:</nz-form-label>
+              <div ngClass="pcr">
+                <nz-checkbox-group nzSpan="8" formControlName="pcrOption"></nz-checkbox-group>
+              </div>
             </nz-form-item>
           </nz-col>
         </nz-row>
