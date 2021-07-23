@@ -1,56 +1,28 @@
 <layout-default [options]="options" [content]="contentTpl">
-  <layout-default-header-item direction="left" hidden="mobile">
+  <!-- <layout-default-header-item direction="left" hidden="mobile">
     <a layout-default-header-item-trigger routerLink="/passport/lock">
       <i nz-icon nzType="lock"></i>
     </a>
-  </layout-default-header-item>
-  <layout-default-header-item direction="left" hidden="pc">
-    <div layout-default-header-item-trigger (click)="searchToggleStatus = !searchToggleStatus">
-      <i nz-icon nzType="search"></i>
-    </div>
-  </layout-default-header-item>
-  <!-- <layout-default-header-item direction="right">
-    <header-notify></header-notify>
   </layout-default-header-item> -->
-  <!-- <layout-default-header-item direction="right" hidden="mobile">
-    <header-task></header-task>
-  </layout-default-header-item> -->
-  <!-- <layout-default-header-item direction="right" hidden="mobile">
-    <header-icon></header-icon>
-  </layout-default-header-item> -->
-  <layout-default-header-item direction="left" hidden="mobile">
-    <!-- <a class="text-white" routerLink="/"> Change system </a> -->
-    <nz-divider [nzType]="'vertical'" class="border-white"></nz-divider>
-    <a class="text-white" routerLink="/"> Switch company </a>
-    <ng-container *ngIf="user.activeCompany">
-      <nz-divider [nzType]="'vertical'" class="border-white"></nz-divider>
-      <a class="text-white" routerLink="/"> {{ user.activeCompany }} </a>
-    </ng-container>
-  </layout-default-header-item>
-  <layout-default-header-item direction="right" hidden="mobile"> </layout-default-header-item>
+  <layout-default-header-item direction="left">
+    <!-- <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-button>
+      <strong>Switch company</strong>
+      <i nz-icon nzType="group" class="ml-sm"></i>
+    </div> -->
 
-  <!-- <layout-default-header-item direction="right" hidden="mobile">
-    <div layout-default-header-item-trigger nz-dropdown [nzDropdownMenu]="settingsMenu" nzTrigger="click"
-      nzPlacement="bottomRight">
-      <i nz-icon nzType="setting"></i>
-    </div>
-    <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
-      <div nz-menu style="width: 200px;">
-        <div nz-menu-item>
-          <header-rtl></header-rtl>
-        </div>
-        <div nz-menu-item>
-          <header-fullscreen></header-fullscreen>
-        </div>
-        <div nz-menu-item>
-          <header-clear-storage></header-clear-storage>
-        </div>
-        <div nz-menu-item>
-          <header-i18n></header-i18n>
-        </div>
-      </div>
-    </nz-dropdown-menu>
-  </layout-default-header-item> -->
+    <nz-select
+      nzShowSearch
+      nzPlaceHolder="Switch company"
+      [(ngModel)]="selectedCompany"
+      [compareWith]="compareFn"
+      (ngModelChange)="onSwitch($event)"
+    >
+      <nz-option *ngFor="let company of companies" [nzValue]="company" [nzLabel]="company.compName">
+        {{ company.compName }}
+      </nz-option>
+    </nz-select>
+  </layout-default-header-item>
+
   <layout-default-header-item direction="right">
     <header-user></header-user>
   </layout-default-header-item>

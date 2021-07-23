@@ -29,6 +29,7 @@ import {
   FullscreenOutline,
   GithubOutline,
   GlobalOutline,
+  GroupOutline,
   HddOutline,
   LaptopOutline,
   LikeOutline,
@@ -111,5 +112,6 @@ export const ICONS_AUTO = [
   TrophyOutline,
   UsbOutline,
   UserOutline,
+  GroupOutline,
   WeiboCircleOutline,
 ];

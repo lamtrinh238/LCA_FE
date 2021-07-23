@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -18,6 +19,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 import { LayoutBasicComponent } from './basic/basic.component';
@@ -63,6 +65,7 @@ const PASSPORT = [LayoutPassportComponent];
     GlobalFooterModule,
     NzDropDownModule,
     NzInputModule,
+    NzButtonModule,
     NzAutocompleteModule,
     NzGridModule,
     NzFormModule,
@@ -72,6 +75,7 @@ const PASSPORT = [LayoutPassportComponent];
     NzIconModule,
     NzCardModule,
     NzDividerModule,
+    NzSelectModule,
   ],
   declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
   exports: [...COMPONENTS, ...PASSPORT],

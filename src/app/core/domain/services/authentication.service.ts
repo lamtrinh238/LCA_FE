@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CacheService } from '@delon/cache';
 import { environment } from '@env/environment';
+import { extend } from 'lodash';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthenticatedUser, AuthUser, LoginRequest } from '../models/user';
@@ -12,9 +13,6 @@ enum SessionKey {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<AuthenticatedUser>;
-  currentUser: Observable<AuthenticatedUser>;
-
   private authStartSource = new Subject<LoginRequest>();
   authStart$ = this.authStartSource.asObservable();
 
@@ -44,7 +42,13 @@ export class AuthenticationService {
   }
 
   get currentUserValue(): AuthenticatedUser {
-    return this.cacheService.getNone<AuthenticatedUser>(SessionKey.AuthenticatedUser);
+    return extend(new AuthenticatedUser(), this.cacheService.getNone<AuthenticatedUser>(SessionKey.AuthenticatedUser));
+  }
+
+  setActiveCompany(comId: number): void {
+    const currentUserValue = this.currentUserValue;
+    currentUserValue.setActiveCompany(comId);
+    this.cacheService.set(SessionKey.AuthenticatedUser, currentUserValue);
   }
 
   hasAuthenticated(): boolean {

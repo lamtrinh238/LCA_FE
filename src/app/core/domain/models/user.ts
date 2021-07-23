@@ -1,3 +1,4 @@
+import { extend } from 'lodash';
 import { ClientModel } from './client';
 
 export class UserModel {
@@ -51,9 +52,20 @@ export class AuthenticatedUser {
   roles: string;
   token: string;
   companies: ClientModel[];
-  activeCompany: string;
+  private _activeCompany: ClientModel;
 
   constructor() {}
+
+  getActiveCompany(): ClientModel {
+    return this._activeCompany;
+  }
+
+  setActiveCompany(companyID: number): void {
+    this._activeCompany = extend(
+      new ClientModel(),
+      this.companies.find((c: ClientModel) => c.comId === companyID),
+    );
+  }
 }
 
 export class LoginRequest {
