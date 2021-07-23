@@ -1,4 +1,4 @@
-<form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+<form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup" >
   <nz-row [nzGutter]="24">
     <nz-col [nzSpan]="24">
       <nz-form-item>
@@ -13,7 +13,7 @@
     </nz-col>
   </nz-row>
   <nz-row nzGutter='24'>
-    <nz-col [nzSpan]="12">
+    <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label nzRequired>Address</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
@@ -25,7 +25,9 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="6">
+  </nz-row>
+  <nz-row nzGutter='24'>
+    <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label nzRequired>Zip</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
@@ -36,7 +38,7 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="6">
+    <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label nzRequired>City</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
@@ -50,7 +52,7 @@
   </nz-row>
 
   <nz-row nzGutter='24'>
-    <nz-col [nzSpan]="12">
+    <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label nzRequired>Email</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
@@ -62,7 +64,10 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="12">
+  </nz-row>
+
+  <nz-row nzGutter='24'>
+    <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label nzRequired>Phone</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
@@ -102,24 +107,18 @@
     </nz-col>
   </nz-row>
 
-<!--  <nz-row >
+  <nz-row class='button' nzJustify='end' nzGutter='24'>
     <nz-form-item>
-      <nz-form-control [nzOffset]="10" >
+      <nz-form-control [nzOffset]="5" >
         <button nz-button nzType="primary">Cancel</button>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-    <nz-form-control [nzOffset]="10" >
-      <button nz-button nzType="primary">Update</button>
+    <nz-form-control [nzOffset]="5" >
+      <button (click)='onUpdate()' nz-button nzType="primary">Update</button>
     </nz-form-control>
     </nz-form-item>
-  </nz-row>-->
+  </nz-row>
 
-
-  <!-- <nz-form-item>
-    <nz-form-control [nzSpan]="12">
-      <button nz-button nzType="primary" color="primary" [disabled]="!formGroup.valid">Submit</button>
-    </nz-form-control>
-  </nz-form-item> -->
 </form>

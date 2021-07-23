@@ -30,4 +30,9 @@ export class AccountSettingComponent implements OnInit {
       this.formGroup.patchValue(data);
     });
   }
+
+  onUpdate(): void {
+    console.log(this.formGroup.value);
+  }
+
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { QueryParamObject } from '@core';
+import { QueryParamObject, UserModel } from '@core';
 import { Observable } from 'rxjs';
 import { HttpHelper } from '../../helpers';
 
@@ -22,5 +22,9 @@ export class BaseService<T extends { [key: string]: any }> {
 
   getCurrentUser(id: number): Observable<unknown> {
     return this.httpClient.get<unknown>(`${this.baseUrl}/${id}`);
+  }
+
+  updateCurrentUser(id: number): Observable<unknown> {
+    return this.httpClient.put<unknown>(`${this.baseUrl}/${id}`, updateModel);
   }
 }
