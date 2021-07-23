@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard, UnAuthGuard } from '@core';
 
 import { LayoutPassportComponent } from '../../layout/passport/passport.component';
 import { CallbackComponent } from './callback.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
       {
         path: 'login',
         component: UserLoginComponent,
+        canActivate: [UnAuthGuard],
         data: { title: 'Log in', titleI18n: 'app.login.login' },
       },
       {

@@ -18,14 +18,14 @@
   <!-- <layout-default-header-item direction="right" hidden="mobile">
     <header-icon></header-icon>
   </layout-default-header-item> -->
-  <layout-default-header-item direction="right" hidden="mobile">
-    <a class="text-white" routerLink="/"> Support </a>
+  <layout-default-header-item direction="left" hidden="mobile">
+    <!-- <a class="text-white" routerLink="/"> Change system </a> -->
     <nz-divider [nzType]="'vertical'" class="border-white"></nz-divider>
-    <a class="text-white" routerLink="/"> Change system </a>
-    <nz-divider [nzType]="'vertical'" class="border-white"></nz-divider>
-    <a class="text-white" routerLink="/"> Change company </a>
-    <nz-divider [nzType]="'vertical'" class="border-white"></nz-divider>
-    <a class="text-white" routerLink="/"> LCA.no AS </a>
+    <a class="text-white" routerLink="/"> Switch company </a>
+    <ng-container *ngIf="user.activeCompany">
+      <nz-divider [nzType]="'vertical'" class="border-white"></nz-divider>
+      <a class="text-white" routerLink="/"> {{ user.activeCompany }} </a>
+    </ng-container>
   </layout-default-header-item>
   <layout-default-header-item direction="right" hidden="mobile"> </layout-default-header-item>
 

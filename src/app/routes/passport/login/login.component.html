@@ -1,10 +1,11 @@
 <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" role="form">
+  <nz-alert *ngIf="error" nzType="error" nzMessage="{{ error }}" nzShowIcon></nz-alert>
   <nz-tabset [nzAnimated]="false" class="tabs">
     <nz-tab [nzTitle]="'Log In'">
       <nz-form-item>
         <nz-form-control nzErrorTip="Please enter your username">
           <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input formControlName="username" placeholder="Username" />
+            <input nz-input formControlName="userName" placeholder="Username" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

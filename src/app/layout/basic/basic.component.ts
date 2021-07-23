@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticatedUser, AuthenticationService } from '@core';
 import { SettingsService, User } from '@delon/theme';
 import { LayoutDefaultOptions } from '@delon/theme/layout-default';
 import { environment } from '@env/environment';
@@ -14,9 +15,9 @@ export class LayoutBasicComponent {
   };
   searchToggleStatus = false;
   showSettingDrawer = !environment.production;
-  get user(): User {
-    return this.settings.user;
+  get user(): AuthenticatedUser {
+    return this.authenticationService.currentUserValue;
   }
 
-  constructor(private settings: SettingsService) {}
+  constructor(private authenticationService: AuthenticationService, private settings: SettingsService) {}
 }
