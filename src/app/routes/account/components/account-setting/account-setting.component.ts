@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from '../../../../core/domain/services/account.service';
+import { UserService } from '@core';
 
 @Component({
   selector: 'lca-account-setting',
@@ -9,30 +9,35 @@ import { AccountService } from '../../../../core/domain/services/account.service
 })
 export class AccountSettingComponent implements OnInit {
   formGroup: FormGroup;
-  constructor(private  _formBuilder: FormBuilder, private _accountService: AccountService) {}
+  constructor(private _formBuilder: FormBuilder, private _userService: UserService) {}
+
+  currentUser = JSON.parse(localStorage.getItem('currentUser')!);
+  currentUserId = this.currentUser.usrId;
 
   ngOnInit(): void {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')!);
-    const currentUserId = currentUser.usrId;
-
     this.formGroup = this._formBuilder.group({
-      usrFullname: ['', [Validators.required]],
-      usrAdd: ['', [Validators.required]],
-      usrZip: ['', [Validators.required]],
-      usrCity: ['', [Validators.required]],
-      usrPhone1: ['', [Validators.required]],
-      usrEmail: ['', [Validators.required]],
-      usrLoginname: ['', [Validators.required]],
-      usrPassword: ['', [Validators.required]],
+      usrFullname: '',
+      usrAdd: '',
+      usrZip: '',
+      usrCity: '',
+      usrPhone1: '',
+      usrEmail: '',
+      usrLoginname: '',
+      usrPassword: '',
     });
-    this._accountService.getCurrentUser(currentUserId).subscribe((data) => {
+    this._userService.getCurrentUser(this.currentUserId).subscribe((data) => {
       // @ts-ignore
       this.formGroup.patchValue(data);
     });
   }
 
-  onUpdate(): void {
+  submitForm(): void {
     console.log(this.formGroup.value);
+    this._userService.updateCurrentUser(this.currentUserId, this.formGroup.value).subscribe({
+      next: (data) => {
+        console.log(data);
+        location.reload();
+      },
+    });
   }
-
 }

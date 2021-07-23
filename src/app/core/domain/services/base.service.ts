@@ -24,7 +24,7 @@ export class BaseService<T extends { [key: string]: any }> {
     return this.httpClient.get<unknown>(`${this.baseUrl}/${id}`);
   }
 
-  updateCurrentUser(id: number): Observable<unknown> {
+  updateCurrentUser(id: number, updateModel: T): Observable<unknown> {
     return this.httpClient.put<unknown>(`${this.baseUrl}/${id}`, updateModel);
   }
 }
