@@ -270,6 +270,18 @@
             </nz-form-item>
           </nz-col>
         </nz-row>
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>Program operator:</nz-form-label>
+              <nz-form-control [nzSm]="16" [nzXs]="24">
+                <nz-select formControlName="comProgramOperator">
+                  <nz-option *ngFor="let option of operators$" [nzLabel]="option.comCompanyname" [nzValue]="option.comId"> </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
       </nz-card>
       <div class="ant-modal-footer">
         <button nz-button>Cancel</button>

@@ -29,14 +29,15 @@ export class ClientGeneralComponent implements OnInit {
   epdpcrs$: EPDPCRModel[];
   programModules$: ProgramModuleModel[];
   clientGroups$: ClientGroupModel[];
-  baseParams = new HttpParams();
+  operators$: ClientModel[];
+
   formGroup: FormGroup;
+
   applicationOption: {
     label: string;
     value: number;
     checked: boolean;
   }[] = [];
-
   pcrOption: {
     label: string;
     value: number;
@@ -61,16 +62,16 @@ export class ClientGeneralComponent implements OnInit {
         this.formGroup.patchValue(this.client$);
         this.changeDetectorRef.detectChanges();
       });
-      this.baseParams.set('Pagesize', '100');
-      this.countryService.getList(this.baseParams).subscribe((cs: CountryModel[]) => {
+      const baseParams = { pageSize: 100, filterText: '' };
+      this.countryService.getList(baseParams).subscribe((cs: CountryModel[]) => {
         this.countries$ = cs;
         this.changeDetectorRef.detectChanges();
       });
-      this.clientGroupService.getList(this.baseParams).subscribe((cs: ClientGroupModel[]) => {
+      this.clientGroupService.getList(baseParams).subscribe((cs: ClientGroupModel[]) => {
         this.clientGroups$ = cs;
         this.changeDetectorRef.detectChanges();
       });
-      this.epdpcrService.getList(this.baseParams).subscribe((cs: EPDPCRModel[]) => {
+      this.epdpcrService.getList(baseParams).subscribe((cs: EPDPCRModel[]) => {
         this.epdpcrs$ = cs;
         cs.map((c) => {
           this.pcrOption.push({
@@ -81,7 +82,7 @@ export class ClientGeneralComponent implements OnInit {
         });
         this.changeDetectorRef.detectChanges();
       });
-      this.programModuleService.getList(this.baseParams).subscribe((cs: ProgramModuleModel[]) => {
+      this.programModuleService.getList(baseParams).subscribe((cs: ProgramModuleModel[]) => {
         this.programModules$ = cs;
         cs.map((c) => {
           this.applicationOption.push({
@@ -90,6 +91,11 @@ export class ClientGeneralComponent implements OnInit {
             checked: this.client$.comsws.find((csw) => csw.swId === c.id) ? true : false,
           });
         });
+        this.changeDetectorRef.detectChanges();
+      });
+      baseParams.filterText = 'ComType[equal]29';
+      this.clientService.getList(baseParams).subscribe((cs: ClientModel[]) => {
+        this.operators$ = cs;
         this.changeDetectorRef.detectChanges();
       });
     });
@@ -120,6 +126,7 @@ export class ClientGeneralComponent implements OnInit {
       comEpdinfo4: ['', []],
       comPaidTo: ['', []],
       comType: [1, []],
+      comProgramOperator: [1, []],
       comModulSubFase: [0],
       comModulSharing: [0],
       applicationOption: [this.applicationOption],
