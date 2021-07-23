@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   ClientGroupModel,
   ClientGroupService,
@@ -16,6 +17,7 @@ import {
   ProgramModuleModel,
   ProgramModuleService,
 } from '@core';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'lca-client-general',
@@ -24,6 +26,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientGeneralComponent implements OnInit {
+  clientID: any;
   @Input() client$: ClientModel;
   countries$: CountryModel[];
   epdpcrs$: EPDPCRModel[];
@@ -44,6 +47,8 @@ export class ClientGeneralComponent implements OnInit {
     checked: boolean;
   }[] = [];
 
+  loadingUpdate = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -53,11 +58,13 @@ export class ClientGeneralComponent implements OnInit {
     private epdpcrService: EpdpcrService,
     private programModuleService: ProgramModuleService,
     private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.clientService.get(params.clientID).subscribe((c: ClientModel) => {
+        this.clientID = params.clientID;
         this.client$ = c;
         this.formGroup.patchValue(this.client$);
         this.changeDetectorRef.detectChanges();
@@ -131,6 +138,28 @@ export class ClientGeneralComponent implements OnInit {
       comModulSharing: [0],
       applicationOption: [this.applicationOption],
       pcrOption: [this.pcrOption],
+      ComSws: [[], []],
+      ComPcrs: [[], []],
     });
+  }
+
+  handleUpdate(): void {
+    this.loadingUpdate = true;
+    const comSws: any[] = [];
+    const comPcrs: any[] = [];
+    this.formGroup.value?.applicationOption.filter((a: any) => a.checked).map((a: any) => comSws.push(a.value));
+    this.formGroup.value?.pcrOption.filter((a: any) => a.checked).map((a: any) => comPcrs.push(a.value));
+    this.formGroup.value.ComSws = comSws;
+    this.formGroup.value.ComPcrs = comPcrs;
+    this.clientService
+      .update(this.clientID, this.formGroup.value)
+      .pipe(
+        finalize(() => {
+          this.loadingUpdate = false;
+          this.changeDetectorRef.detectChanges();
+          this.router.navigate([`client`]);
+        }),
+      )
+      .toPromise();
   }
 }

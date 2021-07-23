@@ -284,8 +284,7 @@
         </nz-row>
       </nz-card>
       <div class="ant-modal-footer">
-        <button nz-button>Cancel</button>
-        <button nz-button nzType="primary">Save</button>
+        <button nz-button nzType="primary" (click)="handleUpdate()" [disabled]="!formGroup.valid" [nzLoading]="loadingUpdate">Save</button>
       </div>
     </form>
   </div>
