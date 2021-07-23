@@ -1,3 +1,5 @@
+import { ComSwModel } from './comsw';
+
 export class ClientModel {
   comAdd: string;
   comBannerLogo: string;
@@ -36,6 +38,7 @@ export class ClientModel {
   comWeb: string;
   comZip: string;
   countryName: string;
+  comsws: ComSwModel[];
 
   constructor() {}
 }

@@ -101,7 +101,7 @@
               <nz-form-label>Country:</nz-form-label>
               <nz-form-control nzHasFeedback>
                 <nz-select formControlName="comCountry">
-                  <nz-option *ngFor="let option of countries$" [nzLabel]="option.countryName" [nzValue]="option.int"></nz-option>
+                  <nz-option *ngFor="let option of countries$" [nzLabel]="option.countryName" [nzValue]="option.int"> </nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
@@ -120,7 +120,7 @@
             <nz-form-item nz-row>
               <nz-form-control>
                 <label nz-checkbox formControlName="comStatus">
-                  <span> Status </span>
+                  <span>Status</span>
                 </label>
               </nz-form-control>
             </nz-form-item>
@@ -224,9 +224,22 @@
               <nz-form-label>Client group:</nz-form-label>
               <nz-form-control nzHasFeedback>
                 <nz-select formControlName="comType">
-                  <nz-option *ngFor="let option of clientGroups$" [nzLabel]="option.groupName" [nzValue]="option.id"></nz-option>
+                  <nz-option *ngFor="let option of clientGroups$" [nzLabel]="option.groupName" [nzValue]="option.id"> </nz-option>
                 </nz-select>
               </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>Application:</nz-form-label>
+              <nz-checkbox-group nzSpan="8" formControlName="applicationOption"></nz-checkbox-group>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>PCR:</nz-form-label>
             </nz-form-item>
           </nz-col>
         </nz-row>
