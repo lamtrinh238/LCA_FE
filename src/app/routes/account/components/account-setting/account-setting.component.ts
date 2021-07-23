@@ -23,7 +23,6 @@ export class AccountSettingComponent implements OnInit {
       usrPhone1: ['', [Validators.required]],
       usrEmail: ['', [Validators.required]],
       usrLoginname: ['', [Validators.required]],
-      usrPassword: ['', [Validators.required]],
     });
     this._userService.getCurrentUser(this.currentUserId).subscribe((data) => {
       // @ts-ignore
