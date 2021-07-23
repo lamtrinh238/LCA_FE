@@ -54,7 +54,7 @@ export class StartupService {
             // Application information: including site name, description, year
             this.settingService.setApp(res.app);
             // User information: including name, avatar, email address
-            this.settingService.setUser(res.user);
+            // this.settingService.setUser(res.user);
             // ACL：Set permissions are full
             this.aclService.setFull(true);
             // Initialization menu

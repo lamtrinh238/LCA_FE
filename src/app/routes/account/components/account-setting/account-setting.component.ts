@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '@core';
+import { AuthenticatedUser, AuthenticationService, UserService } from '@core';
 
 @Component({
   selector: 'lca-account-setting',
@@ -9,12 +9,16 @@ import { UserService } from '@core';
 })
 export class AccountSettingComponent implements OnInit {
   formGroup: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private _userService: UserService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _userService: UserService,
+    private _authenticationService: AuthenticationService,
+  ) {}
 
-  currentUser = JSON.parse(localStorage.getItem('currentUser')!);
-  currentUserId = this.currentUser.usrId;
+  currentUser: AuthenticatedUser;
 
   ngOnInit(): void {
+    this.currentUser = this._authenticationService.currentUserValue;
     this.formGroup = this._formBuilder.group({
       usrFullname: ['', [Validators.required]],
       usrAdd: '',
@@ -24,7 +28,7 @@ export class AccountSettingComponent implements OnInit {
       usrEmail: ['', [Validators.required]],
       usrLoginname: ['', [Validators.required]],
     });
-    this._userService.getCurrentUser(this.currentUserId).subscribe((data) => {
+    this._userService.getCurrentUser(this.currentUser.usrId).subscribe((data) => {
       // @ts-ignore
       this.formGroup.patchValue(data);
     });
@@ -32,7 +36,7 @@ export class AccountSettingComponent implements OnInit {
 
   submitForm(): void {
     console.log(this.formGroup.value);
-    this._userService.updateCurrentUser(this.currentUserId, this.formGroup.value).subscribe({
+    this._userService.updateCurrentUser(this.currentUser.usrId, this.formGroup.value).subscribe({
       next: (data) => {
         console.log(data);
         location.reload();
