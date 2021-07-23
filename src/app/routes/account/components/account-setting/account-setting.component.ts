@@ -16,14 +16,14 @@ export class AccountSettingComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
-      usrFullname: '',
+      usrFullname: ['', [Validators.required]],
       usrAdd: '',
-      usrZip: '',
-      usrCity: '',
-      usrPhone1: '',
-      usrEmail: '',
-      usrLoginname: '',
-      usrPassword: '',
+      usrZip: ['', [Validators.required]],
+      usrCity: ['', [Validators.required]],
+      usrPhone1: ['', [Validators.required]],
+      usrEmail: ['', [Validators.required]],
+      usrLoginname: ['', [Validators.required]],
+      usrPassword: ['', [Validators.required]],
     });
     this._userService.getCurrentUser(this.currentUserId).subscribe((data) => {
       // @ts-ignore
