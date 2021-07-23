@@ -3,11 +3,8 @@
     <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label>Name</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrFullname" />
-          <ng-template #userErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">Please input your login name!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -16,12 +13,8 @@
     <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label>Address</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrAdd" placeholder="Address" />
-          <ng-template #emailErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
-            <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -30,22 +23,16 @@
     <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label>Zip</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrZip" />
-          <ng-template #zipErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">Please input your zip code!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
     <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label>City</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrCity" />
-          <ng-template #zipErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">Please input your zip code!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -55,12 +42,8 @@
     <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label>Email</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrEmail" placeholder="Email" type="email" />
-          <ng-template #emailErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
-            <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -70,11 +53,8 @@
     <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label>Phone</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrPhone1" />
-          <ng-template #zipErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">Please input your zip code!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -84,23 +64,16 @@
     <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label>User Name</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrLoginname" />
-          <ng-template #emailErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
-            <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
     <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label>Password</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
+        <nz-form-control nzHasFeedback>
           <input nz-input formControlName="usrPassword" />
-          <ng-template #zipErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">Please input your zip code!</ng-container>
-          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
