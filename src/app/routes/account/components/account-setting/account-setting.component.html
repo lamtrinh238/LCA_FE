@@ -27,9 +27,10 @@
       <nz-form-item>
         <nz-form-label nzRequired>Zip</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
-          <input nz-input formControlName="usrZip" type="number" />
+          <input nz-input formControlName="usrZip" type="number" minlength="3" />
           <ng-template #zipErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">Please input your zip code!</ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">Not a valid zip code!</ng-container>
           </ng-template>
         </nz-form-control>
       </nz-form-item>
@@ -67,9 +68,9 @@
       <nz-form-item>
         <nz-form-label nzRequired="true">Phone</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
-          <input nz-input formControlName="usrPhone1" type="number" min="1" />
+          <input nz-input formControlName="usrPhone1" minlength="8" />
           <ng-template #phoneErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('number')">Invalid</ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">Not a valid phone number</ng-container>
             <ng-container *ngIf="control.hasError('required')">Please input your phone number</ng-container>
           </ng-template>
         </nz-form-control>
