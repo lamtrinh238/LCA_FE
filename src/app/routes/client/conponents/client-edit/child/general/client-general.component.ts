@@ -14,10 +14,13 @@ import {
   CountryService,
   EPDPCRModel,
   EpdpcrService,
+  FilterObject,
   ProgramModuleModel,
   ProgramModuleService,
+  QueryParamObject,
 } from '@core';
-import { finalize } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, finalize, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'lca-client-general',
@@ -28,13 +31,17 @@ import { finalize } from 'rxjs/operators';
 export class ClientGeneralComponent implements OnInit {
   clientID: any;
   @Input() client$: ClientModel;
-  countries$: CountryModel[];
-  epdpcrs$: EPDPCRModel[];
-  programModules$: ProgramModuleModel[];
-  clientGroups$: ClientGroupModel[];
-  operators$: ClientModel[];
 
   formGroup: FormGroup;
+
+  countries$: Observable<CountryModel[]>;
+  epdpcrs$: Observable<EPDPCRModel[]>;
+  programModules$: Observable<ProgramModuleModel[]>;
+  clientGroups$: Observable<ClientGroupModel[]>;
+  operators$: Observable<ClientModel[]>;
+  private readonly fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
+  fetchDataStart$ = this.fetchDataSource.asObservable();
+  protected queryObject: QueryParamObject;
 
   applicationOption: {
     label: string;
@@ -52,60 +59,85 @@ export class ClientGeneralComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private clientService: ClientService,
-    private countryService: CountryService,
-    private clientGroupService: ClientGroupService,
-    private epdpcrService: EpdpcrService,
-    private programModuleService: ProgramModuleService,
+    private _clientService: ClientService,
+    private _countryService: CountryService,
+    private _clientGroupService: ClientGroupService,
+    private _epdpcrService: EpdpcrService,
+    private _programModuleService: ProgramModuleService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
-  ) {}
+  ) {
+    this.queryObject = new QueryParamObject([], 1, 100, []);
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.clientService.get(params.clientID).subscribe((c: ClientModel) => {
+      this._clientService.get(params.clientID).subscribe((c: ClientModel) => {
         this.clientID = params.clientID;
         this.client$ = c;
         this.formGroup.patchValue(this.client$);
         this.changeDetectorRef.detectChanges();
-      });
-      const baseParams = { pageSize: 100, filterText: '' };
-      this.countryService.getList(baseParams).subscribe((cs: CountryModel[]) => {
-        this.countries$ = cs;
-        this.changeDetectorRef.detectChanges();
-      });
-      this.clientGroupService.getList(baseParams).subscribe((cs: ClientGroupModel[]) => {
-        this.clientGroups$ = cs;
-        this.changeDetectorRef.detectChanges();
-      });
-      this.epdpcrService.getList(baseParams).subscribe((cs: EPDPCRModel[]) => {
-        this.epdpcrs$ = cs;
-        cs.map((c) => {
-          this.pcrOption.push({
-            label: c.pcrname,
-            value: c.id,
-            checked: this.client$.comPCRLink.find((pcr) => pcr.pcrId === c.id) ? true : false,
+
+        this.countries$ = this.fetchDataStart$
+          .pipe(
+            filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+            switchMap(() => this._countryService.filter(this.queryObject)),
+            tap(),
+          )
+          .pipe();
+        this.epdpcrs$ = this.fetchDataStart$
+          .pipe(
+            filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+            switchMap(() => this._epdpcrService.filter(this.queryObject)),
+            tap(),
+          )
+          .pipe();
+        this.epdpcrs$.forEach((e) => {
+          e.map((i) => {
+            this.pcrOption.push({
+              label: i.pcrname,
+              value: i.id,
+              checked: this.client$?.comPCRLink?.find((pcr) => pcr.pcrId === i.id) ? true : false,
+            });
           });
+          this.changeDetectorRef.detectChanges();
         });
-        this.changeDetectorRef.detectChanges();
-      });
-      this.programModuleService.getList(baseParams).subscribe((cs: ProgramModuleModel[]) => {
-        this.programModules$ = cs;
-        cs.map((c) => {
-          this.applicationOption.push({
-            label: c.name,
-            value: c.id,
-            checked: this.client$.comsws.find((csw) => csw.swId === c.id) ? true : false,
+        this.programModules$ = this.fetchDataStart$
+          .pipe(
+            filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+            switchMap(() => this._programModuleService.filter(this.queryObject)),
+            tap(),
+          )
+          .pipe();
+        this.programModules$.forEach((e) => {
+          e.map((i) => {
+            this.applicationOption.push({
+              label: i.name,
+              value: i.id,
+              checked: this.client$?.comsws?.find((sw) => sw.swId === i.id) ? true : false,
+            });
           });
+          this.changeDetectorRef.detectChanges();
         });
-        this.changeDetectorRef.detectChanges();
-      });
-      baseParams.filterText = 'ComType[equal]29';
-      this.clientService.getList(baseParams).subscribe((cs: ClientModel[]) => {
-        this.operators$ = cs;
-        this.changeDetectorRef.detectChanges();
+        this.clientGroups$ = this.fetchDataStart$
+          .pipe(
+            filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+            switchMap(() => this._clientGroupService.filter(this.queryObject)),
+            tap(),
+          )
+          .pipe();
+        this.queryObject.filter.push(new FilterObject('ComType', 29, 'equal'));
+        this.operators$ = this.fetchDataStart$
+          .pipe(
+            filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+            switchMap(() => this._clientService.filter(this.queryObject)),
+            tap(),
+          )
+          .pipe();
       });
     });
+
+    this.fetchDataSource.next(this.queryObject);
 
     this.formGroup = this._formBuilder.group({
       comCompanyvat: ['', []],
@@ -151,7 +183,7 @@ export class ClientGeneralComponent implements OnInit {
     this.formGroup.value?.pcrOption.filter((a: any) => a.checked).map((a: any) => comPcrs.push(a.value));
     this.formGroup.value.ComSws = comSws;
     this.formGroup.value.ComPcrs = comPcrs;
-    this.clientService
+    this._clientService
       .update(this.clientID, this.formGroup.value)
       .pipe(
         finalize(() => {

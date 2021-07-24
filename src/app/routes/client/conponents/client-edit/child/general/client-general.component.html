@@ -88,9 +88,9 @@
           </nz-col>
           <nz-col [nzSpan]="12">
             <nz-form-item>
-              <nz-form-label>Phone 2:</nz-form-label>
+              <nz-form-label>e-mail:</nz-form-label>
               <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comPhone2" placeholder="Enter company phone" />
+                <input nz-input formControlName="comEmail" placeholder="Enter company phone" />
               </nz-form-control>
             </nz-form-item>
           </nz-col>
@@ -101,7 +101,7 @@
               <nz-form-label>Country:</nz-form-label>
               <nz-form-control nzHasFeedback>
                 <nz-select formControlName="comCountry">
-                  <nz-option *ngFor="let option of countries$" [nzLabel]="option.countryName" [nzValue]="option.int"> </nz-option>
+                  <nz-option *ngFor="let option of countries$ | async" [nzLabel]="option.countryName" [nzValue]="option.int"> </nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
@@ -224,7 +224,7 @@
               <nz-form-label>Client group:</nz-form-label>
               <nz-form-control nzHasFeedback>
                 <nz-select formControlName="comType">
-                  <nz-option *ngFor="let option of clientGroups$" [nzLabel]="option.groupName" [nzValue]="option.id"> </nz-option>
+                  <nz-option *ngFor="let option of clientGroups$ | async" [nzLabel]="option.groupName" [nzValue]="option.id"> </nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
@@ -235,7 +235,9 @@
             <nz-form-item>
               <nz-form-label>Application:</nz-form-label>
               <div ngClass="application">
-                <nz-checkbox-group nzSpan="8" formControlName="applicationOption"></nz-checkbox-group>
+                <div nzSpan="8" *ngIf="programModules$ | async as programModule">
+                  <nz-checkbox-group nzSpan="8" formControlName="applicationOption"></nz-checkbox-group>
+                </div>
               </div>
             </nz-form-item>
           </nz-col>
@@ -243,7 +245,9 @@
             <nz-form-item>
               <nz-form-label>PCR:</nz-form-label>
               <div ngClass="pcr">
-                <nz-checkbox-group nzSpan="8" formControlName="pcrOption"></nz-checkbox-group>
+                <div nzSpan="8" *ngIf="epdpcrs$ | async as epdpcr">
+                  <nz-checkbox-group nzSpan="8" formControlName="pcrOption"></nz-checkbox-group>
+                </div>
               </div>
             </nz-form-item>
           </nz-col>
@@ -276,7 +280,8 @@
               <nz-form-label>Program operator:</nz-form-label>
               <nz-form-control [nzSm]="16" [nzXs]="24">
                 <nz-select formControlName="comProgramOperator">
-                  <nz-option *ngFor="let option of operators$" [nzLabel]="option.comCompanyname" [nzValue]="option.comId"> </nz-option>
+                  <nz-option *ngFor="let option of operators$ | async" [nzLabel]="option.comCompanyname" [nzValue]="option.comId">
+                  </nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
