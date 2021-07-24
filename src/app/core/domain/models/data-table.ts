@@ -24,14 +24,14 @@ export class ColumnModel {
 }
 
 export interface UserAddingModel {
-  usrAdd: string;
-  usrCity: string;
-  usrComments: string;
-  usrEmail: string;
-  usrFullname: string;
-  usrLoginname: string;
-  usrPhone1: number;
-  usrZip: number;
+  usrAdd?: string;
+  usrCity?: string;
+  usrComments?: string;
+  usrEmail?: string;
+  usrFullname?: string;
+  usrLoginname?: string;
+  usrPhone1?: number;
+  usrZip?: number;
 }
 export interface ApiFilterObject {
   page: number;
