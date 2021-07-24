@@ -33,7 +33,6 @@ export class UserLoginComponent implements OnInit {
       next: (error: any) => {
         this.loading = false;
         this.error = 'Invalid Username/Password.';
-        this.router.navigateByUrl('dashboard');
       },
     });
 

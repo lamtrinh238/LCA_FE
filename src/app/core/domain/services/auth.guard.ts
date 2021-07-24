@@ -9,10 +9,10 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const currentUser = this.authenticationService.currentUserValue;
-    if (currentUser) {
+    if (this.authenticationService.hasAuthenticated()) {
       return true;
     }
+
     this.router.navigate(['passport/login']);
     return false;
   }
