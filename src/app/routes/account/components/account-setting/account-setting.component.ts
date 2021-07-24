@@ -19,7 +19,7 @@ export class AccountSettingComponent implements OnInit {
 
   currentUser: AuthenticatedUser;
 
-  isLoading: boolean = false;
+  isLoading = false;
 
   ngOnInit(): void {
     this.currentUser = this._authenticationService.currentUserValue;
@@ -40,7 +40,7 @@ export class AccountSettingComponent implements OnInit {
 
   submitForm(): void {
     this.isLoading = true;
-    this._userService.updateCurrentUser(this.currentUser.usrId, this.formGroup.value).subscribe({
+    this._userService.updateCurrentUser(this.currentUser.usrId, this.formGroup.getRawValue()).subscribe({
       next: (data) => {
         this.isLoading = false;
         console.log(this.formGroup);
