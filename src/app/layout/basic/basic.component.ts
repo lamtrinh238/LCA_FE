@@ -30,7 +30,7 @@ export class LayoutBasicComponent {
 
   constructor(private authenticationService: AuthenticationService, private settings: SettingsService) {
     this.user = this.authenticationService.currentUserValue;
-    this.companies = this.user.companies.map((c: ClientModel) => {
+    this.companies = this.user.companies?.map((c: ClientModel) => {
       return {
         comId: c.comId,
         compName: c.comCompanyname,
