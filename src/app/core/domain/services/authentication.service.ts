@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CacheService } from '@delon/cache';
 import { environment } from '@env/environment';
 import { extend } from 'lodash';
@@ -22,7 +23,7 @@ export class AuthenticationService {
   private authSucceedSource = new Subject<AuthenticatedUser>();
   authSucceed$ = this.authSucceedSource.asObservable();
 
-  constructor(private http: HttpClient, private cacheService: CacheService) {
+  constructor(private http: HttpClient, private cacheService: CacheService, private router: Router) {
     this.authStart$.pipe(exhaustMap((loginReq: LoginRequest) => this.login(loginReq))).subscribe({
       next: (res: AuthenticatedUser | HttpErrorResponse) => {
         const succeed = (res as AuthenticatedUser)?.token;
@@ -54,6 +55,7 @@ export class AuthenticationService {
   hasAuthenticated(): boolean {
     return this.currentUserValue?.token !== undefined;
   }
+
   private login(loginRequest: LoginRequest): Observable<AuthenticatedUser | HttpErrorResponse> {
     return this.http.post<AuthenticatedUser>(`${environment.api.baseUrl}/auths/authenticate`, loginRequest).pipe(
       tap((userLogged: AuthenticatedUser) => this.cacheService.set(SessionKey.AuthenticatedUser, userLogged)),
@@ -65,5 +67,10 @@ export class AuthenticationService {
 
   logout(): void {
     this.cacheService.remove(SessionKey.AuthenticatedUser);
+    this.gotoLogin();
+  }
+
+  gotoLogin(): void {
+    this.router.navigate(['passport/login']);
   }
 }
