@@ -30,9 +30,9 @@ export class AccountSettingComponent implements OnInit {
       usrCity: '',
       usrPhone1: '',
       usrEmail: '',
-      usrLoginname: [{ value: '', disabled: true }, [Validators.required]],
+      usrLoginname: ['', [Validators.required]],
     });
-    this._userService.getCurrentUser(this.currentUser.usrId).subscribe((data) => {
+    this._userService.get(this.currentUser.usrId).subscribe((data) => {
       // @ts-ignore
       this.formGroup.patchValue(data);
     });
@@ -40,7 +40,7 @@ export class AccountSettingComponent implements OnInit {
 
   submitForm(): void {
     this.isLoading = true;
-    this._userService.updateCurrentUser(this.currentUser.usrId, this.formGroup.getRawValue()).subscribe({
+    this._userService.update(this.currentUser.usrId, this.formGroup.getRawValue()).subscribe({
       next: (data) => {
         this.isLoading = false;
         console.log(this.formGroup);
@@ -54,6 +54,6 @@ export class AccountSettingComponent implements OnInit {
   }
 
   createAutoUpdatingNotifications(): void {
-    this.notification.blank('Succesful!', 'You have updated your profile');
+    this.notification.blank(`Succesful! ✔ `, 'You have updated your profile');
   }
 }

@@ -23,16 +23,6 @@ export class ColumnModel {
   sortOrder?: string | null = null;
 }
 
-export interface UserAddingModel {
-  usrAdd?: string;
-  usrCity?: string;
-  usrComments?: string;
-  usrEmail?: string;
-  usrFullname?: string;
-  usrLoginname?: string;
-  usrPhone1?: number;
-  usrZip?: number;
-}
 export interface ApiFilterObject {
   page: number;
   pageSize: number;

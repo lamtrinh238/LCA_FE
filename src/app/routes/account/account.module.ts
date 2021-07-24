@@ -11,6 +11,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AccountSettingComponent } from './components/account-setting/account-setting.component';
 import { AccountHomePageComponent } from './pages/account-home-page.component';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [AccountSettingComponent, AccountHomePageComponent],
@@ -25,6 +26,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzButtonModule,
     NzCheckboxModule,
     NzNotificationModule,
+    NzIconModule,
   ],
 })
 export class AccountModule {}
