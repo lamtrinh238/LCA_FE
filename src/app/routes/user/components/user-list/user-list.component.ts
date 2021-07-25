@@ -48,27 +48,39 @@ export class UserListComponent extends BaseDataList<UserModel> implements OnInit
       },
       {
         title: 'Login Name',
+        sort: true,
         width: '200px',
+        sortKey: 'usrLoginname',
       },
       {
         title: 'Email',
+        sort: true,
         width: '200px',
+        sortKey: 'usrEmail',
       },
       {
         title: 'Address',
+        sort: true,
         width: '250px',
+        sortKey: 'usrAdd',
       },
       {
         title: 'Zip',
+        sort: true,
         width: '20px',
+        sortKey: 'usrZip',
       },
       {
         title: 'City',
+        sort: true,
         width: '20px',
+        sortKey: 'usrCity',
       },
       {
         title: 'Phone',
+        sort: true,
         width: '200px',
+        sortKey: 'usrPhone1',
       },
       {
         title: 'Internal Comments',
