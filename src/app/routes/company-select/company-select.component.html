@@ -1,0 +1,7 @@
+<nz-page-header class="site-page-header" [nzTitle]="'Select company' | uppercase"> </nz-page-header>
+
+<nz-row [nzJustify]="'center'">
+  <nz-radio-group [(ngModel)]="selectedCompany" (ngModelChange)="onCompanySelected($event)" nzButtonStyle="solid" nzSize="large">
+    <label *ngFor="let company of companies" nz-radio-button [nzValue]="company.comId">{{ company.compName }}</label>
+  </nz-radio-group>
+</nz-row>

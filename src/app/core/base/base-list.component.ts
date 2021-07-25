@@ -4,7 +4,7 @@ import { ColumnModel, FilterObject, QueryParamObject, SortObject } from '../doma
 @Directive()
 // tslint:disable-next-line: directive-class-suffix
 export abstract class BaseDataList<T> {
-  @Input() data: T[] = [];
+  @Input() data: null | T[] = [];
   @Input() isLoading: boolean;
   @Output() filterParamChanged = new EventEmitter<QueryParamObject>();
   pageSizeOptions = [10, 20, 50, 100];

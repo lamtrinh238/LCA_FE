@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticatedUser, AuthenticationService, LoginRequest } from '@core';
 @Component({
   selector: 'passport-login',
   templateUrl: './login.component.html',
@@ -10,10 +9,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading: boolean = false;
-  submitted: boolean = false;
-
-  error = '';
+  loading = false;
+  error: string | undefined;
 
   constructor(
     private router: Router,
@@ -23,42 +20,50 @@ export class UserLoginComponent implements OnInit {
     private cdr: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+  ngOnInit(): void {
+    this.authenticationService.authSucceed$.subscribe({
+      next: (authenticateduser: AuthenticatedUser) => {
+        this.loading = false;
+        this.error = undefined;
+        this.router.navigateByUrl('dashboard');
+      },
     });
+
+    this.authenticationService.authFailed$.subscribe({
+      next: (error: any) => {
+        this.loading = false;
+        this.error = 'Invalid Username/Password.';
+      },
+    });
+
+    this.loginForm = this.formBuilder.group({
+      userName: ['Administrator', Validators.required],
+      password: ['Marina070485&', Validators.required],
+    });
+
     if (localStorage.currentUser) {
       this.router.navigateByUrl('dashboard');
     }
+
     this.router.navigate(['/passport/login']);
   }
 
-  get f() {
+  get loginControls(): any {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.error = '';
-    this.f.username.markAsDirty();
-    this.f.username.updateValueAndValidity();
-    this.f.password.markAsDirty();
-    this.f.password.updateValueAndValidity();
-    this.submitted = true;
+
     if (this.loginForm.invalid) {
-      this.error = 'Invalid Username/Password. Contact your admin for more infomation';
-      this.loading = true;
-      this.loading = false;
+      this.loginControls.userName.markAsDirty();
+      this.loginControls.userName.updateValueAndValidity();
+      this.loginControls.password.markAsDirty();
+      this.loginControls.password.updateValueAndValidity();
       return;
     }
+
     this.loading = true;
-    this.authenticationService
-      .login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe((data) => {
-        this.loading = true;
-        this.error = '';
-        this.router.navigateByUrl('dashboard');
-      });
+    this.authenticationService.startLogin(this.loginForm.value);
   }
 }
