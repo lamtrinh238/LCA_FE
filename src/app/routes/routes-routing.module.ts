@@ -1,32 +1,46 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@core';
+import { AuthGuard, CompanySelectGuard } from '@core';
 import { SimpleGuard } from '@delon/auth';
 // layout
-import { LayoutBasicComponent } from '../layout/basic/basic.component';
+import { LayoutAuthenticatedComponent } from '../layout/basic/layout-authenticated.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutBasicComponent,
+    component: LayoutAuthenticatedComponent,
+    canActivate: [AuthGuard],
     data: {},
     children: [
-      { path: '', redirectTo: 'user-list', pathMatch: 'full' },
+      { path: '', redirectTo: 'user', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, CompanySelectGuard],
       },
       {
         path: 'account-setting',
         loadChildren: () => import('./account/account.module').then((m) => m.AccountModule),
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, CompanySelectGuard],
       },
       { path: 'delon', loadChildren: () => import('./delon/delon.module').then((m) => m.DelonModule) },
       { path: 'extras', loadChildren: () => import('./extras/extras.module').then((m) => m.ExtrasModule) },
-      { path: 'epd', loadChildren: () => import('./epd/epd.module').then((m) => m.EpdModule), canActivate: [AuthGuard] },
-      { path: 'user', loadChildren: () => import('./user/user.module').then((m) => m.UserModule), canActivate: [AuthGuard] },
-      { path: 'client', loadChildren: () => import('./client/client.module').then((m) => m.ClientModule), canActivate: [AuthGuard] },
+      {
+        path: 'epd',
+        loadChildren: () => import('./epd/epd.module').then((m) => m.EpdModule),
+        canActivate: [AuthGuard, CompanySelectGuard],
+      },
+      {
+        path: 'user',
+        loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+        canActivate: [AuthGuard, CompanySelectGuard],
+      },
+      {
+        path: 'client',
+        loadChildren: () => import('./client/client.module').then((m) => m.ClientModule),
+        canActivate: [AuthGuard, CompanySelectGuard],
+      },
+      { path: 'company-select', loadChildren: () => import('./company-select/company-select.module').then((m) => m.CompanySelectModule) },
     ],
   },
   // passport

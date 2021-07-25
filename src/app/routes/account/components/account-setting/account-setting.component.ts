@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticatedUser, AuthenticationService, UserService } from '@core';
+import { AuthenticatedUser, AuthenticationService, SessionService, UserService } from '@core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -13,7 +13,7 @@ export class AccountSettingComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _userService: UserService,
-    private _authenticationService: AuthenticationService,
+    private _sessionService: SessionService,
     private notification: NzNotificationService,
   ) {}
 
@@ -22,7 +22,7 @@ export class AccountSettingComponent implements OnInit {
   isLoading = false;
 
   ngOnInit(): void {
-    this.currentUser = this._authenticationService.currentUserValue;
+    this.currentUser = this._sessionService.authenticatedUserSnapshot;
     this.formGroup = this._formBuilder.group({
       usrFullname: ['', [Validators.required]],
       usrAdd: '',

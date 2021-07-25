@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticatedUser, AuthenticationService } from '@core';
+import { AuthenticatedUser, AuthenticationService, SessionService } from '@core';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { SettingsService } from '@delon/theme';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   selector: 'header-user',
   template: `
     <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="userMenu">
-      <i nz-icon nzType="user" class="mr-sm"></i> {{ user.usrLoginname }}
+      <i nz-icon nzType="user" class="mr-sm"></i> {{ (user$ | async).usrLoginname }}
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
@@ -37,19 +37,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderUserComponent {
-  get user(): any {
-    return this.authenticateService.currentUserValue;
-  }
-
+  user$: Observable<AuthenticatedUser>;
   constructor(
-    private authenticateService: AuthenticationService,
-    private settings: SettingsService,
-    private router: Router,
+    private sessionService: SessionService,
+    private authenticationService: AuthenticationService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
-  ) {}
+  ) {
+    this.user$ = this.sessionService.authenticatedUser$;
+  }
 
   logout(): void {
     // remove user from local storage and set current user to null
-    this.authenticateService.logout();
+    this.authenticationService.logout();
   }
 }

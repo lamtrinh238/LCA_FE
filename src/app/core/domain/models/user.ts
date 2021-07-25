@@ -76,6 +76,10 @@ export class AuthenticatedUser {
       this.companies.find((c: ClientModel) => c.comId === companyID),
     );
   }
+
+  hasActiveCompany(): boolean {
+    return this._activeCompany?.comId !== undefined;
+  }
 }
 
 export class LoginRequest {

@@ -7,6 +7,7 @@ import { extend } from 'lodash';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthenticatedUser, AuthUser, LoginRequest } from '../models/user';
+import { SessionService } from './session.service';
 
 enum SessionKey {
   AuthenticatedUser = 'AuthenticatedUser',
@@ -23,7 +24,7 @@ export class AuthenticationService {
   private authSucceedSource = new Subject<AuthenticatedUser>();
   authSucceed$ = this.authSucceedSource.asObservable();
 
-  constructor(private http: HttpClient, private cacheService: CacheService, private router: Router) {
+  constructor(private http: HttpClient, private sessionService: SessionService, private router: Router) {
     this.authStart$.pipe(exhaustMap((loginReq: LoginRequest) => this.login(loginReq))).subscribe({
       next: (res: AuthenticatedUser | HttpErrorResponse) => {
         const succeed = (res as AuthenticatedUser)?.token;
@@ -42,23 +43,13 @@ export class AuthenticationService {
     this.authStartSource.next(loginReq);
   }
 
-  get currentUserValue(): AuthenticatedUser {
-    return extend(new AuthenticatedUser(), this.cacheService.getNone<AuthenticatedUser>(SessionKey.AuthenticatedUser));
-  }
-
-  setActiveCompany(comId: number): void {
-    const currentUserValue = this.currentUserValue;
-    currentUserValue.setActiveCompany(comId);
-    this.cacheService.set(SessionKey.AuthenticatedUser, currentUserValue);
-  }
-
   hasAuthenticated(): boolean {
-    return this.currentUserValue?.token !== undefined;
+    return this.sessionService.authenticatedUserSnapshot?.token !== undefined;
   }
 
   private login(loginRequest: LoginRequest): Observable<AuthenticatedUser | HttpErrorResponse> {
     return this.http.post<AuthenticatedUser>(`${environment.api.baseUrl}/auths/authenticate`, loginRequest).pipe(
-      tap((userLogged: AuthenticatedUser) => this.cacheService.set(SessionKey.AuthenticatedUser, userLogged)),
+      tap((userLogged: AuthenticatedUser) => this.sessionService.setSsessionUser(userLogged)),
       catchError((err: HttpErrorResponse) => {
         return of(err);
       }),
@@ -66,7 +57,7 @@ export class AuthenticationService {
   }
 
   logout(): void {
-    this.cacheService.remove(SessionKey.AuthenticatedUser);
+    this.sessionService.destroySession();
     this.gotoLogin();
   }
 
