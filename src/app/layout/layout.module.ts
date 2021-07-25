@@ -22,7 +22,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-import { LayoutBasicComponent } from './basic/basic.component';
+import { LayoutAuthenticatedComponent } from './basic/layout-authenticated.component';
 import { HeaderClearStorageComponent } from './basic/widgets/clear-storage.component';
 import { HeaderFullScreenComponent } from './basic/widgets/fullscreen.component';
 import { HeaderI18nComponent } from './basic/widgets/i18n.component';
@@ -34,7 +34,7 @@ import { HeaderTaskComponent } from './basic/widgets/task.component';
 import { HeaderUserComponent } from './basic/widgets/user.component';
 import { LayoutBlankComponent } from './blank/blank.component';
 
-const COMPONENTS = [LayoutBasicComponent, LayoutBlankComponent];
+const COMPONENTS = [LayoutAuthenticatedComponent, LayoutBlankComponent];
 
 const HEADERCOMPONENTS = [
   HeaderSearchComponent,

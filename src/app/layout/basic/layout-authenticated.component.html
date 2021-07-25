@@ -1,0 +1,18 @@
+<layout-default #layoutRef [options]="options" [content]="contentTpl">
+  <layout-default-header-item direction="left" *ngIf="selectedCompany$ | async as selectedCompany">
+    <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-button (click)="onSelectCompany()">
+      <strong>{{ selectedCompany.compName }}</strong>
+    </div>
+  </layout-default-header-item>
+
+  <layout-default-header-item direction="right">
+    <header-user></header-user>
+  </layout-default-header-item>
+  <ng-template #contentTpl>
+    <router-outlet></router-outlet>
+  </ng-template>
+  <global-footer>
+    Copyright
+    <i nz-icon nzType="copyright"></i> 2021 LCA.no AS
+  </global-footer>
+</layout-default>
