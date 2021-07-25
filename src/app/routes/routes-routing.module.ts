@@ -19,7 +19,7 @@ const routes: Routes = [
         canActivate: [AuthGuard, CompanySelectGuard],
       },
       {
-        path: 'account-setting',
+        path: 'profile',
         loadChildren: () => import('./account/account.module').then((m) => m.AccountModule),
         canActivate: [AuthGuard, CompanySelectGuard],
       },
