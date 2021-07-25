@@ -51,6 +51,5 @@ export class HeaderUserComponent {
   logout(): void {
     // remove user from local storage and set current user to null
     this.authenticateService.logout();
-    this.router.navigate(['passport/login']);
   }
 }
