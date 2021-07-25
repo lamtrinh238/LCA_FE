@@ -6,7 +6,7 @@ import { HttpHelper } from '../../helpers';
 export class BaseService<T extends { [key: string]: any }> {
   constructor(protected baseUrl: string, protected httpClient: HttpClient) {}
 
-  get(id: string): Observable<T> {
+  get(id: string | number): Observable<T> {
     return this.httpClient.get<T>(this.baseUrl + `/${id}`);
   }
 
@@ -28,9 +28,5 @@ export class BaseService<T extends { [key: string]: any }> {
 
   update(id: number | string | undefined, updateModel: T): Observable<unknown> {
     return this.httpClient.put<unknown>(`${this.baseUrl}/${id}`, updateModel);
-  }
-
-  get(id: number): Observable<unknown> {
-    return this.httpClient.get<unknown>(`${this.baseUrl}/${id}`);
   }
 }
