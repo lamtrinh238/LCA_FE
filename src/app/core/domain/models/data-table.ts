@@ -1,21 +1,3 @@
-import { values } from 'lodash';
-import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
-
-// export interface ColumnItem<T> {
-//   name: string;
-//   sortOrder: NzTableSortOrder | null;
-//   sortFn: NzTableSortFn<DataItem> | null;
-//   listOfFilter: NzTableFilterList;
-//   filterFn: NzTableFilterFn<DataItem> | null;
-// }
-
-// filter: []
-// pageIndex: 1
-// pageSize: 10
-// sort: Array(2)
-// 0: {key: "usrId", value: null}
-// 1: {key: "usrFullname", value: "descend"}
-
 export class ColumnModel {
   title: string;
   width?: string;
