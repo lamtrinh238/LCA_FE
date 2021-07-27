@@ -5,7 +5,18 @@ export class ClientFilterModel extends BaseObjectFilterModel {
   constructor() {
     super();
     this.comSWID = ComSWID.All;
-    this.filterBy = ['comCompanyname'];
+    this.filterBy = [
+      'comId',
+      'comCompanyvat',
+      'comCompanyname',
+      'comEmail',
+      'comAdd',
+      'comZip',
+      'comCity',
+      'comPhone1',
+      'comMainContact',
+      'comWeb',
+    ];
   }
   toFilterObjects(): FilterObject[] {
     const filterObjects = super.toFilterObjects();
