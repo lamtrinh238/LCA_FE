@@ -20,6 +20,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
@@ -50,6 +51,6 @@ const NZ_UI_MODULES = [
 
 @NgModule({
   declarations: [UserHomePageComponent, UserListComponent, CreateUserComponent, UserDetailComponent, UpdateUserComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
 })
 export class UserModule {}
