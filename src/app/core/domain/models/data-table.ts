@@ -1,20 +1,3 @@
-import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
-
-// export interface ColumnItem<T> {
-//   name: string;
-//   sortOrder: NzTableSortOrder | null;
-//   sortFn: NzTableSortFn<DataItem> | null;
-//   listOfFilter: NzTableFilterList;
-//   filterFn: NzTableFilterFn<DataItem> | null;
-// }
-
-// filter: []
-// pageIndex: 1
-// pageSize: 10
-// sort: Array(2)
-// 0: {key: "usrId", value: null}
-// 1: {key: "usrFullname", value: "descend"}
-
 export class ColumnModel {
   title: string;
   width?: string;
@@ -26,26 +9,26 @@ export class ColumnModel {
 export interface ApiFilterObject {
   page: number;
   pageSize: number;
-  filterText: string;
+  GlobalSearch: string;
   sortText: string;
 }
 export type FilterOperator = 'like' | 'equal';
 export class SortObject {
-  constructor(public key: string, public value: 'descend' | 'ascend') {}
+  constructor(public key: string, public value: 'descend' | 'ascend') { }
 
   toSortString(): string {
     return `${this.key}.${this.value === 'ascend' ? 'asc' : 'desc'}`;
   }
 }
 export class FilterObject {
-  constructor(public key: string, public value: string | number | null, public operator: FilterOperator) {}
+  constructor(public key: string, public value: string | number | null, public operator: FilterOperator) { }
 
   toFilterString(): string {
-    return [this.key, `[${this.operator}]`, this.value].join('');
+    return [this.key].join('');
   }
 }
 export class QueryParamObject {
-  constructor(public filter: FilterObject[], public pageIndex: number, public pageSize: number, public sort: SortObject[]) {}
+  constructor(public filter: FilterObject[], public pageIndex: number, public pageSize: number, public sort: SortObject[]) { }
 
   clear(): void {
     this.filter.length = 0;
@@ -57,7 +40,7 @@ export class QueryParamObject {
     page: number;
     pageSize: number;
     sortText: string; // usrLoginname.asc
-    filterText: string; // usrLoginname[like]ekonect
+    GlobalSearch: string; // usrLoginname[like]ekonect
   } {
     const filter = {
       page: this.pageIndex,
@@ -70,7 +53,7 @@ export class QueryParamObject {
     }
 
     if (filterApi && filterApi.length > 0) {
-      filter.filterText = filterApi.map((sort: FilterObject) => sort.toFilterString()).join('&');
+      filter.GlobalSearch = filterApi.map((sort: FilterObject) => sort.toFilterString()).join(',') + `[like]${filterApi[0].value}`;
     }
 
     return filter;
@@ -80,7 +63,7 @@ export class QueryParamObject {
 export abstract class BaseObjectFilterModel {
   filterTerm: string | null;
   filterBy: string[] = [];
-  constructor() {}
+  constructor() { }
 
   toFilterObjects(): FilterObject[] {
     return this.filterBy.map((by: string) => new FilterObject(by, this.filterTerm === '' ? null : this.filterTerm, 'like'));
