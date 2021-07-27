@@ -2,12 +2,13 @@
 import { Platform } from '@angular/cdk/platform';
 import { registerLocaleData } from '@angular/common';
 import ngEn from '@angular/common/locales/en';
+import ngNb from '@angular/common/locales/nb';
 import { Injectable } from '@angular/core';
 import { AlainI18NService, DelonLocaleService, en_US as delonEnUS, SettingsService } from '@delon/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { enUS as dfEn } from 'date-fns/locale';
+import { enUS as dfEn, nb as dfNb } from 'date-fns/locale';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { en_US as zorroEnUS, NzI18nService } from 'ng-zorro-antd/i18n';
+import { en_US as zorroEnUS, nb_NO as zorroNbNO, NzI18nService } from 'ng-zorro-antd/i18n';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -28,7 +29,16 @@ const LANGS: { [key: string]: LangData } = {
     zorro: zorroEnUS,
     date: dfEn,
     delon: delonEnUS,
-    abbr: '🇬🇧',
+    abbr: 'GB',
+  },
+
+  'nb-NO': {
+    text: 'Norwegian',
+    ng: ngNb,
+    zorro: zorroNbNO,
+    date: dfNb,
+    delon: delonEnUS,
+    abbr: 'NO',
   },
 };
 
