@@ -13,7 +13,7 @@
       <th
         *ngFor="let column of listOfColumns"
         nzColumnKey="{{ column.sortKey }}"
-        [nzSortFn]="true"
+        [nzSortFn]="column.sort"
         [(nzSortOrder)]="column.sortOrder"
         nzWidth="{{ column.width }}"
       >

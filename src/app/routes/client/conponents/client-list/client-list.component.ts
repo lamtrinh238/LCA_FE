@@ -36,6 +36,7 @@ export class ClientListComponent extends BaseDataList<ClientModel> implements On
       {
         title: 'ID',
         width: '50px',
+        sort: true,
         sortKey: 'comId',
       },
       {
@@ -45,39 +46,48 @@ export class ClientListComponent extends BaseDataList<ClientModel> implements On
       },
       {
         title: 'Name',
+        sort: true,
         sortKey: 'comCompanyname',
       },
       {
         title: 'E-mail',
+        sort: true,
         sortKey: 'comEmail',
       },
       {
         title: 'Address',
+        sort: true,
         sortKey: 'comAdd',
       },
       {
         title: 'ZIP',
         width: '80px',
+        sort: true,
         sortKey: 'comZip',
       },
       {
         title: 'City',
+        sort: true,
         sortKey: 'comCity',
       },
       {
         title: 'Phone',
+        sort: true,
         sortKey: 'comPhone1',
       },
       {
         title: 'Main contact',
+        sort: true,
         sortKey: 'comMainContact',
       },
       {
         title: 'WEB',
+        sort: true,
         sortKey: 'comWeb',
       },
       {
         title: 'Country',
+        sort: true,
         sortKey: 'countryName',
       },
     ];
