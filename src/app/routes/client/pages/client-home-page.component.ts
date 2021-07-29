@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { BaseDataList, ClientModel, ClientService, ComSWID, FilterObject, QueryParamObject } from '@core';
 import { _HttpClient } from '@delon/theme';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { exhaustMap, filter, finalize, switchMap, tap } from 'rxjs/operators';
+import { delay, exhaustMap, filter, finalize, tap } from 'rxjs/operators';
+import { ClientCreateComponent } from '../conponents/client-create/client-create.component';
 import { ClientListComponent } from '../conponents/client-list/client-list.component';
 import { ClientFilterModel } from '../models/client-filter-model';
 
@@ -24,7 +26,7 @@ export class ClientHomePageComponent implements OnInit {
 
   filterModel: ClientFilterModel;
 
-  constructor(private clientService: ClientService) {
+  constructor(private clientService: ClientService, private _nzModalService: NzModalService) {
     this.filterModel = new ClientFilterModel();
   }
 
@@ -44,7 +46,29 @@ export class ClientHomePageComponent implements OnInit {
   }
 
   onOpenAddClient(): void {
-    console.log();
+    this._nzModalService.create({
+      nzTitle: 'Create Client',
+      nzOkText: 'Save',
+      nzWidth: 1024,
+      nzContent: ClientCreateComponent,
+      nzClosable: false,
+      nzMaskClosable: false,
+      nzOnOk: (contentComponentInstance?: ClientCreateComponent) => {
+        console.log(contentComponentInstance);
+        if (contentComponentInstance?.formGroup.valid) {
+          return this.clientService
+            .add(contentComponentInstance?.formGroup.value)
+            .pipe(
+              tap(() => this.fetchDataSource.next(this.queryObject)),
+              delay(1000), // TODO: to test loading indicator.
+            )
+            .toPromise();
+        } else {
+          contentComponentInstance?.showError();
+          return false;
+        }
+      },
+    });
   }
 
   onChangeComSW(comSw: ComSWID | null): void {
