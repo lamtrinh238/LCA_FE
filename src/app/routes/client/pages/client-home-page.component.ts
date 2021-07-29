@@ -19,7 +19,7 @@ export class ClientHomePageComponent implements OnInit {
   protected queryObject: QueryParamObject;
 
   @ViewChild('clientListComp', { read: ClientListComponent }) clientListCompRef: ClientListComponent;
-  comswValue = ComSWID.All;
+  comswValue = ComSWID.eEPD;
   ComSWID = ComSWID;
 
   filterModel: ClientFilterModel;
