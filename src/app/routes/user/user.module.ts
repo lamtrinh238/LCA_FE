@@ -21,10 +21,12 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { UserChangePasswordComponent } from './pages/user-change-password/user-change-password.component';
 import { UserHomePageComponent } from './pages/user-home-page.component';
 
 const NZ_UI_MODULES = [
@@ -47,10 +49,18 @@ const NZ_UI_MODULES = [
   NzIconModule,
   NzDividerModule,
   NzDescriptionsModule,
+  NzCardModule,
 ];
 
 @NgModule({
-  declarations: [UserHomePageComponent, UserListComponent, CreateUserComponent, UserDetailComponent, UpdateUserComponent],
+  declarations: [
+    UserHomePageComponent,
+    UserListComponent,
+    CreateUserComponent,
+    UserDetailComponent,
+    UpdateUserComponent,
+    UserChangePasswordComponent,
+  ],
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
 })
 export class UserModule {}

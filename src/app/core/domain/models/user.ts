@@ -86,3 +86,8 @@ export class LoginRequest {
   userName: string;
   password: string;
 }
+
+export interface PasswordChange {
+  currentPassword: string;
+  newPassword: string;
+}

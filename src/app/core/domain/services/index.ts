@@ -10,3 +10,4 @@ export * from './country.service';
 export * from './client-group.service';
 export * from './program-module.service';
 export * from './epdpcr.service';
+export * from './change-password.service';
