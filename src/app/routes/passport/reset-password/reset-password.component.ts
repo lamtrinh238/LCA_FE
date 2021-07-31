@@ -62,7 +62,10 @@ export class ResetPasswordComponent implements OnInit {
                         return;
                     }
 
-                    this.notification.success('Congrats!', 'Your password has been reset.');
+                    this.notification.success(
+                        this.translateService.instant('common.title.congrats'),
+                        this.translateService.instant('app.reset_password.your_password_has_been_reset'),
+                    );
                 },
                 error: (errRes: HttpErrorResponse) => {
                     this.loading = false;

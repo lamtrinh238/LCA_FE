@@ -55,10 +55,16 @@ export class UserChangePasswordComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.updatingPassword = false;
-                    this.notification.success('Congrats!', 'You have changed password successfully.');
+                    this.notification.success(
+                        this.translateService.instant('common.title.congrats'),
+                        this.translateService.instant('app.reset_password.you_have_changed_password_successfully'),
+                    );
                 },
                 error: (eess: HttpErrorResponse) => {
-                    this.notification.error('Oops!', this.translateService.instant(`error.${eess.error.code}`));
+                    this.notification.error(
+                        this.translateService.instant('common.title.oops'),
+                        this.translateService.instant(`error.${eess.error.code}`.toLowerCase()),
+                    );
                     this.updatingPassword = false;
                 },
             });

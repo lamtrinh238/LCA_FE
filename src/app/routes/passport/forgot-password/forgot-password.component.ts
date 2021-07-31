@@ -47,11 +47,16 @@ export class ForgotPasswordComponent implements OnInit {
                 next: (res: HttpErrorResponse | any) => {
                     this.loading = false;
                     if (res.error) {
-                        this.error = `error.${res.error?.code}`;
+                        this.error = `error.${res.error?.code}`.toLowerCase();
                         return;
                     }
 
-                    this.notification.success('Congrats!', 'Your request has been sent. Please check your inbox.');
+                    this.notification.success(
+                        this.translateService.instant('common.title.congrats'),
+                        this.translateService.instant(
+                            'app.forgot_password.your_request_has_been_sent_please_check_your_inbox',
+                        ),
+                    );
                 },
                 error: (errRes: HttpErrorResponse) => {
                     this.loading = false;
