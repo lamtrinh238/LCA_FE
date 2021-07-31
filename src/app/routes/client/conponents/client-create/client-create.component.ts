@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CountryModel } from '@core';
 import keys from 'lodash/keys';
 
 @Component({
@@ -10,6 +11,8 @@ import keys from 'lodash/keys';
 })
 export class ClientCreateComponent implements OnInit {
   formGroup: FormGroup;
+  @Input() countries: CountryModel[];
+  @Input() comSW: number;
 
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -17,14 +20,15 @@ export class ClientCreateComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
       ComCompanyname: ['', [Validators.required]],
       ComCompanyvat: ['', []],
-      ComEmail: ['', []],
+      ComEmail: ['', [Validators.email]],
       ComAdd: ['', []],
       ComZip: ['', []],
       ComCity: ['', []],
-      ComPhone1: ['', []],
+      ComPhone1: ['', [Validators.pattern('[- +()0-9]+')]],
       ComMainContact: ['', []],
       ComWeb: ['', []],
-      ComCountry: [0, []],
+      ComCountry: [1, []],
+      ComSW: [this.comSW, []],
     });
   }
 
