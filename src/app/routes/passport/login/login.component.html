@@ -1,32 +1,32 @@
 <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" role="form">
-  <nz-alert *ngIf="error" nzType="error" nzMessage="{{ error }}" nzShowIcon></nz-alert>
-  <nz-tabset [nzAnimated]="false" class="tabs">
-    <nz-tab [nzTitle]="'app.login.login' | translate">
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter your username">
-          <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input formControlName="userName" placeholder="Username" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group nzSize="large" nzPrefixIcon="lock">
-            <input nz-input type="password" formControlName="password" placeholder="Password" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-tab>
-  </nz-tabset>
-  <nz-form-item>
-    <nz-col [nzSpan]="12">
-      <label nz-checkbox>{{ 'app.login.remember-me' | translate }}</label>
-    </nz-col>
-    <nz-col [nzSpan]="12" class="text-right">
-      <a class="forgot" routerLink="/">{{ 'app.login.forgot-password' | translate }}</a>
-    </nz-col>
-  </nz-form-item>
-  <nz-form-item>
-    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock>Login</button>
-  </nz-form-item>
+    <nz-alert *ngIf="error" nzType="error" nzMessage="{{ error }}" nzShowIcon></nz-alert>
+    <nz-tabset [nzAnimated]="false" class="tabs">
+        <nz-tab [nzTitle]="'app.login.login' | translate">
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Please enter your username">
+                    <nz-input-group nzSize="large" nzPrefixIcon="user">
+                        <input nz-input formControlName="userName" placeholder="Username" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-input-group nzSize="large" nzPrefixIcon="lock">
+                        <input nz-input type="password" formControlName="password" placeholder="Password" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-tab>
+    </nz-tabset>
+    <nz-form-item>
+        <nz-col [nzSpan]="12">
+            <label nz-checkbox>{{ 'app.login.remember-me' | translate }}</label>
+        </nz-col>
+        <nz-col [nzSpan]="12" class="text-right">
+            <a class="forgot" routerLink="/passport/forgot-password">{{ 'app.login.forgot-password' | translate }}</a>
+        </nz-col>
+    </nz-form-item>
+    <nz-form-item>
+        <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock>Login</button>
+    </nz-form-item>
 </form>
