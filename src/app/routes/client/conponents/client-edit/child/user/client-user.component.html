@@ -1,0 +1,21 @@
+<div>
+  <h4>User List</h4>
+  <nz-table
+    [nzData]="data"
+    nzBordered
+    [nzFrontPagination]="false"
+    [nzLoading]="isLoading"
+    [nzPageSizeOptions]="pageSizeOptions"
+    [nzShowSizeChanger]="true"
+    [nzTotal]="totalRecords"
+    (nzQueryParams)="onQueryParamChange($event)"
+  >
+    <thead>
+      <tr>
+        <th *ngFor="let column of listOfColumns" nzColumnKey="{{ column.sortKey }}" [nzFilterFn]="true">
+          {{ column.title }}
+        </th>
+      </tr>
+    </thead>
+  </nz-table>
+</div>
