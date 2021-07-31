@@ -14,7 +14,18 @@ export class ClientCreateComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.formGroup = this._formBuilder.group({});
+    this.formGroup = this._formBuilder.group({
+      ComCompanyname: ['', [Validators.required]],
+      ComCompanyvat: ['', []],
+      ComEmail: ['', []],
+      ComAdd: ['', []],
+      ComZip: ['', []],
+      ComCity: ['', []],
+      ComPhone1: ['', []],
+      ComMainContact: ['', []],
+      ComWeb: ['', []],
+      ComCountry: [0, []],
+    });
   }
 
   submitForm(value: unknown): void {
