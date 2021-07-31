@@ -38,7 +38,8 @@
     "test-coverage": "ng test --code-coverage --watch=false",
     "color-less": "ng-alain-plugin-theme -t=colorLess",
     "theme": "ng-alain-plugin-theme -t=themeCss",
-    "icon": "ng g ng-alain:plugin icon"
+    "icon": "ng g ng-alain:plugin icon",
+    "deploy": "firebase deploy --only hosting"
   },
   "dependencies": {
     "@angular/animations": "~11.2.14",
