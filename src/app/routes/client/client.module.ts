@@ -22,7 +22,9 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { ClientRoutingModule } from './client-routing.module';
+import { ClientCreateComponent } from './conponents/client-create/client-create.component';
 import { ClientGeneralComponent } from './conponents/client-edit/child/general/client-general.component';
+import { ClientUserComponent } from './conponents/client-edit/child/user/client-user.component';
 import { ClientEditComponent } from './conponents/client-edit/client-edit.component';
 import { ClientListComponent } from './conponents/client-list/client-list.component';
 import { ClientHomePageComponent } from './pages/client-home-page.component';
@@ -52,7 +54,14 @@ const NZ_UI_MODULES = [
   NzDividerModule,
 ];
 
-const COMPONENTS = [ClientHomePageComponent, ClientListComponent, ClientEditComponent, ClientGeneralComponent];
+const COMPONENTS = [
+  ClientHomePageComponent,
+  ClientListComponent,
+  ClientEditComponent,
+  ClientUserComponent,
+  ClientGeneralComponent,
+  ClientCreateComponent,
+];
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ClientRoutingModule, ...NZ_UI_MODULES],
