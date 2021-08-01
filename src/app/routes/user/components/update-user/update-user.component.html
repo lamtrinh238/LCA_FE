@@ -4,7 +4,7 @@
             <nz-form-item>
                 <nz-form-label nzRequired>Login Name</nz-form-label>
                 <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
-                    <input nz-input formControlName="usrLoginname" placeholder="Enter your login name" />
+                    <input nz-input readonly formControlName="usrLoginname" placeholder="Enter your login name" />
                     <ng-template #userErrorTpl let-control>
                         <ng-container *ngIf="control.hasError('required')">Please input your login name!</ng-container>
                     </ng-template>
@@ -15,7 +15,7 @@
             <nz-form-item>
                 <nz-form-label nzRequired>Email</nz-form-label>
                 <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
-                    <input nz-input formControlName="usrEmail" placeholder="email" type="email" />
+                    <input nz-input readonly formControlName="usrEmail" placeholder="email" type="email" />
                     <ng-template #emailErrorTpl let-control>
                         <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
                         <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
