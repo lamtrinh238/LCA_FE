@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { BaseDataList, ColumnModel, UserModel } from '@core';
+import { BaseDataList, ColumnModel, QueryParamObject, UserModel, UserService } from '@core';
+import { delay, filter, finalize, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UserFilterModel } from 'src/app/routes/user/user-filter-model';
+import { environment } from '@env/environment';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'lca-client-user',
@@ -8,11 +13,36 @@ import { BaseDataList, ColumnModel, UserModel } from '@core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientUserComponent extends BaseDataList<UserModel> implements OnInit {
-  constructor(changeDetectorRef: ChangeDetectorRef) {
+  clientUsers$: Observable<UserModel[]>;
+  private readonly fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
+  fetchDataStart$ = this.fetchDataSource.asObservable();
+  isFiltering = false;
+  protected queryObject: QueryParamObject;
+  filterModel: UserFilterModel;
+
+  constructor(private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, private _userService: UserService) {
     super(changeDetectorRef);
+    this.filterModel = new UserFilterModel();
+    this.queryObject = new QueryParamObject([], 1, 100, []);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.clientUsers$ = this.fetchDataStart$
+        .pipe(
+          filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+          tap(() => (this.isFiltering = true)),
+          switchMap(() => this._userService.getList(this.queryObject, `/clients/${params.clientID}`)),
+          tap(() => (this.isFiltering = false)),
+        )
+        .pipe(
+          finalize(() => {
+            this.isFiltering = false;
+          }),
+        );
+      this.fetchDataSource.next(this.queryObject);
+    });
+  }
 
   handleUpdate(): void {}
 
