@@ -3,7 +3,6 @@
 <nz-row [nzGutter]="[12, 12]">
   <nz-col [nzSpan]="24">
     <nz-radio-group [(ngModel)]="filterModel.comSWID" (ngModelChange)="onChangeComSW($event)">
-      <label nz-radio [nzValue]="ComSWID.All">All</label>
       <label nz-radio [nzValue]="ComSWID.eEPD">eEPD</label>
       <label nz-radio [nzValue]="ComSWID.eKVAM">eKVAM</label>
       <label nz-radio [nzValue]="ComSWID.eCAL">eCAL</label>

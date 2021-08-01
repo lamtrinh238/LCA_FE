@@ -1,0 +1,103 @@
+<form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+  <nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>VAT</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="ComCompanyvat" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>Name</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+          <input nz-input formControlName="ComCompanyname" />
+          <ng-template #nameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input company name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Email</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+          <input nz-input formControlName="ComEmail" type="email" />
+          <ng-template #emailErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Address</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="ComAdd" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>ZIP</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="ComZip" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>City</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="ComCity" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Phone</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
+          <input nz-input formControlName="ComPhone1" type="phone" />
+          <ng-template #phoneErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('pattern')">The input is not valid phone number!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Main contact</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="ComMainContact" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>WEB</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="ComWeb" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Country:</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select formControlName="ComCountry">
+            <nz-option *ngFor="let option of countries" [nzLabel]="option.countryName" [nzValue]="option.int"> </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+</form>

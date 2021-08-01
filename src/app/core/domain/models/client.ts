@@ -46,7 +46,6 @@ export class ClientModel {
 }
 
 export enum ComSWID {
-  All = 0,
   eEPD = 1,
   eKVAM = 2,
   eCAL = 3,
