@@ -6,41 +6,41 @@ import keys from 'lodash/keys';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'lca-update-user',
-  templateUrl: './update-user.component.html',
-  styleUrls: ['./update-user.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lca-update-user',
+    templateUrl: './update-user.component.html',
+    styleUrls: ['./update-user.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateUserComponent implements OnInit {
-  formGroup: FormGroup;
-  @Input() data: UserModel;
+    formGroup: FormGroup;
+    @Input() data: UserModel;
 
-  constructor(private _formBuilder: FormBuilder, private _nzModalService: NzModalService) {}
+    constructor(private _formBuilder: FormBuilder, private _nzModalService: NzModalService) {}
 
-  ngOnInit(): void {
-    this.formGroup = this._formBuilder.group({
-      usrLoginname: ['', [Validators.required]],
-      usrEmail: ['', [Validators.email, Validators.required]],
-      usrFullname: ['', [Validators.required]],
-      usrAdd: ['', [Validators.required]],
-      usrZip: ['', [Validators.required]],
-      usrCity: ['', [Validators.required]],
-      usrPhone1: ['', [Validators.required]],
-      // password: ['', [Validators.required]],
-      usrComments: ['', [Validators.required]],
-    });
+    ngOnInit(): void {
+        this.formGroup = this._formBuilder.group({
+            usrLoginname: ['', [Validators.required]],
+            usrEmail: ['', [Validators.email, Validators.required]],
+            usrFullname: ['', [Validators.required]],
+            usrAdd: ['', [Validators.required]],
+            usrZip: ['', [Validators.required]],
+            usrCity: ['', [Validators.required]],
+            usrPhone1: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]],
+            // password: ['', [Validators.required]],
+            usrComments: [''],
+        });
 
-    this.formGroup.patchValue(this.data);
-  }
+        this.formGroup.patchValue(this.data);
+    }
 
-  submitForm(value: unknown): void {
-    console.log(value);
-  }
+    submitForm(value: unknown): void {
+        console.log(value);
+    }
 
-  showError(): void {
-    keys(this.formGroup.controls).forEach((key: string) => {
-      this.formGroup.controls[key].markAsTouched();
-      this.formGroup.controls[key].updateValueAndValidity();
-    });
-  }
+    showError(): void {
+        keys(this.formGroup.controls).forEach((key: string) => {
+            this.formGroup.controls[key].markAsTouched();
+            this.formGroup.controls[key].updateValueAndValidity();
+        });
+    }
 }
