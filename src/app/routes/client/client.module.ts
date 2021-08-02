@@ -23,6 +23,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientCreateComponent } from './conponents/client-create/client-create.component';
+import { ClientCompanyComponent } from './conponents/client-edit/child/company/client-company.component';
 import { ClientGeneralComponent } from './conponents/client-edit/child/general/client-general.component';
 import { ClientUserComponent } from './conponents/client-edit/child/user/client-user.component';
 import { ClientEditComponent } from './conponents/client-edit/client-edit.component';
@@ -61,6 +62,7 @@ const COMPONENTS = [
   ClientUserComponent,
   ClientGeneralComponent,
   ClientCreateComponent,
+  ClientCompanyComponent,
 ];
 
 @NgModule({

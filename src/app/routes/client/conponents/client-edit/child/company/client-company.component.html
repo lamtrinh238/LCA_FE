@@ -1,0 +1,36 @@
+<div>
+  <div nz-row>
+    <div nz-col nzFlex="4">
+      <nz-radio-group
+        style="margin-bottom: 8px"
+        nzButtonStyle="solid"
+        [ngModel]="selectedCompanyType"
+        (ngModelChange)="onCompanyTypeChange($event)"
+      >
+        <label nz-radio-button *ngFor="let t of companyType" [nzValue]="t.value">{{ t.title }}</label>
+      </nz-radio-group>
+    </div>
+  </div>
+  <nz-table [nzLoading]="isLoading" [nzData]="companies$">
+    <thead>
+      <tr>
+        <th *ngFor="let column of listOfColumns" nzColumnKey="{{ column.sortKey }}" [nzSortFn]="column.sort">
+          {{ column.title }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of companies$ | async; trackBy: trackByName">
+        <td>{{ company.comId }}</td>
+        <td>{{ company.comCompanyvat }}</td>
+        <td>{{ company.comCompanyname }}</td>
+        <td>{{ company.comEmail }}</td>
+        <td>{{ company.comAdd }}</td>
+        <td>{{ company.comZip }}</td>
+        <td>{{ company.comCity }}</td>
+        <td>{{ company.comPhone1 }}</td>
+        <td>{{ company.comType }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
