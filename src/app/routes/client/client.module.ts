@@ -29,44 +29,46 @@ import { ClientUserComponent } from './conponents/client-edit/child/user/client-
 import { ClientEditComponent } from './conponents/client-edit/client-edit.component';
 import { ClientListComponent } from './conponents/client-list/client-list.component';
 import { ClientHomePageComponent } from './pages/client-home-page.component';
+import { CreateCompanyLinkComponent } from './conponents/client-edit/child/company/create/create-company-link.component';
 
 const NZ_UI_MODULES = [
-  NzFormModule,
-  NzInputModule,
-  NzButtonModule,
-  NzLayoutModule,
-  NzModalModule,
-  NzPageHeaderModule,
-  NzRadioModule,
-  NzTableModule,
-  NzTabsModule,
-  NzCheckboxModule,
-  NzSelectModule,
-  NzCardModule,
-  NzButtonModule,
-  NzGridModule,
-  NzAnchorModule,
-  NzIconModule,
-  NzPopoverModule,
-  NzModalModule,
-  NzDatePickerModule,
-  NzGridModule,
-  NzIconModule,
-  NzDividerModule,
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    NzLayoutModule,
+    NzModalModule,
+    NzPageHeaderModule,
+    NzRadioModule,
+    NzTableModule,
+    NzTabsModule,
+    NzCheckboxModule,
+    NzSelectModule,
+    NzCardModule,
+    NzButtonModule,
+    NzGridModule,
+    NzAnchorModule,
+    NzIconModule,
+    NzPopoverModule,
+    NzModalModule,
+    NzDatePickerModule,
+    NzGridModule,
+    NzIconModule,
+    NzDividerModule,
 ];
 
 const COMPONENTS = [
-  ClientHomePageComponent,
-  ClientListComponent,
-  ClientEditComponent,
-  ClientUserComponent,
-  ClientGeneralComponent,
-  ClientCreateComponent,
-  ClientCompanyComponent,
+    ClientHomePageComponent,
+    ClientListComponent,
+    ClientEditComponent,
+    ClientUserComponent,
+    ClientGeneralComponent,
+    ClientCreateComponent,
+    ClientCompanyComponent,
+    CreateCompanyLinkComponent,
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ClientRoutingModule, ...NZ_UI_MODULES],
-  declarations: [...COMPONENTS],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ClientRoutingModule, ...NZ_UI_MODULES],
+    declarations: [...COMPONENTS],
 })
 export class ClientModule {}

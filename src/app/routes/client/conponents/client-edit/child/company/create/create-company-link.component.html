@@ -1,10 +1,15 @@
-<div style="width: 100%">
-  <nz-row style="width: 100%" [nzGutter]="24">
-    <nz-col [nzSpan]="12">
-      <span>Company</span>
+<nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="24">
+        <nz-form-item>
+            <nz-form-label>Company</nz-form-label>
+            <nz-select nzShowSearch [(ngModel)]="selectedValue">
+                <nz-option
+                    *ngFor="let option of clients$ | async"
+                    [nzLabel]="option.comCompanyname"
+                    [nzValue]="option.comId"
+                >
+                </nz-option>
+            </nz-select>
+        </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="12">
-      <input nz-input />
-    </nz-col>
-  </nz-row>
-</div>
+</nz-row>
