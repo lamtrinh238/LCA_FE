@@ -4,7 +4,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Login Name</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
-          <input nz-input formControlName="usrLoginname" placeholder="Enter your login name" />
+          <input nz-input readonly formControlName="usrLoginname" placeholder="Enter your login name" />
           <ng-template #userErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">Please input your login name!</ng-container>
           </ng-template>
@@ -15,7 +15,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Email</nz-form-label>
         <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
-          <input nz-input formControlName="usrEmail" placeholder="email" type="email" />
+          <input nz-input readonly formControlName="usrEmail" placeholder="email" type="email" />
           <ng-template #emailErrorTpl let-control>
             <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
             <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
@@ -92,7 +92,7 @@
   </nz-row>
 
   <nz-form-item>
-    <nz-form-label nzRequired>Comment</nz-form-label>
+    <nz-form-label>Comment</nz-form-label>
     <nz-form-control nzErrorTip="Please write something here!">
       <textarea formControlName="usrComments" nz-input rows="2" placeholder="write any thing"></textarea>
     </nz-form-control>
@@ -103,3 +103,35 @@
     </nz-form-control>
   </nz-form-item> -->
 </form>
+
+<h4>Companies user have ralation to:</h4>
+<nz-table [nzData]="UserComLinks" nzBordered [nzLoading]="isLoading" [nzPageSize]="10">
+  <thead>
+    <tr>
+      <th *ngFor="let column of listOfColumns" nzWidth="{{ column.width }}">
+        {{ column.title }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of UserComLinks">
+      <td>{{ user.comId }}</td>
+      <td>{{ user.comCompanyname }}</td>
+      <td>{{ user.comType }}</td>
+      <td>
+        <nz-row [nzGutter]="[6, 6]" [nzAlign]="'middle'">
+          <nz-col>
+            <button nz-button nzSize="small" nzType="default" nzShape="circle">
+              <i nz-icon nzType="plus"></i>
+            </button>
+          </nz-col>
+          <nz-col>
+            <button nz-button nzSize="small" nzType="default" nzShape="circle">
+              <i nz-icon nzType="delete"></i>
+            </button>
+          </nz-col>
+        </nz-row>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
