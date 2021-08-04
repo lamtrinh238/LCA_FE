@@ -25,6 +25,8 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserHomePageComponent } from './pages/user-home-page.component';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 const NZ_UI_MODULES = [
   NzFormModule,
@@ -46,10 +48,24 @@ const NZ_UI_MODULES = [
   NzIconModule,
   NzDividerModule,
   NzDescriptionsModule,
+  NzPaginationModule
 ];
 
 @NgModule({
-  declarations: [UserHomePageComponent, UserListComponent, CreateUserComponent, UserDetailComponent, UpdateUserComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
+  declarations: [
+    UserHomePageComponent,
+    UserListComponent,
+    CreateUserComponent,
+    UserDetailComponent,
+    UpdateUserComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    UserRoutingModule,
+    ...NZ_UI_MODULES,
+    NzSelectModule,
+  ],
 })
 export class UserModule {}

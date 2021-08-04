@@ -10,7 +10,7 @@ export class BaseService<T extends { [key: string]: any }> {
     return this.httpClient.get<T>(this.baseUrl + `/${id}`);
   }
 
-  getList(filterParams: any): Observable<T[]> {
+  getList(filterParams?: any): Observable<T[]> {
     return this.httpClient.get<T[]>(this.baseUrl, {
       params: HttpHelper.objectToHttpParams(filterParams),
     });
