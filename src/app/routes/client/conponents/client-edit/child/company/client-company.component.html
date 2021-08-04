@@ -1,4 +1,8 @@
 <div>
+  <div style="padding-bottom: 24px">
+    <button nz-button nzType="primary" (click)="onOpenAddComLink()">Add Company</button>
+  </div>
+
   <div nz-row>
     <div nz-col nzFlex="4">
       <nz-radio-group
@@ -11,7 +15,7 @@
       </nz-radio-group>
     </div>
   </div>
-  <nz-table [nzLoading]="isLoading" [nzData]="companies$">
+  <nz-table [nzLoading]="isLoading" [nzData]="companies$" nzBordered>
     <thead>
       <tr>
         <th *ngFor="let column of listOfColumns" nzColumnKey="{{ column.sortKey }}" [nzSortFn]="column.sort">

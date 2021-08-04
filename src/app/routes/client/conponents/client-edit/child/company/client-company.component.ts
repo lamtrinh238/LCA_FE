@@ -2,9 +2,11 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BaseDataList, ClientModel, ClientService, ColumnModel, FilterObject, QueryParamObject } from '@core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, switchMap, tap } from 'rxjs/operators';
 import { ClientFilterModel } from 'src/app/routes/client/models/client-filter-model';
+import { CreateCompanyLinkComponent } from './create/create-company-link.component';
 
 @Component({
   selector: 'lca-client-company',
@@ -13,6 +15,7 @@ import { ClientFilterModel } from 'src/app/routes/client/models/client-filter-mo
 })
 export class ClientCompanyComponent extends BaseDataList<ClientModel> implements OnInit {
   companies$: Observable<ClientModel[]>;
+  clients$: Observable<ClientModel[]>;
   private readonly fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
   fetchDataStart$ = this.fetchDataSource.asObservable();
   protected queryObject: QueryParamObject;
@@ -35,7 +38,12 @@ export class ClientCompanyComponent extends BaseDataList<ClientModel> implements
     },
   ];
 
-  constructor(private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, private _clientService: ClientService) {
+  constructor(
+    private route: ActivatedRoute,
+    changeDetectorRef: ChangeDetectorRef,
+    private _clientService: ClientService,
+    private _nzModalService: NzModalService,
+  ) {
     super(changeDetectorRef);
     this.queryObject = new QueryParamObject([], 1, 100, []);
   }
@@ -64,6 +72,34 @@ export class ClientCompanyComponent extends BaseDataList<ClientModel> implements
     this.queryObject = queryObject;
     this.queryObject.filter.push(...this.filterModel.toFilterObjects());
     this.fetchDataSource.next(this.queryObject);
+  }
+
+  onOpenAddComLink(): void {
+    this._nzModalService.create({
+      nzComponentParams: {
+        clients: this.clients$,
+      },
+      nzTitle: 'Create Client',
+      nzOkText: 'Save',
+      nzWidth: 1024,
+      nzContent: CreateCompanyLinkComponent,
+      nzClosable: false,
+      nzMaskClosable: false,
+      nzOnOk: () => {
+        const param = {
+          comId: 0,
+          linkId: 0,
+          type: this.selectedCompanyType,
+        };
+        return this._clientService
+          .addComLink(param)
+          .pipe(
+            tap(() => this.fetchDataSource.next(this.queryObject)),
+            delay(1000), // TODO: to test loading indicator.
+          )
+          .toPromise();
+      },
+    });
   }
 
   setupColumnModels(): ColumnModel[] {

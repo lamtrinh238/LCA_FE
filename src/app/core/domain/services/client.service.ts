@@ -17,4 +17,8 @@ export class ClientService extends BaseService<ClientModel> {
       params: HttpHelper.objectToHttpParams(filterParams.toApiFilterQuery()),
     });
   }
+
+  addComLink(createModel: any): Observable<unknown> {
+    return this.httpClient.post<unknown>(`${environment.api.baseUrl}/api/clients/companies`, createModel);
+  }
 }
