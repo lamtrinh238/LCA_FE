@@ -9,7 +9,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Component({
   selector: 'header-user',
   template: `
-    <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="userMenu">
+    <div
+      class="alain-default__nav-item d-flex align-items-center px-sm"
+      nz-dropdown
+      nzPlacement="bottomRight"
+      [nzDropdownMenu]="userMenu"
+    >
       <i nz-icon nzType="user" class="mr-sm"></i> {{ (user$ | async).usrLoginname }}
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
@@ -18,7 +23,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
           <i nz-icon nzType="user" class="mr-sm"></i>
           {{ 'menu.account.settings' | translate }}
         </div>
-        <div nz-menu-item routerLink="change-password">
+        <div nz-menu-item routerLink="user/change-password">
           <i nz-icon nzType="lock" class="mr-sm"></i>
           {{ 'menu.account.change.password' | translate }}
         </div>

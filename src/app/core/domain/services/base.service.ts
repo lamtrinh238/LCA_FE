@@ -1,9 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { QueryParamObject, UserModel } from '@core';
+import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { HttpHelper } from '../../helpers';
 
 export class BaseService<T extends { [key: string]: any }> {
+  protected baseApiEndpoint = environment.api.baseUrl;
   constructor(protected baseUrl: string, protected httpClient: HttpClient) {}
 
   get(id: string | number): Observable<T> {
