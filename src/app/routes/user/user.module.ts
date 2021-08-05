@@ -20,52 +20,48 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { UserChangePasswordComponent } from './pages/user-change-password/user-change-password.component';
 import { UserHomePageComponent } from './pages/user-home-page.component';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 
 const NZ_UI_MODULES = [
-  NzFormModule,
-  NzInputModule,
-  NzButtonModule,
-  NzLayoutModule,
-  NzModalModule,
-  NzPageHeaderModule,
-  NzRadioModule,
-  NzTableModule,
-  NzTabsModule,
-  NzButtonModule,
-  NzGridModule,
-  NzAnchorModule,
-  NzIconModule,
-  NzPopoverModule,
-  NzModalModule,
-  NzGridModule,
-  NzIconModule,
-  NzDividerModule,
-  NzDescriptionsModule,
-  NzPaginationModule
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    NzLayoutModule,
+    NzModalModule,
+    NzPageHeaderModule,
+    NzRadioModule,
+    NzTableModule,
+    NzTabsModule,
+    NzButtonModule,
+    NzGridModule,
+    NzAnchorModule,
+    NzIconModule,
+    NzPopoverModule,
+    NzModalModule,
+    NzGridModule,
+    NzIconModule,
+    NzDividerModule,
+    NzDescriptionsModule,
+    NzPaginationModule,
 ];
 
 @NgModule({
-  declarations: [
-    UserHomePageComponent,
-    UserListComponent,
-    CreateUserComponent,
-    UserDetailComponent,
-    UpdateUserComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    UserRoutingModule,
-    ...NZ_UI_MODULES,
-    NzSelectModule,
-  ],
+    declarations: [
+        UserHomePageComponent,
+        UserListComponent,
+        CreateUserComponent,
+        UserDetailComponent,
+        UpdateUserComponent,
+    ],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES, NzSelectModule],
 })
 export class UserModule {}

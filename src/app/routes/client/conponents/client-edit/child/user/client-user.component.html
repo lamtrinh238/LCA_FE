@@ -1,0 +1,36 @@
+<div>
+    <h4>User List</h4>
+    <nz-table
+        [nzData]="clientUsers$"
+        nzBordered
+        [nzFrontPagination]="false"
+        [nzLoading]="isLoading"
+        [nzTotal]="10"
+        [nzShowSizeChanger]="true"
+        (nzQueryParams)="onQueryParamChange($event)"
+    >
+        <thead>
+            <tr>
+                <th *ngFor="let column of listOfColumns" nzColumnKey="{{ column.sortKey }}" [nzFilterFn]="true">
+                    {{ column.title }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of clientUsers$ | async">
+                <td>{{ user.usrId }}</td>
+                <td>{{ user.usrType }}</td>
+                <td>{{ user.usrFullname }}</td>
+                <td>{{ user.usrEmail }}</td>
+                <td>{{ user.usrPhone1 }}</td>
+                <td>{{ user.usrPhone2 }}</td>
+                <td>{{ user.usrCreatedttm.substring(0, 10) }}</td>
+                <td>{{ user.usrTraining ? user.usrTraining?.substring(0, 10) : '' }}</td>
+                <td>{{ user.usrTrainingValid ? user.usrTrainingValid?.substring(0, 10) : '' }}</td>
+                <td>
+                    <label nz-checkbox [nzDisabled]="true" [(ngModel)]="user.usrActive"> </label>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

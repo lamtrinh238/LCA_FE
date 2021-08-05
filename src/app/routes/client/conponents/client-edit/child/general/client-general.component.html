@@ -1,296 +1,347 @@
 <div>
-  <div *ngIf="client$ !== null">
-    <form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup">
-      <nz-card nzTitle="General infomation" [nzBordered]="false" class="mb-lg">
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Company VAT:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comCompanyvat" placeholder="Enter company VAT" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Logo picture:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comLogo" placeholder="comLogo" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label nzRequired>Company Name:</nz-form-label>
-              <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
-                <input nz-input formControlName="comCompanyname" placeholder="Enter company name" />
-                <ng-template #nameErrorTpl let-control>
-                  <ng-container *ngIf="control.hasError('required')">Please input company name</ng-container>
-                </ng-template>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Phone 1:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comPhone1" placeholder="Enter company phone" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Address:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comAdd" placeholder="Enter company address" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Phone 2:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comPhone2" placeholder="Enter company phone" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Zip:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comZip" placeholder="Enter company zip" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Main contact:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comMainContact" placeholder="Enter company contact" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>City:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comCity" placeholder="Enter company ciry" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>e-mail:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comEmail" placeholder="Enter company phone" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Country:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <nz-select formControlName="comCountry">
-                  <nz-option *ngFor="let option of countries$ | async" [nzLabel]="option.countryName" [nzValue]="option.int"> </nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>WEB address:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comWeb" placeholder="Enter company web" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item nz-row>
-              <nz-form-control>
-                <label nz-checkbox formControlName="comStatus">
-                  <span>Status</span>
-                </label>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Created date:</nz-form-label>
-              <nz-form-control [nzSm]="16" [nzXs]="24">
-                <nz-date-picker type formControlName="comCreatedttm"></nz-date-picker>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>GUID:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comGuid" placeholder="Enter company guid" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>API token:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comWeb" placeholder="Enter company api token" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-      </nz-card>
-      <nz-card nzTitle="General infomation" [nzBordered]="false" class="mb-lg">
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Page text:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comPageText" placeholder="Enter company page text" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Management system:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <input nz-input formControlName="comManagmentSys" placeholder="Enter company management system" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Infomation 1:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <textarea nz-input rows="2" formControlName="comEpdinfo1" placeholder="Enter company infomation 1"></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Infomation 2:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <textarea nz-input rows="2" formControlName="comEpdinfo2" placeholder="Enter company infomation 2"></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Infomation 3:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <textarea nz-input rows="2" formControlName="comEpdinfo3" placeholder="Enter company infomation 3"></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Infomation 4:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <textarea nz-input rows="2" formControlName="comEpdinfo4" placeholder="Enter company infomation 4"></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-      </nz-card>
-      <nz-card nzTitle="License" [nzBordered]="false" class="mb-lg">
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Paid to:</nz-form-label>
-              <nz-form-control [nzSm]="16" [nzXs]="24">
-                <nz-date-picker type formControlName="comPaidTo"></nz-date-picker>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Client group:</nz-form-label>
-              <nz-form-control nzHasFeedback>
-                <nz-select formControlName="comType">
-                  <nz-option *ngFor="let option of clientGroups$ | async" [nzLabel]="option.groupName" [nzValue]="option.id"> </nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Application:</nz-form-label>
-              <div ngClass="application">
-                <div nzSpan="8" *ngIf="programModules$ | async as programModule">
-                  <nz-checkbox-group nzSpan="8" formControlName="applicationOption"></nz-checkbox-group>
-                </div>
-              </div>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>PCR:</nz-form-label>
-              <div ngClass="pcr">
-                <div nzSpan="8" *ngIf="epdpcrs$ | async as epdpcr">
-                  <nz-checkbox-group nzSpan="8" formControlName="pcrOption"></nz-checkbox-group>
-                </div>
-              </div>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Modul sub fase:</nz-form-label>
-              <nz-form-control [nzSm]="16" [nzXs]="24">
-                <nz-radio-group formControlName="comModulSubFase">
-                  <label nz-radio [nzValue]="0">Traditional A2 registration</label>
-                  <label nz-radio [nzValue]="1">Sub fase registration</label>
-                </nz-radio-group>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Modul sharing:</nz-form-label>
-              <nz-radio-group formControlName="comModulSharing">
-                <label nz-radio [nzValue]="0">No sharing</label>
-                <label nz-radio [nzValue]="1">Modul sharing</label>
-              </nz-radio-group>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-        <nz-row [nzGutter]="24">
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>Program operator:</nz-form-label>
-              <nz-form-control [nzSm]="16" [nzXs]="24">
-                <nz-select formControlName="comProgramOperator">
-                  <nz-option *ngFor="let option of operators$ | async" [nzLabel]="option.comCompanyname" [nzValue]="option.comId">
-                  </nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-      </nz-card>
-      <div class="ant-modal-footer">
-        <button nz-button nzType="primary" (click)="handleUpdate()" [disabled]="!formGroup.valid" [nzLoading]="loadingUpdate">Save</button>
-      </div>
-    </form>
-  </div>
+    <div *ngIf="client$ !== null">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup">
+            <nz-card nzTitle="Company infomation" [nzBordered]="false" class="mb-lg">
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Company VAT:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comCompanyvat" placeholder="Enter company VAT" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Logo picture:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comLogo" placeholder="comLogo" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label nzRequired>Company Name:</nz-form-label>
+                            <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+                                <input nz-input formControlName="comCompanyname" placeholder="Enter company name" />
+                                <ng-template #nameErrorTpl let-control>
+                                    <ng-container *ngIf="control.hasError('required')"
+                                        >Please input company name</ng-container
+                                    >
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Phone 1:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comPhone1" placeholder="Enter company phone" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Address:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comAdd" placeholder="Enter company address" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Phone 2:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comPhone2" placeholder="Enter company phone" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Zip:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comZip" placeholder="Enter company zip" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Main contact:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comMainContact" placeholder="Enter company contact" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>City:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comCity" placeholder="Enter company ciry" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>e-mail:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comEmail" placeholder="Enter company phone" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Country:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <nz-select formControlName="comCountry">
+                                    <nz-option
+                                        *ngFor="let option of countries$ | async"
+                                        [nzLabel]="option.countryName"
+                                        [nzValue]="option.int"
+                                    >
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>WEB address:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comWeb" placeholder="Enter company web" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item nz-row>
+                            <nz-form-control>
+                                <label nz-checkbox formControlName="comStatus">
+                                    <span>Status</span>
+                                </label>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Created date:</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-date-picker type formControlName="comCreatedttm"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>GUID:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comGuid" placeholder="Enter company guid" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>API token:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comWeb" placeholder="Enter company api token" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+            </nz-card>
+            <nz-card nzTitle="General infomation" [nzBordered]="false" class="mb-lg">
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Page text:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input nz-input formControlName="comPageText" placeholder="Enter company page text" />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Management system:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <input
+                                    nz-input
+                                    formControlName="comManagmentSys"
+                                    placeholder="Enter company management system"
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Infomation 1:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <textarea
+                                    nz-input
+                                    rows="2"
+                                    formControlName="comEpdinfo1"
+                                    placeholder="Enter company infomation 1"
+                                ></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Infomation 2:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <textarea
+                                    nz-input
+                                    rows="2"
+                                    formControlName="comEpdinfo2"
+                                    placeholder="Enter company infomation 2"
+                                ></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Infomation 3:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <textarea
+                                    nz-input
+                                    rows="2"
+                                    formControlName="comEpdinfo3"
+                                    placeholder="Enter company infomation 3"
+                                ></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Infomation 4:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <textarea
+                                    nz-input
+                                    rows="2"
+                                    formControlName="comEpdinfo4"
+                                    placeholder="Enter company infomation 4"
+                                ></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+            </nz-card>
+            <nz-card nzTitle="License" [nzBordered]="false" class="mb-lg">
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Paid to:</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-date-picker type formControlName="comPaidTo"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Client group:</nz-form-label>
+                            <nz-form-control nzHasFeedback>
+                                <nz-select formControlName="comType">
+                                    <nz-option
+                                        *ngFor="let option of clientGroups$ | async"
+                                        [nzLabel]="option.groupName"
+                                        [nzValue]="option.id"
+                                    >
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Application:</nz-form-label>
+                            <div ngClass="application">
+                                <div nzSpan="8" *ngIf="programModules$ | async as programModule">
+                                    <nz-checkbox-group
+                                        nzSpan="8"
+                                        formControlName="applicationOption"
+                                    ></nz-checkbox-group>
+                                </div>
+                            </div>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>PCR:</nz-form-label>
+                            <div ngClass="pcr">
+                                <div nzSpan="8" *ngIf="epdpcrs$ | async as epdpcr">
+                                    <nz-checkbox-group nzSpan="8" formControlName="pcrOption"></nz-checkbox-group>
+                                </div>
+                            </div>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Modul sub fase:</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-radio-group formControlName="comModulSubFase">
+                                    <label nz-radio [nzValue]="0">Traditional A2 registration</label>
+                                    <label nz-radio [nzValue]="1">Sub fase registration</label>
+                                </nz-radio-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Modul sharing:</nz-form-label>
+                            <nz-radio-group formControlName="comModulSharing">
+                                <label nz-radio [nzValue]="0">No sharing</label>
+                                <label nz-radio [nzValue]="1">Modul sharing</label>
+                            </nz-radio-group>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+                <nz-row [nzGutter]="24">
+                    <nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Program operator:</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-select formControlName="comProgramOperator">
+                                    <nz-option
+                                        *ngFor="let option of operators$ | async"
+                                        [nzLabel]="option.comCompanyname"
+                                        [nzValue]="option.comId"
+                                    >
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+                </nz-row>
+            </nz-card>
+            <div class="ant-modal-footer">
+                <button
+                    nz-button
+                    nzType="primary"
+                    (click)="handleUpdate()"
+                    [disabled]="!formGroup.valid"
+                    [nzLoading]="loadingUpdate"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

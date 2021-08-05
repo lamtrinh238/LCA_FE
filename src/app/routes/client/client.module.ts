@@ -22,40 +22,53 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { ClientRoutingModule } from './client-routing.module';
+import { ClientCreateComponent } from './conponents/client-create/client-create.component';
+import { ClientCompanyComponent } from './conponents/client-edit/child/company/client-company.component';
 import { ClientGeneralComponent } from './conponents/client-edit/child/general/client-general.component';
+import { ClientUserComponent } from './conponents/client-edit/child/user/client-user.component';
 import { ClientEditComponent } from './conponents/client-edit/client-edit.component';
 import { ClientListComponent } from './conponents/client-list/client-list.component';
 import { ClientHomePageComponent } from './pages/client-home-page.component';
+import { CreateCompanyLinkComponent } from './conponents/client-edit/child/company/create/create-company-link.component';
 
 const NZ_UI_MODULES = [
-  NzFormModule,
-  NzInputModule,
-  NzButtonModule,
-  NzLayoutModule,
-  NzModalModule,
-  NzPageHeaderModule,
-  NzRadioModule,
-  NzTableModule,
-  NzTabsModule,
-  NzCheckboxModule,
-  NzSelectModule,
-  NzCardModule,
-  NzButtonModule,
-  NzGridModule,
-  NzAnchorModule,
-  NzIconModule,
-  NzPopoverModule,
-  NzModalModule,
-  NzDatePickerModule,
-  NzGridModule,
-  NzIconModule,
-  NzDividerModule,
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    NzLayoutModule,
+    NzModalModule,
+    NzPageHeaderModule,
+    NzRadioModule,
+    NzTableModule,
+    NzTabsModule,
+    NzCheckboxModule,
+    NzSelectModule,
+    NzCardModule,
+    NzButtonModule,
+    NzGridModule,
+    NzAnchorModule,
+    NzIconModule,
+    NzPopoverModule,
+    NzModalModule,
+    NzDatePickerModule,
+    NzGridModule,
+    NzIconModule,
+    NzDividerModule,
 ];
 
-const COMPONENTS = [ClientHomePageComponent, ClientListComponent, ClientEditComponent, ClientGeneralComponent];
+const COMPONENTS = [
+    ClientHomePageComponent,
+    ClientListComponent,
+    ClientEditComponent,
+    ClientUserComponent,
+    ClientGeneralComponent,
+    ClientCreateComponent,
+    ClientCompanyComponent,
+    CreateCompanyLinkComponent,
+];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ClientRoutingModule, ...NZ_UI_MODULES],
-  declarations: [...COMPONENTS],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ClientRoutingModule, ...NZ_UI_MODULES],
+    declarations: [...COMPONENTS],
 })
 export class ClientModule {}
