@@ -14,21 +14,22 @@ import { debounceTime, switchMap } from 'rxjs/operators';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateUserComponent implements OnInit {
-    constructor(
-        private _formBuilder: FormBuilder,
-        private _nzModalService: NzModalService,
-        private _userService: UserService,
-        private _clientService: ClientService,
-    ) {}
-
     private searchChange$ = new BehaviorSubject('');
-    protected queryObject: QueryParamObject;
+    queryObject: QueryParamObject;
     formGroup: FormGroup;
     @Input() data: UserModel;
     listOfCurrentPageData: any = [];
     UserComLinks: UserModel[] = [];
     isLoading = false;
     optionList: string[] = [];
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _nzModalService: NzModalService,
+        private _userService: UserService,
+        private _clientService: ClientService,
+    ) {
+        this.queryObject = new QueryParamObject([], 1, 100, []);
+    }
 
     listOfColumns = [
         {
@@ -89,7 +90,7 @@ export class UpdateUserComponent implements OnInit {
     }
 
     getCompanylist(): Observable<any> {
-        return this._clientService.getList(this.queryObject);
+        return this._userService.filter(this.queryObject);
     }
 
     submitForm(value: unknown): void {
