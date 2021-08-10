@@ -1,10 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticatedUser, AuthenticationService, SessionService } from '@core';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { SettingsService } from '@delon/theme';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'header-user',

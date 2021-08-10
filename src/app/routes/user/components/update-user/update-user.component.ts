@@ -2,149 +2,143 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ClientService, FilterObject, QueryParamObject, UserModel, UserService } from '@core';
+import { ClientService, CompanyModel, QueryParamObject, UserModel, UserService } from '@core';
 import keys from 'lodash/keys';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
-import { catchError, debounceTime, filter, finalize, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, pipe } from 'rxjs';
+import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'lca-update-user',
-  templateUrl: './update-user.component.html',
-  styleUrls: ['./update-user.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lca-update-user',
+    templateUrl: './update-user.component.html',
+    styleUrls: ['./update-user.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateUserComponent implements OnInit {
-  queryObject: QueryParamObject;
-  formGroup: FormGroup;
-  @Input() data: UserModel;
-  UserComLinks: any;
-  isLoading = false;
+    queryObject: QueryParamObject;
+    formGroup: FormGroup;
+    @Input() dataUser: UserModel;
+    isLoadingFilter = false;
 
-  selectedUser?: any;
+    selectedUser?: any;
 
-  optionList: any;
+    listCompany: any;
 
-  usercompLink$: Observable<UserModel>;
+    usercompLink$: Observable<CompanyModel[] | any>;
 
-  searchChange$ = new BehaviorSubject('');
+    searchChange$ = new BehaviorSubject('');
 
-  private readonly fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
-  fetchDataStart$ = this.fetchDataSource.asObservable();
+    private readonly fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
+    fetchDataStart$ = this.fetchDataSource.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private _formBuilder: FormBuilder,
-    private _nzModalService: NzModalService,
-    private _userService: UserService,
-    private _clientService: ClientService,
-  ) {
-    this.queryObject = new QueryParamObject([], 1, 100, []);
-  }
+    constructor(
+        private http: HttpClient,
+        private _formBuilder: FormBuilder,
+        private _userService: UserService,
+        private _clientService: ClientService
+    ) {
+        this.queryObject = new QueryParamObject([], 1, 100, []);
+    }
 
-  listOfColumns = [
-    {
-      title: 'ID',
-      width: '5px',
-    },
-    {
-      title: 'Company',
-      width: '20px',
-    },
-    {
-      title: 'Role',
-      width: '5px',
-    },
-    {
-      title: 'Edit',
-      width: '3px',
-    },
-  ];
+    ngOnInit(): void {
+        this.formGroup = this._formBuilder.group({
+            usrLoginname: ['', [Validators.required]],
+            usrEmail: ['', [Validators.email, Validators.required]],
+            usrFullname: ['', [Validators.required]],
+            usrAdd: ['', [Validators.required]],
+            usrZip: ['', [Validators.required]],
+            usrCity: ['', [Validators.required]],
+            usrPhone1: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]],
+            // password: ['', [Validators.required]],
+            usrComments: [''],
+        });
 
-  ngOnInit(): void {
-    this.formGroup = this._formBuilder.group({
-      usrLoginname: ['', [Validators.required]],
-      usrEmail: ['', [Validators.email, Validators.required]],
-      usrFullname: ['', [Validators.required]],
-      usrAdd: ['', [Validators.required]],
-      usrZip: ['', [Validators.required]],
-      usrCity: ['', [Validators.required]],
-      usrPhone1: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]],
-      // password: ['', [Validators.required]],
-      usrComments: [''],
-    });
+        this.formGroup.patchValue(this.dataUser);
 
-    this.formGroup.patchValue(this.data);
+        // this._userService.get(this.dataUser.usrId!).subscribe({
+        //     next: (comlink) => {
+        //         debugger
+        //         this.userComLinks = comlink.companies
+        //     },
+        // });
 
-    // this._userService.get(this.data.usrId!).subscribe({
-    //     next: (comlink) => (this.UserComLinks = comlink.companies),
-    // });
+        this.loadUserCompany();
+    }
 
-    this.usercompLink$ = this.fetchDataStart$
-      .pipe(
-        filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
-        switchMap(() => this._userService.get(this.data.usrId!)),
-        tap(pipe((res) => console.log(res))),
-      )
-      .pipe();
+    // onSearch($event: string): void {
+    //     this.isLoadingFilter = true;
+    //     this.searchChange$.next($event);
+    // }
 
-    this.loadCompanyFilter();
-  }
+    // loadCompanyFilter(): void {
+    //     const listCompany$: Observable<string[]> = this.searchChange$
+    //         .asObservable()
+    //         .pipe(
+    //             debounceTime(500),
+    //             tap((res) => {
+    //                 if (res != '') {
+    //                     this.queryObject.filter.push(new FilterObject('filterText', res, 'equal'));
+    //                 }
+    //             }),
+    //             switchMap((res) => {
+    //                 return this.getCompanylist(this.queryObject);
+    //             }),
+    //         );
 
-  onSearch($event: string): void {
-    this.isLoading = true;
-    this.searchChange$.next($event);
-  }
+    //     listCompany$.subscribe(
+    //         {
+    //             next: (res) => {
+    //                 this.isLoadingFilter = false;
+    //                 this.listCompany = res;
+    //             },
+    //             error: (err) => {
+    //                 // TODO
+    //             }
+    //         }
+    //     );
+    // }
 
-  loadCompanyFilter(): void {
-    const optionList$: Observable<string[]> = this.searchChange$
-      .asObservable()
-      .pipe(debounceTime(500))
-      .pipe(
-        tap((res) => {
-          if (res != '') {
-            this.queryObject.filter.push(new FilterObject('filterText', res, 'equal'));
-          }
-        }),
-      )
-      .pipe(
-        switchMap((res) => {
-          return this.getCompanylist(this.queryObject);
-        }),
-      );
-    optionList$.subscribe((data) => {
-      this.optionList = data;
-    });
-  }
+    loadUserCompany(): void {
+        this.usercompLink$ = this.fetchDataStart$
+            .pipe(
+                tap(() => (this.isLoadingFilter = true)),
+                switchMap(() => this._userService.get(this.dataUser.usrId!)),
+                map((res) => res.companies),
+                tap(() => (this.isLoadingFilter = false)),
+                finalize(() => {
+                    this.isLoadingFilter = false;
+                })
+            )
 
-  getCompanylist(filterValue: QueryParamObject): Observable<any> {
-    return this._clientService.filter(filterValue);
-  }
+    }
 
-  submitForm(value: unknown): void {
-    console.log(value);
-  }
-  showError(): void {
-    keys(this.formGroup.controls).forEach((key: string) => {
-      this.formGroup.controls[key].markAsTouched();
-      this.formGroup.controls[key].updateValueAndValidity();
-    });
-  }
+    getCompanylist(filterValue: QueryParamObject): Observable<any> {
+        return this._clientService.filter(filterValue);
+    }
 
-  onClickSave(): void {
-    const headers = {
-      'Content-Type': 'application/json',
-      mode: 'no-cors',
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
-    };
-    const body = {
-      id: null,
-      usrId: this.data.usrId,
-      comId: this.selectedUser[0].comId,
-      usrType: null,
-    };
-    this.http
-      .post('localhost:44302/api/UserCompLink/usercompLink', body, { headers })
-      .subscribe((user) => console.log(user));
-  }
+    submitForm(value: unknown): void {
+        console.log(value);
+    }
+    showError(): void {
+        keys(this.formGroup.controls).forEach((key: string) => {
+            this.formGroup.controls[key].markAsTouched();
+            this.formGroup.controls[key].updateValueAndValidity();
+        });
+    }
+
+    onClickSave(): void {
+        const headers = {
+            'Content-Type': 'application/json',
+            mode: 'no-cors',
+            'Access-Control-Allow-Origin': 'http://localhost:4200',
+        };
+        const body = {
+            id: null,
+            usrId: this.dataUser.usrId,
+            comId: this.selectedUser[0].comId,
+            usrType: null,
+        };
+        this.http
+            .post('localhost:44302/api/UserCompLink/usercompLink', body, { headers })
+            .subscribe((user) => console.log(user));
+    }
 }

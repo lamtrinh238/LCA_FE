@@ -10,30 +10,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of data; let i = index; trackBy: trackByName">
+        <tr *ngFor="let company of data">
+            <td>{{ company.comId }}</td>
+            <td>{{ company.comCompanyname }}</td>
+            <td>{{ company.comType }}</td>
             <td>
                 <nz-row [nzGutter]="[6, 6]" [nzAlign]="'middle'">
                     <nz-col>
                         <button nz-button nzSize="small" nzType="default" nzShape="circle">
-                            <i nz-icon nzType="edit" (click)="onOpenEdit(user)"></i>
-                        </button>
-                    </nz-col>
-                    <nz-col>
-                        <button nz-button nzSize="small" nzType="default" nzShape="circle">
-                            <i nz-icon nzType="info" (click)="onOpenView(user)"></i>
+                            <i nz-icon nzType="delete"></i>
                         </button>
                     </nz-col>
                 </nz-row>
             </td>
-            <td>{{ user.usrId }}</td>
-            <td>{{ user.usrFullname }}</td>
-            <td>{{ user.usrLoginname }}</td>
-            <td>{{ user.usrEmail }}</td>
-            <td>{{ user.usrAdd }}</td>
-            <td>{{ user.usrZip }}</td>
-            <td>{{ user.usrCity }}</td>
-            <td>{{ user.usrPhone1 }}</td>
-            <td>{{ user.usrComments }}</td>
         </tr>
     </tbody>
 </nz-table>

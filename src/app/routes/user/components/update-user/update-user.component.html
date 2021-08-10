@@ -1,194 +1,127 @@
-<form
-  nz-form
-  [nzLayout]="'vertical'"
-  [formGroup]="formGroup"
-  (ngSubmit)="submitForm(formGroup.value)"
->
-  <nz-row [nzGutter]="24">
-    <nz-col [nzSpan]="12">
-      <nz-form-item>
-        <nz-form-label nzRequired>Login Name</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
-          <input
-            nz-input
-            readonly
-            formControlName="usrLoginname"
-            placeholder="Enter your login name"
-          />
-          <ng-template #userErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your login name!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col [nzSpan]="12">
-      <nz-form-item>
-        <nz-form-label nzRequired>Email</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
-          <input nz-input readonly formControlName="usrEmail" placeholder="email" type="email" />
-          <ng-template #emailErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('email')"
-              >The input is not valid E-mail!</ng-container
-            >
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your E-mail!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-  </nz-row>
+<form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+    <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzRequired>Login Name</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
+                    <input nz-input readonly formControlName="usrLoginname" placeholder="Enter your login name" />
+                    <ng-template #userErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please input your login name!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzRequired>Email</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+                    <input nz-input readonly formControlName="usrEmail" placeholder="email" type="email" />
+                    <ng-template #emailErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
+                        <ng-container *ngIf="control.hasError('required')">Please input your E-mail!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+    </nz-row>
 
-  <nz-row [nzGutter]="24">
-    <nz-col [nzSpan]="24">
-      <nz-form-item>
-        <nz-form-label nzRequired>Full Name</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="fullNameErrorTpl">
-          <input nz-input formControlName="usrFullname" />
-          <ng-template #fullNameErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your full name!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-  </nz-row>
+    <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-label nzRequired>Full Name</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="fullNameErrorTpl">
+                    <input nz-input formControlName="usrFullname" />
+                    <ng-template #fullNameErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please input your full name!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+    </nz-row>
 
-  <nz-row [nzGutter]="24">
-    <nz-col [nzSpan]="18">
-      <nz-form-item>
-        <nz-form-label nzRequired>Address</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="addressErrorTpl">
-          <input nz-input formControlName="usrAdd" />
-          <ng-template #addressErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your address!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
+    <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="18">
+            <nz-form-item>
+                <nz-form-label nzRequired>Address</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="addressErrorTpl">
+                    <input nz-input formControlName="usrAdd" />
+                    <ng-template #addressErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please input your address!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
 
-    <nz-col [nzSpan]="6">
-      <nz-form-item>
-        <nz-form-label nzRequired>Zip</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
-          <input nz-input formControlName="usrZip" />
-          <ng-template #zipErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your zip code!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-  </nz-row>
+        <nz-col [nzSpan]="6">
+            <nz-form-item>
+                <nz-form-label nzRequired>Zip</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="zipErrorTpl">
+                    <input nz-input formControlName="usrZip" />
+                    <ng-template #zipErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please input your zip code!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+    </nz-row>
 
-  <nz-row [nzGutter]="24">
-    <nz-col [nzSpan]="16">
-      <nz-form-item>
-        <nz-form-label nzRequired>City</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="cityErrorTpl">
-          <input nz-input formControlName="usrCity" />
-          <ng-template #cityErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your city!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
+    <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="16">
+            <nz-form-item>
+                <nz-form-label nzRequired>City</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="cityErrorTpl">
+                    <input nz-input formControlName="usrCity" />
+                    <ng-template #cityErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please input your city!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
 
-    <nz-col [nzSpan]="8">
-      <nz-form-item>
-        <nz-form-label nzRequired>Phone</nz-form-label>
-        <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
-          <input nz-input formControlName="usrPhone1" />
-          <ng-template #phoneErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please input your phone!</ng-container
-            >
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-  </nz-row>
+        <nz-col [nzSpan]="8">
+            <nz-form-item>
+                <nz-form-label nzRequired>Phone</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="phoneErrorTpl">
+                    <input nz-input formControlName="usrPhone1" />
+                    <ng-template #phoneErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please input your phone!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+    </nz-row>
 
-  <nz-form-item>
-    <nz-form-label>Comment</nz-form-label>
-    <nz-form-control nzErrorTip="Please write something here!">
-      <textarea
-        formControlName="usrComments"
-        nz-input
-        rows="2"
-        placeholder="write any thing"
-      ></textarea>
-    </nz-form-control>
-  </nz-form-item>
-  <!-- <nz-form-item>
-    <nz-form-control [nzSpan]="12">
-      <button nz-button nzType="primary" color="primary" [disabled]="!formGroup.valid">Submit</button>
-    </nz-form-control>
-  </nz-form-item> -->
+    <nz-form-item>
+        <nz-form-label>Comment</nz-form-label>
+        <nz-form-control nzErrorTip="Please write something here!">
+            <textarea formControlName="usrComments" nz-input rows="2" placeholder="write any thing"></textarea>
+        </nz-form-control>
+    </nz-form-item>
 </form>
 
-<nz-row nzJustify="space-between">
-  <nz-col>
-    <h4>Companies user have relation to:</h4>
-  </nz-col>
-  <nz-col>
-    <nz-row [nzAlign]="'middle'">
-      <nz-col>
-        <h4>Add company for this user</h4>
-      </nz-col>
-      <nz-col>
-        <nz-select
-          nzMode="multiple"
-          nzPlaceHolder="Select company"
-          nzAllowClear
-          nzShowSearch
-          nzServerSearch
-          (nzOnSearch)="onSearch($event)"
-        >
-          <ng-container *ngFor="let o of optionList">
-            <nz-option [nzValue]="o" [nzLabel]="o.comCompanyname"></nz-option>
-          </ng-container>
-        </nz-select>
-      </nz-col>
-    </nz-row>
-  </nz-col>
-</nz-row>
-<nz-table
-  [nzData]="usercompLink$ | async"
-  nzBordered
-  nzShowPagination
-  [nzLoading]="isLoading"
-  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
->
-  <thead>
-    <tr>
-      <th *ngFor="let column of listOfColumns" nzWidth="{{ column.width }}">
-        {{ column.title }}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of usercompLink$">
-      <td>{{ user.comId }}</td>
-      <td>{{ user.comCompanyname }}</td>
-      <td>{{ user.comType }}</td>
-      <td>
-        <nz-row [nzGutter]="[6, 6]" [nzAlign]="'middle'">
-          <nz-col>
-            <button nz-button nzSize="small" nzType="default" nzShape="circle">
-              <i nz-icon nzType="delete"></i>
-            </button>
-          </nz-col>
+<nz-row nzJustify="space-between" [nzGutter]="16">
+    <nz-col [nzSpan]="16">
+        <h4>Companies user have relation to:</h4>
+    </nz-col>
+    <!-- <nz-col [nzSpan]="8">
+        <nz-row>
+            <nz-col [nzSpan]="24">
+                <nz-select nzPlaceHolder="Select company" nzAllowClear nzShowSearch (nzOnSearch)="onSearch($event)">
+                    <ng-container *ngFor="let o of listCompany">
+                        <nz-option *ngIf="!isLoading" [nzValue]="o" [nzLabel]="o.comCompanyname"></nz-option>
+                    </ng-container>
+                    <nz-option *ngIf="isLoadingFilter" nzDisabled nzCustomContent>
+                        <i nz-icon nzType="loading" class="loading-icon"></i>
+                        Loading Data...
+                    </nz-option>
+                </nz-select>
+            </nz-col>
         </nz-row>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+    </nz-col> -->
+</nz-row>
+
+<nz-row>
+    <nz-col [nzSpan]="24">
+        <lca-company-list [data]="usercompLink$ | async" [isLoading]="isLoadingFilter"></lca-company-list>
+    </nz-col>
+</nz-row>
