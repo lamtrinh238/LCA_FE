@@ -150,6 +150,5 @@
   "validation.phone-number.wrong-format": "Malformed phone number!",
   "validation.standard.required": "Please enter a metric",
   "validation.title.required": "Please enter a title",
-  "validation.verification-code.required": "Please enter the verification code!",
-  "user.place_holder.login_name": "Enter your login name (Norway)"
+  "validation.verification-code.required": "Please enter the verification code!"
 }

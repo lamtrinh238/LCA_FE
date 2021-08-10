@@ -7,15 +7,15 @@ import { Environment } from '@delon/theme';
 import * as MOCKDATA from '../../_mock';
 
 export const environment = {
-    production: false,
-    useHash: true,
-    api: {
-        // baseUrl: 'https://localhost:44302', // 'https://lcaapi.herokuapp.com',
-        baseUrl: 'https://lcaapi.herokuapp.com',
-        refreshTokenEnabled: true,
-        refreshTokenType: 'auth-refresh',
-    },
-    modules: [DelonMockModule.forRoot({ data: MOCKDATA })],
+  production: false,
+  useHash: true,
+  api: {
+    baseUrl: 'https://lcaapi.herokuapp.com', // 'https://lcaapi.herokuapp.com',
+    // baseUrl: 'https://localhost:44302',
+    refreshTokenEnabled: true,
+    refreshTokenType: 'auth-refresh',
+  },
+  modules: [DelonMockModule.forRoot({ data: MOCKDATA })],
 } as Environment;
 
 /*
