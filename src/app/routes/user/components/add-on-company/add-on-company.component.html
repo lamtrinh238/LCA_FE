@@ -1,0 +1,38 @@
+<form nz-form [nzLayout]="'vertical'" [formGroup]="companyFormGroup">
+    <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="comp">
+                    <nz-select formControlName="comId" nzPlaceHolder="Select company" nzAllowClear nzShowSearch
+                        (nzOnSearch)="onSearch($event)">
+                        <ng-container *ngFor="let o of listCompany">
+                            <nz-option *ngIf="!isLoading" [nzValue]="o.comId" [nzLabel]="o.comCompanyname"></nz-option>
+                        </ng-container>
+                        <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+                            <i nz-icon nzType="loading" class="loading-icon"></i>
+                            Loading Data...
+                        </nz-option>
+                    </nz-select>
+                    <ng-template #comp let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please select company!</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+
+        <nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="userType">
+                    <nz-select formControlName="usrType" nzShowSearch nzAllowClear nzPlaceHolder="Select a role">
+                        <ng-container *ngFor="let role of listRole">
+                            <nz-option [nzLabel]="role.name" [nzValue]="role.id"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                    <ng-template #userType let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please select role !</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+    </nz-row>
+</form>

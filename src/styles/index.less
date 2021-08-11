@@ -1,13 +1,75 @@
 /* You can add global styles to this file, and also import other style files */
 .ant-input-group-wrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .ant-page-header {
-  padding: 16px 16px 32px 0;
+    padding: 16px 16px 32px 0;
+}
+
+.alain-default__nav {
+
+    b,
+    strong {
+        text-transform: uppercase;
+    }
 }
 
 input:read-only {
-  background-color: #f0f0f5;
-  cursor: not-allowed;
+    background-color: #f0f0f5;
+    cursor          : not-allowed;
+}
+
+.sidebar-nav__selected {
+    background-color: #136972;
+}
+
+.sidebar-nav__selected>.sidebar-nav__item-link {
+    color           : white;
+    font-weight     : bold;
+    background-color: #136972;
+}
+
+ul.sidebar-nav {
+    li {
+        padding       : 8px 0;
+        text-transform: uppercase;
+    }
+}
+
+.ant-modal-header {
+    background-color: #136972;
+}
+
+.ant-modal-title {
+    color: white;
+}
+
+.ant-modal-body {
+    padding: 30px;
+}
+
+.ant-input-affix-wrapper,
+.ant-btn {
+    border-radius: 4px;
+}
+
+.ant-input-prefix {
+    margin-right: 12px;
+    margin-top  : 5px;
+}
+
+.ant-input-prefix,
+.ant-input-suffix {
+    font-size: 18px;
+    color    : #bfbfbf;
+}
+
+.ant-input-affix-wrapper-lg {
+    padding: 8.5px 15px;
+}
+
+ul.sidebar-nav li:hover {
+    transform : translateX(10px);
+    transition: all 1s;
 }

@@ -28,6 +28,7 @@ import { UserHomePageComponent } from './pages/user-home-page.component';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { CompanyListComponent } from './components/company-list/company-list.component';
+import { AddOnCompanyComponent } from './components/add-on-company/add-on-company.component';
 
 const NZ_UI_MODULES = [
   NzFormModule,
@@ -60,6 +61,7 @@ const NZ_UI_MODULES = [
     UserDetailComponent,
     UpdateUserComponent,
     CompanyListComponent,
+    AddOnCompanyComponent,
   ],
   imports: [
     CommonModule,
