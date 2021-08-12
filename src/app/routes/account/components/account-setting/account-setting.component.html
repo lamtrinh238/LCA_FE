@@ -1,6 +1,6 @@
 <form nz-form [nzLayout]="'vertical'" [formGroup]="formGroup">
     <nz-row nzGutter="24">
-        <nz-col [nzSpan]="12">
+        <nz-col [nzSpan]="24">
             <nz-form-item>
                 <nz-form-label>Login Name</nz-form-label>
                 <nz-form-control [nzErrorTip]="emailErrorTpl">
@@ -8,11 +8,14 @@
                 </nz-form-control>
             </nz-form-item>
         </nz-col>
-        <nz-col [nzSpan]="12">
+    </nz-row>
+
+    <nz-row nzGutter="24">
+        <nz-col [nzSpan]="24">
             <nz-form-item>
                 <nz-form-label>Email</nz-form-label>
                 <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
-                    <input nz-input formControlName="usrEmail" placeholder="Email" type="email" />
+                    <input readonly nz-input formControlName="usrEmail" placeholder="Email" type="email" />
                     <ng-template #emailErrorTpl let-control>
                         <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
                     </ng-template>
@@ -34,7 +37,6 @@
             </nz-form-item>
         </nz-col>
     </nz-row>
-
     <nz-row nzGutter="24">
         <nz-col [nzSpan]="24">
             <nz-form-item>
@@ -45,7 +47,6 @@
             </nz-form-item>
         </nz-col>
     </nz-row>
-
     <nz-row nzGutter="24">
         <nz-col [nzSpan]="12">
             <nz-form-item>
