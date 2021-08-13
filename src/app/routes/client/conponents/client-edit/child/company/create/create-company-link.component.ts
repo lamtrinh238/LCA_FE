@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ClientModel, ClientService, QueryParamObject } from '@core';
+import { ClientModel, QueryParamObject } from '@core';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ClientService } from 'src/app/core/domain/services/client.service';
 
 @Component({
     selector: 'lca-create-company-link',
