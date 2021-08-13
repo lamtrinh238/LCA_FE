@@ -55,6 +55,7 @@ const NZ_UI_MODULES = [
     NzDescriptionsModule,
     NzCardModule,
     NzPaginationModule,
+    TranslateModule
 ];
 
 @NgModule({
@@ -70,4 +71,4 @@ const NZ_UI_MODULES = [
     ],
     imports: [CommonModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES, NzSelectModule],
 })
-export class UserModule {}
+export class UserModule { }
