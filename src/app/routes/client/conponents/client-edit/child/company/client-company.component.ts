@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { BaseDataList, ClientModel, ClientService, ColumnModel, FilterObject, QueryParamObject } from '@core';
+import { BaseDataList, ClientModel, ColumnModel, FilterObject, QueryParamObject } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, filter, switchMap, tap } from 'rxjs/operators';
+import { ClientService } from 'src/app/core/domain/services/client.service';
 import { ClientFilterModel } from 'src/app/routes/client/models/client-filter-model';
 import { CreateCompanyLinkComponent } from './create/create-company-link.component';
 
