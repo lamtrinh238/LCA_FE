@@ -1,6 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { BaseDataList, ClientModel, ClientService, ComSWID, CountryModel, CountryService, QueryParamObject } from '@core';
+import {
+    BaseDataList,
+    ClientModel,
+    ClientService,
+    ComSWID,
+    CountryModel,
+    CountryService,
+    QueryParamObject,
+} from '@core';
 import { _HttpClient } from '@delon/theme';
+import { TranslateService } from '@ngx-translate/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, exhaustMap, filter, finalize, switchMap, tap } from 'rxjs/operators';
@@ -9,103 +18,123 @@ import { ClientListComponent } from '../conponents/client-list/client-list.compo
 import { ClientFilterModel } from '../models/client-filter-model';
 
 @Component({
-  templateUrl: './client-home-page.component.html',
-  styleUrls: ['./client-home-page.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './client-home-page.component.html',
+    styleUrls: ['./client-home-page.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientHomePageComponent implements OnInit {
-  clients$: Observable<ClientModel[]>;
-  private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
-  fetchDataStart$ = this.fetchDataSource.asObservable();
-  isFiltering = false;
-  protected queryObject: QueryParamObject;
+    clients$: Observable<ClientModel[]>;
+    private fetchDataSource = new BehaviorSubject<QueryParamObject | undefined>(undefined);
+    fetchDataStart$ = this.fetchDataSource.asObservable();
+    isFiltering = false;
+    protected queryObject: QueryParamObject;
 
-  @ViewChild('clientListComp', { read: ClientListComponent }) clientListCompRef: ClientListComponent;
-  comswValue = ComSWID.eEPD;
-  ComSWID = ComSWID;
+    @ViewChild('clientListComp', { read: ClientListComponent }) clientListCompRef: ClientListComponent;
+    comswValue = ComSWID.eEPD;
+    ComSWID = ComSWID;
 
-  filterModel: ClientFilterModel;
+    filterModel: ClientFilterModel;
 
-  countries$: CountryModel[];
-  protected clientQueryObject: QueryParamObject;
+    countries$: CountryModel[];
+    protected clientQueryObject: QueryParamObject;
 
-  constructor(private clientService: ClientService, private _nzModalService: NzModalService, private _countryService: CountryService) {
-    this.filterModel = new ClientFilterModel();
-    this.clientQueryObject = new QueryParamObject([], 1, 100, []);
-  }
+    constructor(
+        private clientService: ClientService,
+        private _nzModalService: NzModalService,
+        private _countryService: CountryService,
+        private _translateService: TranslateService,
+    ) {
+        this.filterModel = new ClientFilterModel();
+        this.clientQueryObject = new QueryParamObject([], 1, 100, []);
+    }
 
-  ngOnInit(): void {
-    this.clients$ = this.fetchDataStart$
-      .pipe(
-        filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
-        tap(() => (this.isFiltering = true)),
-        exhaustMap(() => this.clientService.filter(this.queryObject)),
-        tap(() => (this.isFiltering = false)),
-      )
-      .pipe(
-        finalize(() => {
-          this.isFiltering = false;
-        }),
-      );
-
-    this._countryService
-      .filter(this.clientQueryObject)
-      .pipe()
-      .subscribe((c: CountryModel[]) => (this.countries$ = c));
-  }
-
-  onOpenAddClient(): void {
-    this._nzModalService.create({
-      nzComponentParams: {
-        countries: this.countries$,
-        comSW: this.comswValue,
-      },
-      nzTitle: 'Create Client',
-      nzOkText: 'Save',
-      nzWidth: 1024,
-      nzContent: ClientCreateComponent,
-      nzClosable: false,
-      nzMaskClosable: false,
-      nzOnOk: (contentComponentInstance?: ClientCreateComponent) => {
-        console.log(contentComponentInstance);
-        if (contentComponentInstance?.formGroup.valid) {
-          return this.clientService
-            .add(contentComponentInstance?.formGroup.value)
+    ngOnInit(): void {
+        this.clients$ = this.fetchDataStart$
             .pipe(
-              tap(() => this.fetchDataSource.next(this.queryObject)),
-              delay(1000), // TODO: to test loading indicator.
+                filter((filterObject: QueryParamObject | undefined) => filterObject !== undefined),
+                tap(() => (this.isFiltering = true)),
+                exhaustMap(() => this.clientService.filter(this.queryObject)),
+                tap(() => (this.isFiltering = false)),
             )
-            .toPromise();
-        } else {
-          contentComponentInstance?.showError();
-          return false;
-        }
-      },
-    });
-  }
+            .pipe(
+                finalize(() => {
+                    this.isFiltering = false;
+                }),
+            );
 
-  onChangeComSW(comSw: ComSWID): void {
-    this.queryObject.clear();
-    this.queryObject.filter = this.filterModel.toFilterObjects();
-    this.fetchDataSource.next(this.queryObject);
-    this.comswValue = comSw;
-  }
+        this._countryService
+            .filter(this.clientQueryObject)
+            .pipe()
+            .subscribe((c: CountryModel[]) => (this.countries$ = c));
+    }
 
-  clearFilter(): void {
-    this.filterModel.clear();
-    this.queryObject.clear();
-    this.clientListCompRef.resetSortAndFilters();
-    this.fetchDataSource.next(this.queryObject);
-  }
+    onOpenAddClient(): void {
+        this._nzModalService.create({
+            nzComponentParams: {
+                countries: this.countries$,
+                comSW: this.comswValue,
+            },
+            nzTitle: 'Create Client',
+            nzOkText: 'Save',
+            nzWidth: 1024,
+            nzContent: ClientCreateComponent,
+            nzClosable: false,
+            nzMaskClosable: false,
+            nzOnOk: (contentComponentInstance?: ClientCreateComponent) => {
+                console.log(contentComponentInstance);
+                if (contentComponentInstance?.formGroup.valid) {
+                    return this.clientService
+                        .add(contentComponentInstance?.formGroup.value)
+                        .pipe(
+                            tap(() => this.fetchDataSource.next(this.queryObject)),
+                            delay(1000), // TODO: to test loading indicator.
+                        )
+                        .toPromise();
+                } else {
+                    contentComponentInstance?.showError();
+                    return false;
+                }
+            },
+        });
+    }
 
-  onFilter(): void {
-    this.queryObject.filter = this.filterModel.toFilterObjects();
-    this.fetchDataSource.next(this.queryObject);
-  }
+    onOpenDelete(client: ClientModel): void {
+        this._nzModalService.confirm({
+            nzTitle: this._translateService.instant('client.confirm.do_you_want_to_delete_this_client'),
+            // nzContent: 'When clicked the OK button, this dialog will be closed after 1 second',
+            nzOnOk: () =>
+                this.clientService
+                    .delete(client.comId)
+                    .pipe(
+                        tap(() => this.fetchDataSource.next(this.queryObject)),
+                        delay(1000), // TODO: to test loading indicator.
+                    )
+                    .toPromise(),
+        });
+    }
 
-  onFilterParamChanged(queryObject: QueryParamObject): void {
-    this.queryObject = queryObject;
-    this.queryObject.filter.push(...this.filterModel.toFilterObjects());
-    this.fetchDataSource.next(this.queryObject);
-  }
+    onChangeComSW(comSw: ComSWID): void {
+        this.queryObject.clear();
+        this.queryObject.filter = this.filterModel.toFilterObjects();
+        this.fetchDataSource.next(this.queryObject);
+        this.comswValue = comSw;
+    }
+
+    clearFilter(): void {
+        this.filterModel.clear();
+        this.queryObject.clear();
+        this.clientListCompRef.resetSortAndFilters();
+        this.fetchDataSource.next(this.queryObject);
+    }
+
+    onFilter(): void {
+        this.queryObject.filter = this.filterModel.toFilterObjects();
+        this.fetchDataSource.next(this.queryObject);
+    }
+
+    onFilterParamChanged(queryObject: QueryParamObject): void {
+        this.queryObject = queryObject;
+        this.queryObject.filter.push(...this.filterModel.toFilterObjects());
+        this.fetchDataSource.next(this.queryObject);
+    }
 }
