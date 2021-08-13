@@ -97,67 +97,31 @@
             <textarea formControlName="usrComments" nz-input rows="2" placeholder="write any thing"></textarea>
         </nz-form-control>
     </nz-form-item>
-    <!-- <nz-form-item>
-    <nz-form-control [nzSpan]="12">
-      <button nz-button nzType="primary" color="primary" [disabled]="!formGroup.valid">Submit</button>
-    </nz-form-control>
-  </nz-form-item> -->
 </form>
 
-<nz-row nzJustify="space-between">
-    <nz-col>
+<nz-row nzJustify="space-between" [nzGutter]="16">
+    <nz-col [nzSpan]="16">
         <h4>Companies user have relation to:</h4>
     </nz-col>
-    <nz-col>
-        <nz-row [nzAlign]="'middle'">
-            <nz-col>
-                <h4>Add company for this user</h4>
-            </nz-col>
-            <nz-col>
-                <nz-select
-                    nzMode="multiple"
-                    nzPlaceHolder="Select company"
-                    nzAllowClear
-                    nzShowSearch
-                    nzServerSearch
-                    (nzOnSearch)="onSearch($event)"
-                >
-                    <ng-container *ngFor="let o of optionList">
-                        <nz-option [nzValue]="o" [nzLabel]="o.comCompanyname"></nz-option>
+    <!-- <nz-col [nzSpan]="8">
+        <nz-row>
+            <nz-col [nzSpan]="24">
+                <nz-select nzPlaceHolder="Select company" nzAllowClear nzShowSearch (nzOnSearch)="onSearch($event)">
+                    <ng-container *ngFor="let o of listCompany">
+                        <nz-option *ngIf="!isLoading" [nzValue]="o" [nzLabel]="o.comCompanyname"></nz-option>
                     </ng-container>
+                    <nz-option *ngIf="isLoadingFilter" nzDisabled nzCustomContent>
+                        <i nz-icon nzType="loading" class="loading-icon"></i>
+                        Loading Data...
+                    </nz-option>
                 </nz-select>
             </nz-col>
         </nz-row>
+    </nz-col> -->
+</nz-row>
+
+<nz-row>
+    <nz-col [nzSpan]="24">
+        <lca-company-list [data]="usercompLink$ | async" [isLoading]="isLoadingFilter"></lca-company-list>
     </nz-col>
 </nz-row>
-<nz-table
-    [nzData]="UserComLinks"
-    nzBordered
-    nzShowPagination
-    [nzLoading]="isLoading"
-    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
->
-    <thead>
-        <tr>
-            <th *ngFor="let column of listOfColumns" nzWidth="{{ column.width }}">
-                {{ column.title }}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of UserComLinks">
-            <td>{{ user.comId }}</td>
-            <td>{{ user.comCompanyname }}</td>
-            <td>{{ user.comType }}</td>
-            <td>
-                <nz-row [nzGutter]="[6, 6]" [nzAlign]="'middle'">
-                    <nz-col>
-                        <button nz-button nzSize="small" nzType="default" nzShape="circle">
-                            <i nz-icon nzType="delete"></i>
-                        </button>
-                    </nz-col>
-                </nz-row>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>

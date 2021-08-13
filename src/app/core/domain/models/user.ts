@@ -2,46 +2,7 @@ import { extend } from 'lodash';
 import { ClientModel } from './client';
 
 export class UserModel {
-    companies?: [
-        {
-            comID?: number;
-            comType?: number;
-            comCompanyvat?: string;
-            comCompanyname?: string;
-            comEmail?: string;
-            comAdd?: string;
-            comProid?: null;
-            comZip?: string;
-            comCity?: string;
-            comPhone1?: string;
-            comStatus?: true;
-            comCreatedttm?: string;
-            comCreatedby?: 1;
-            comEpdinfo1?: string;
-            comEpdinfo2?: string;
-            comEpdinfo3?: string;
-            comEpdinfo4?: string;
-            comEpdpicture1?: null;
-            comEpdpicture2?: null;
-            comLogo?: string;
-            comDir?: null;
-            comPageText?: string;
-            comBannerLogo?: null;
-            comMainContact?: string;
-            comManagmentSys?: string;
-            comWeb?: string;
-            comPhone2?: string;
-            comSystem?: null;
-            comStartup?: null;
-            comPaidTo?: string;
-            comGuid?: string;
-            comCountry?: number;
-            comToken?: string;
-            comModulSubFase?: number;
-            comModulSharing?: number;
-            comProgramOperator?: number;
-        },
-    ];
+    companies?: CompanyModel[];
     usrId?: number;
     usrFullname?: string;
     usrLoginname?: string;
@@ -70,6 +31,45 @@ export class UserModel {
     usrType?: number;
 
     constructor() {}
+}
+
+export class CompanyModel {
+    comID?: number;
+    comType?: number;
+    comCompanyvat?: string;
+    comCompanyname?: string;
+    comEmail?: string;
+    comAdd?: string;
+    comProid?: null;
+    comZip?: string;
+    comCity?: string;
+    comPhone1?: string;
+    comStatus?: true;
+    comCreatedttm?: string;
+    comCreatedby?: 1;
+    comEpdinfo1?: string;
+    comEpdinfo2?: string;
+    comEpdinfo3?: string;
+    comEpdinfo4?: string;
+    comEpdpicture1?: null;
+    comEpdpicture2?: null;
+    comLogo?: string;
+    comDir?: null;
+    comPageText?: string;
+    comBannerLogo?: null;
+    comMainContact?: string;
+    comManagmentSys?: string;
+    comWeb?: string;
+    comPhone2?: string;
+    comSystem?: null;
+    comStartup?: null;
+    comPaidTo?: string;
+    comGuid?: string;
+    comCountry?: number;
+    comToken?: string;
+    comModulSubFase?: number;
+    comModulSharing?: number;
+    comProgramOperator?: number;
 }
 
 export class AuthUser {
