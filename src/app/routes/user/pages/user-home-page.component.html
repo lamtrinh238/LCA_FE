@@ -1,22 +1,25 @@
 <nz-page-header class="site-page-header" nzTitle="Environmental Documentation Portal - User List"> </nz-page-header>
 <nz-row [nzGutter]="[12, 12]">
     <nz-col [nzSpan]="24">
-        <nz-input-group nzSize="large" [nzAddOnBefore]="suffixButton">
+        <nz-input-group [nzPrefix]="suffixIconSearch" nzSize="large">
             <input
                 type="text"
                 nz-input
-                placeholder="input search text"
+                placeholder="Input search text ..."
                 [(ngModel)]="filterModel.filterTerm"
                 (change)="onFilter()"
             />
         </nz-input-group>
-        <ng-template #suffixButton>
+        <ng-template #suffixIconSearch>
             <i nz-icon nzType="search" nzSize="large"></i>
         </ng-template>
     </nz-col>
 
-    <nz-col [nzSpan]="24">
-        <button nz-button nzType="primary" (click)="onOpenAddUser()">Add User</button>
+    <nz-col [nzSpan]="12">
+        <button nz-button nzType="primary" (click)="onOpenAddUser()">
+            <i nz-icon nzType="plus"></i>
+            Add User
+        </button>
     </nz-col>
 
     <nz-col [nzSpan]="24">
