@@ -103,3 +103,35 @@
     </nz-form-control>
   </nz-form-item> -->
 </form>
+
+<h4>Companies user have ralation to:</h4>
+<nz-table [nzData]="UserComLinks" nzBordered [nzLoading]="isLoading" [nzPageSize]="10">
+    <thead>
+        <tr>
+            <th *ngFor="let column of listOfColumns" nzWidth="{{ column.width }}">
+                {{ column.title }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of UserComLinks">
+            <td>{{ user.comId }}</td>
+            <td>{{ user.comCompanyname }}</td>
+            <td>{{ user.comType }}</td>
+            <td>
+                <nz-row [nzGutter]="[6, 6]" [nzAlign]="'middle'">
+                    <nz-col>
+                        <button nz-button nzSize="small" nzType="default" nzShape="circle">
+                            <i nz-icon nzType="plus"></i>
+                        </button>
+                    </nz-col>
+                    <nz-col>
+                        <button nz-button nzSize="small" nzType="default" nzShape="circle">
+                            <i nz-icon nzType="delete"></i>
+                        </button>
+                    </nz-col>
+                </nz-row>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
