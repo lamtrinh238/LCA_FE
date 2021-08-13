@@ -169,6 +169,7 @@
   "common.title.congrats": "Congrats!",
   "common.title.oops": "Oops!",
   "common.button.update": "Update",
+  "common.label.select_company": "Select company",
   "app.label.please_input_your_email": "Please input your email",
   "error.invalid_user_login_name_or_password": "Invalid user login name or password",
   "error.cannot_change_other_user_password": "You cannot change others' password",
