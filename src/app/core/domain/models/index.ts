@@ -6,3 +6,5 @@ export * from './client-group';
 export * from './country';
 export * from './epdpcr';
 export * from './program-module';
+export * from './role';
+export * from './user-com-link';

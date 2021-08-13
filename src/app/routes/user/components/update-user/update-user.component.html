@@ -97,9 +97,26 @@
             <textarea formControlName="usrComments" nz-input rows="2" placeholder="write any thing"></textarea>
         </nz-form-control>
     </nz-form-item>
-    <!-- <nz-form-item>
-    <nz-form-control [nzSpan]="12">
-      <button nz-button nzType="primary" color="primary" [disabled]="!formGroup.valid">Submit</button>
-    </nz-form-control>
-  </nz-form-item> -->
 </form>
+
+<nz-row class="company" [nzGutter]="20">
+    <nz-col [nzSpan]="20">
+        <h4>Companies user have relation to:</h4>
+    </nz-col>
+    <nz-col [nzSpan]="4">
+        <nz-row>
+            <nz-col [nzSpan]="24">
+                <button nz-button nzType="primary" (click)="onAddCompany()">
+                    <i nz-icon nzType="plus"></i>
+                    Add Company
+                </button>
+            </nz-col>
+        </nz-row>
+    </nz-col>
+</nz-row>
+
+<nz-row>
+    <nz-col [nzSpan]="24">
+        <lca-company-list [data]="usercompLink$ | async" [isLoading]="isLoadingFilter"></lca-company-list>
+    </nz-col>
+</nz-row>
