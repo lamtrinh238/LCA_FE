@@ -28,39 +28,42 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserChangePasswordComponent } from './pages/user-change-password/user-change-password.component';
 import { UserHomePageComponent } from './pages/user-home-page.component';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 const NZ_UI_MODULES = [
-  NzFormModule,
-  NzInputModule,
-  NzButtonModule,
-  NzLayoutModule,
-  NzModalModule,
-  NzPageHeaderModule,
-  NzRadioModule,
-  NzTableModule,
-  NzTabsModule,
-  NzButtonModule,
-  NzGridModule,
-  NzAnchorModule,
-  NzIconModule,
-  NzPopoverModule,
-  NzModalModule,
-  NzGridModule,
-  NzIconModule,
-  NzDividerModule,
-  NzDescriptionsModule,
-  NzCardModule,
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    NzLayoutModule,
+    NzModalModule,
+    NzPageHeaderModule,
+    NzRadioModule,
+    NzTableModule,
+    NzTabsModule,
+    NzButtonModule,
+    NzGridModule,
+    NzAnchorModule,
+    NzIconModule,
+    NzPopoverModule,
+    NzModalModule,
+    NzGridModule,
+    NzIconModule,
+    NzDividerModule,
+    NzDescriptionsModule,
+    NzCardModule,
+    NzPaginationModule,
 ];
 
 @NgModule({
-  declarations: [
-    UserHomePageComponent,
-    UserListComponent,
-    CreateUserComponent,
-    UserDetailComponent,
-    UpdateUserComponent,
-    UserChangePasswordComponent,
-  ],
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
+    declarations: [
+        UserHomePageComponent,
+        UserListComponent,
+        CreateUserComponent,
+        UserDetailComponent,
+        UpdateUserComponent,
+        UserChangePasswordComponent,
+    ],
+    imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ...NZ_UI_MODULES],
 })
 export class UserModule {}

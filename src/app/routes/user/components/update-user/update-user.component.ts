@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserModel, UserService } from '@core';
+import { ClientService, QueryParamObject, UserModel, UserService } from '@core';
 import keys from 'lodash/keys';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'lca-update-user',
@@ -17,12 +18,17 @@ export class UpdateUserComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _nzModalService: NzModalService,
         private _userService: UserService,
+        private _clientService: ClientService,
     ) {}
 
+    private searchChange$ = new BehaviorSubject('');
+    protected queryObject: QueryParamObject;
     formGroup: FormGroup;
     @Input() data: UserModel;
-    UserComLinks = [];
+    listOfCurrentPageData: any = [];
+    UserComLinks: UserModel[] = [];
     isLoading = false;
+    optionList: string[] = [];
 
     listOfColumns = [
         {
@@ -31,7 +37,7 @@ export class UpdateUserComponent implements OnInit {
         },
         {
             title: 'Company',
-            width: '15px',
+            width: '20px',
         },
         {
             title: 'Role',
@@ -39,7 +45,7 @@ export class UpdateUserComponent implements OnInit {
         },
         {
             title: 'Edit',
-            width: '5px',
+            width: '3px',
         },
     ];
 
@@ -63,10 +69,27 @@ export class UpdateUserComponent implements OnInit {
             this.UserComLinks = comlink.companies;
             this.isLoading = false;
         });
+        this.getCompanylist().subscribe((com) => (this.optionList = com));
+
+        const optionList$: Observable<string[]> = this.searchChange$
+            .asObservable()
+            .pipe(debounceTime(500))
+            .pipe(switchMap(this.getCompanylist));
+        optionList$.subscribe((data) => {
+            this.optionList = data;
+        });
+    }
+
+    onSearch(value: string): void {
+        this.searchChange$.next(value);
     }
 
     getCompanyLinks(): Observable<UserModel> {
         return this._userService.get(this.data.usrId!);
+    }
+
+    getCompanylist(): Observable<any> {
+        return this._clientService.getList(this.queryObject);
     }
 
     submitForm(value: unknown): void {
@@ -77,5 +100,9 @@ export class UpdateUserComponent implements OnInit {
             this.formGroup.controls[key].markAsTouched();
             this.formGroup.controls[key].updateValueAndValidity();
         });
+    }
+
+    onCurrentPageDataChange($event: UserModel[]): void {
+        this.listOfCurrentPageData = $event;
     }
 }
