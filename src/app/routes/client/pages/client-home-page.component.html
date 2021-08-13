@@ -1,43 +1,50 @@
 <nz-page-header class="site-page-header" nzTitle="Environmental Documentation Portal - Client List"> </nz-page-header>
 
 <nz-row [nzGutter]="[12, 12]">
-  <nz-col [nzSpan]="24">
-    <nz-radio-group [(ngModel)]="filterModel.comSWID" (ngModelChange)="onChangeComSW($event)">
-      <label nz-radio [nzValue]="ComSWID.eEPD">eEPD</label>
-      <label nz-radio [nzValue]="ComSWID.eKVAM">eKVAM</label>
-      <label nz-radio [nzValue]="ComSWID.eCAL">eCAL</label>
-      <label nz-radio [nzValue]="ComSWID.eTRANS">eTRANS</label>
-      <label nz-radio [nzValue]="ComSWID.eFOODWASTE">eFOODWASTE</label>
-      <label nz-radio [nzValue]="ComSWID.ePACK">ePACK</label>
-      <label nz-radio [nzValue]="ComSWID.eCO2">eCO2</label>
-      <label nz-radio [nzValue]="ComSWID.eProject">eProject</label>
-      <label nz-radio [nzValue]="ComSWID.EPD2Digi">EPD2Digi</label>
-    </nz-radio-group>
-  </nz-col>
-  <nz-col [nzSpan]="24">
-    <nz-input-group nzSize="large" [nzAddOnBefore]="suffixButton">
-      <input type="text" nz-input placeholder="input search text" [(ngModel)]="filterModel.filterTerm" (change)="onFilter()" />
-    </nz-input-group>
-    <ng-template #suffixButton>
-      <i nz-icon nzType="search" nzSize="large"></i>
-    </ng-template>
-  </nz-col>
+    <nz-col [nzSpan]="24">
+        <nz-radio-group [(ngModel)]="filterModel.comSWID" (ngModelChange)="onChangeComSW($event)">
+            <label nz-radio [nzValue]="ComSWID.eEPD">eEPD</label>
+            <label nz-radio [nzValue]="ComSWID.eKVAM">eKVAM</label>
+            <label nz-radio [nzValue]="ComSWID.eCAL">eCAL</label>
+            <label nz-radio [nzValue]="ComSWID.eTRANS">eTRANS</label>
+            <label nz-radio [nzValue]="ComSWID.eFOODWASTE">eFOODWASTE</label>
+            <label nz-radio [nzValue]="ComSWID.ePACK">ePACK</label>
+            <label nz-radio [nzValue]="ComSWID.eCO2">eCO2</label>
+            <label nz-radio [nzValue]="ComSWID.eProject">eProject</label>
+            <label nz-radio [nzValue]="ComSWID.EPD2Digi">EPD2Digi</label>
+        </nz-radio-group>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+        <nz-input-group nzSize="large" [nzAddOnBefore]="suffixButton">
+            <input
+                type="text"
+                nz-input
+                placeholder="input search text"
+                [(ngModel)]="filterModel.filterTerm"
+                (change)="onFilter()"
+            />
+        </nz-input-group>
+        <ng-template #suffixButton>
+            <i nz-icon nzType="search" nzSize="large"></i>
+        </ng-template>
+    </nz-col>
 
-  <nz-col [nzSpan]="24">
-    <button nz-button nzType="primary" (click)="onOpenAddClient()">Add Client</button>
-  </nz-col>
+    <nz-col [nzSpan]="24">
+        <button nz-button nzType="primary" (click)="onOpenAddClient()">Add Client</button>
+    </nz-col>
 
-  <nz-col [nzSpan]="24">
-    <lca-client-list
-      #clientListComp
-      [data]="clients$ | async"
-      [isLoading]="isFiltering"
-      (filterParamChanged)="onFilterParamChanged($event)"
-    >
-    </lca-client-list>
-  </nz-col>
+    <nz-col [nzSpan]="24">
+        <lca-client-list
+            #clientListComp
+            [data]="clients$ | async"
+            [isLoading]="isFiltering"
+            (filterParamChanged)="onFilterParamChanged($event)"
+            (openDelete)="onOpenDelete($event)"
+        >
+        </lca-client-list>
+    </nz-col>
 </nz-row>
 
 <div>
-  <span>Input data might be hidden by filer <a [routerLink]="" (click)="clearFilter()">Reset filter</a></span>
+    <span>Input data might be hidden by filer <a [routerLink]="" (click)="clearFilter()">Reset filter</a></span>
 </div>
